@@ -123,9 +123,9 @@ public class SingleParamSuggestion implements SensitivitySuggestion {
 				(NoisyOrShell)shell;
 			List noisyOrWeights = noisyOrShell.weightsAsList();
 			int wp = cptParameter.getIndices()[0];
-			noisyOrWeights.set(wp, new Double(suggestedValue));
+			noisyOrWeights.set(wp, Double.valueOf(suggestedValue));
 			int wp1 = familyParameters[0].getIndices()[0];
-			noisyOrWeights.set(wp1, new Double(1-suggestedValue));
+			noisyOrWeights.set(wp1, Double.valueOf(1-suggestedValue));
 //			try {
 				noisyOrShell.setWeights(noisyOrWeights);
 //			} catch (Exception e) { }
@@ -160,7 +160,7 @@ public class SingleParamSuggestion implements SensitivitySuggestion {
 	}
 
 	public Object getCurrentValue() {
-		return new Double(theta);
+		return Double.valueOf(theta);
 	}
 
 	public double getTheta() {

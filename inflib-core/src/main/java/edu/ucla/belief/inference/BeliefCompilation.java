@@ -184,12 +184,14 @@ public class BeliefCompilation implements java.io.Serializable
     /**
      *@deprecated
      */
+    @Deprecated
     public int nodeCount() {
         return expr.nodeCount();
     }
     /**
      *@deprecated
      */
+    @Deprecated
     public int edgeCount() {
         return expr.edgeCount();
     }

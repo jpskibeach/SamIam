@@ -88,10 +88,10 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 		@since 20030703 */
 	public interface FormatManager
 	{
-		public StringBuffer     format(           StringBuffer buff, double    pr, boolean observed );
-		public StringBuffer     format(           StringBuffer buff, Table[] tbls, int[]   index, EvidenceIcon icon, EvidenceLabel label, boolean observed );
+		public StringBuffer     format(           StringBuffer buff, double    pr, boolean observed, boolean intervened );
+		public StringBuffer     format(           StringBuffer buff, Table[] tbls, int[]   index, EvidenceIcon icon, EvidenceLabel label, boolean observed, boolean intervened );
 		public StringBuffer     format(           StringBuffer buff, double  odds, double normal, EvidenceIcon icon, EvidenceLabel label, double pr );
-		public StringBuffer     format(           StringBuffer buff, double[] prs, int cardinality, double value, EvidenceIcon icon, boolean observed );
+		public StringBuffer     format(           StringBuffer buff, double[] prs, int cardinality, double value, EvidenceIcon icon, boolean observed, boolean intervened );
 		public StringBuffer     formatSampleMode( StringBuffer buff,                              EvidenceIcon icon );
 		public DecimalFormat getFormat();
 		public String        getDisplayName();
@@ -101,7 +101,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 
 	/** @since 20080106 */
 	public abstract static class AbstractManager implements FormatManager{
-		public StringBuffer format( StringBuffer buff, Table[] tbls, int[] index, EvidenceIcon icon, EvidenceLabel label, boolean observed )
+		public StringBuffer format( StringBuffer buff, Table[] tbls, int[] index, EvidenceIcon icon, EvidenceLabel label, boolean observed, boolean intervened )
 		{
 			double[]        prs  = null;
 			int     cardinality  = 0;
@@ -125,7 +125,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 			else{
 				value = prs[ selected = 0 ];
 			}
-			StringBuffer ret  = tbls  == null ? buff.append( STR_ERROR ) : format( buff, value, observed );
+			StringBuffer ret  = tbls  == null ? buff.append( STR_ERROR ) : format( buff, value, observed, intervened );
 			if(         icon != null ){ icon.setValues( prs, cardinality ); }
 			if(        label != null ){
 				label.lastDrawnPrs  = prs;
@@ -142,10 +142,10 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 			throw new UnsupportedOperationException();
 		}
 
-		public StringBuffer format( StringBuffer buff, double[] prs, int cardinality, double value, EvidenceIcon icon, boolean observed )
+		public StringBuffer format( StringBuffer buff, double[] prs, int cardinality, double value, EvidenceIcon icon, boolean observed, boolean intervened )
 		{
 			if( icon != null ){      icon.setValues( prs, cardinality ); }
-			return                     format( buff, value, observed );
+			return                     format( buff, value, observed, intervened );
 		}
 
 		public StringBuffer reset( StringBuffer buff ){
@@ -156,20 +156,24 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 
 	public static class PercentManager extends AbstractManager implements FormatManager
 	{
-		public StringBuffer format( StringBuffer buff, double pr, boolean observed )
+		public StringBuffer format( StringBuffer buff, double pr, boolean observed, boolean intervened )
 		{
 			reset( buff );
-			if( observed ){
-				if(                     pr == 0.0 ){ return buff.append(    "0%" ); }//"\u2007\u20070%" ); }
-				else  if(               pr == 1.0 ){ return buff.append(  "100%" ); }
+			if( observed || intervened ){
+				if( pr == 0.0 ){ 
+					return buff.append( "0%" ); 
+				}//"\u2007\u20070%" ); }
+				else if( pr == 1.0 ){ 
+					return buff.append( "100%" ); 
+				}
 			}
-			if( Double.isNaN( pr )      ){ return buff.append( STR_NAN ); }
-			else{                          return getFormat().format( pr, buff, FP ); }
+			if( Double.isNaN( pr ) ){ return buff.append( STR_NAN ); }
+			else{ return getFormat().format( pr, buff, FP ); }
 		}
 
 		public StringBuffer formatSampleMode( StringBuffer buff, EvidenceIcon icon )
 		{
-			return format( buff, VALUES_SAMPLEMODE, 1, 0, icon, false );
+			return format( buff, VALUES_SAMPLEMODE, 1, 0, icon, false, false );
 		}
 
 		public DecimalFormat getFormat()
@@ -209,7 +213,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 			return buff.append( strOdds );
 		}
 
-		public StringBuffer format( StringBuffer buff, double pr, boolean observed )
+		public StringBuffer format( StringBuffer buff, double pr, boolean observed, boolean intervened )
 		{
 			reset( buff );
 			String strOdds;
@@ -222,7 +226,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 		public StringBuffer formatSampleMode( StringBuffer buff, EvidenceIcon icon )
 		{
 			if( icon != null ){ icon.setValue( (double)0.5 ); }
-			return format( buff, (double)1, false );
+			return format( buff, (double)1, false, false );
 		}
 
 		public DecimalFormat getFormat()
@@ -265,7 +269,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 			return buff.append( strOdds );
 		}
 
-		public StringBuffer format( StringBuffer buff, double pr, boolean observed )
+		public StringBuffer format( StringBuffer buff, double pr, boolean observed, boolean intervened )
 		{
 			reset( buff );
 			String strLogOdds;
@@ -279,7 +283,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 		public StringBuffer formatSampleMode( StringBuffer buff, EvidenceIcon icon )
 		{
 			if( icon != null ){ icon.setValue( (double)0.5 ); }
-			return format( buff, (double)0, false );
+			return format( buff, (double)0, false, false );
 		}
 
 		public DecimalFormat getFormat()
@@ -379,7 +383,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 		return this;
 	}
 
-	public EvidenceLabel( SamiamPreferences monitorPrefs, DisplayableFiniteVariable dspV, int evidIndx, Table conditional, int observedIndex )
+	public EvidenceLabel( SamiamPreferences monitorPrefs, DisplayableFiniteVariable dspV, int evidIndx, Table conditional, int observedIndex, int intervenedIndex )
 	{
 		evidenceIndex = new int[]{ evidIndx };
 		dspVar        = dspV;
@@ -395,12 +399,18 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 		}
 		else if( evidIndx == 1)
 		{
-			if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetEvid( false );
+			if( FLAG_SHOW_EVIDENCE_ICON ) {
+				myEvidenceIcon.setManuallySetObserve( false );
+				myEvidenceIcon.setManuallySetIntervene( false );
+			}
 			strLabel = "Automatic";
 		}
 		else
 		{
-			if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetEvid( true );
+			if( FLAG_SHOW_EVIDENCE_ICON ) {
+				myEvidenceIcon.setManuallySetObserve( true );
+				// emilydebug what do here? 
+			}
 			strLabel = "Manual";
 		}
 		set( dspVar.isSampleMode() ? strLabel : ("- " + strLabel), myEvidenceIcon, SwingConstants.LEFT);
@@ -409,7 +419,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 			setPreferences();
 			if( dspVar.isSampleMode() ) drawEvidence();
 		}
-		else setPreferences( conditional, observedIndex );
+		else setPreferences( conditional, observedIndex, intervenedIndex );
 		init();
 	  //setBorder( BorderFactory.createLineBorder( Color.blue, 1 ) );
 	}
@@ -417,7 +427,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 	/** @since 20030710 */
 	public EvidenceLabel( SamiamPreferences monitorPrefs, DisplayableFiniteVariable dspV, int evidIndx )
 	{
-		this( monitorPrefs, dspV, evidIndx, null, -1 );
+		this( monitorPrefs, dspV, evidIndx, null, -1, -1 );
 	}
 
 	private static Font FONT;
@@ -476,20 +486,27 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 			System.err.println( "Warning: non-sample mode calls to EvidenceLabel.drawEvidence() deprecated." );
 			InferenceEngine ie  = dspVar.getInferenceEngine();
 			Table           tbl = (ie == null) ? null : ie.conditional( dspVar );
-			drawEvidence( new Table[]{ tbl }, dspVar.getObservedIndex() );
+			drawEvidence( new Table[]{ tbl }, dspVar.getObservedIndex(), dspVar.getIntervenedIndex() );
 		}
 	}
 
 	public void redrawEvidence()
 	{
-		setText( dspVar.isSampleMode() ? myFormatter.formatSampleMode( buffer,               myEvidenceIcon        ) :
-		                                 myFormatter.format(           buffer, lastDrawnPrs, myCardinality, lastDrawnPr, myEvidenceIcon, observed() ) );
+		setText( dspVar.isSampleMode() ? myFormatter.formatSampleMode( buffer, myEvidenceIcon ) :
+		                                 myFormatter.format( buffer, lastDrawnPrs, myCardinality, lastDrawnPr, myEvidenceIcon, observed(), intervened() ) );
 		chromatize();
 	}
 
-	/** @since 20080226 */
+	/** @since 20230406 */
 	private boolean observed(){
-		return ( (dspVar != null) && (dspVar.getBeliefNetwork() != null) && (dspVar.getBeliefNetwork().getEvidenceController().getValue( dspVar ) != null) );
+		return ( (dspVar != null) && (dspVar.getBeliefNetwork() != null) && 
+			(dspVar.getBeliefNetwork().getEvidenceController().isObservation( dspVar )));
+	}
+
+	/** @since 20230406 */
+	private boolean intervened(){
+		return ( (dspVar != null) && (dspVar.getBeliefNetwork() != null) && 
+			(dspVar.getBeliefNetwork().getEvidenceController().isIntervention( dspVar )));
 	}
 
 	/** @since 20080226 */
@@ -543,31 +560,35 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 	}
 
 	/** @since 20030318 */
-	public void drawEvidence( Table[] tbls, int observedIndex )
+	/** emilydebug need to change with setManuallySetEvid */
+	public void drawEvidence( Table[] tbls, int observedIndex, int intervenedIndex )
 	{
-		if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetEvid( evidenceIndex[0] == observedIndex );
-		setText( myFormatter.format( buffer, tbls, evidenceIndex, myEvidenceIcon, this, observedIndex >= 0 ) );
+		if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetObserve( evidenceIndex[0] == observedIndex );
+		if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetIntervene( evidenceIndex[0] == intervenedIndex );
+		setText( myFormatter.format( buffer, tbls, evidenceIndex, myEvidenceIcon, this, observedIndex >= 0, intervenedIndex >= 0 ) );
 		chromatize();
 	}
 
 	/** @since 20030710 */
-	public void drawOdds( double odds, double normal, int observedIndex, double pr )
+	public void drawOdds( double odds, double normal, int observedIndex, int intervenedIndex, double pr )
 	{
 		if( dspVar.isSampleMode() ) {
 			setText( myFormatter.formatSampleMode( buffer, myEvidenceIcon ) );
 		}
 		else
 		{
-			if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetEvid( evidenceIndex[0] == observedIndex );
+			if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetObserve( evidenceIndex[0] == observedIndex );
+			if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetIntervene( evidenceIndex[0] == intervenedIndex );
 			setText( myFormatter.format( buffer, odds, normal, myEvidenceIcon, this, pr ) );
 		}
 	}
 
 	/** @since 20030710 */
-	public void warnEvidence( int observedIndex )
+	public void warnEvidence( int observedIndex, int intervenedIndex )
 	{
 		//System.out.print( "EvidenceLabel.warnEvidence("+observedIndex+")" );
-		if( FLAG_SHOW_EVIDENCE_ICON && ( evidenceIndex[0] == observedIndex || myEvidenceIcon.isObserved() ) )
+		if( FLAG_SHOW_EVIDENCE_ICON && ( evidenceIndex[0] == observedIndex || myEvidenceIcon.isObserved() ||
+			evidenceIndex[0] == intervenedIndex || myEvidenceIcon.isIntervened() ) )
 		{
 			//System.out.print( "...true" );
 			myEvidenceIcon.setWarn( true );
@@ -612,12 +633,12 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 		BUNDLE_OF_PREFERENCES.setPreferences( EvidenceLabel.this );
 	}
 
-	public void setPreferences( Table conditional, int observedIndex )
+	public void setPreferences( Table conditional, int observedIndex, int intervenedIndex )
 	{
 		setPreferences();
 
 		if( dspVar.isSampleMode() ){ drawEvidence(); }
-		else{ drawEvidence( new Table[]{ conditional }, observedIndex ); }
+		else{ drawEvidence( new Table[]{ conditional }, observedIndex, intervenedIndex ); }
 	}
 
 	private static       TargetedBundle BUNDLE_OF_PREFERENCES;

@@ -200,7 +200,7 @@ public class DtreeNodeInternal extends DtreeNode {
         Assert.condition( next.length==1, "DtreeNode: next.length must be 1");
 
 
-        Integer i = new Integer( next[0]);
+        Integer i = Integer.valueOf( next[0]);
         nodeToInt.put( this, i);
         next[0] = next[0] + 1;
 
@@ -244,7 +244,7 @@ public class DtreeNodeInternal extends DtreeNode {
         Assert.notNull( next, "DtreeNode: next cannot be null");
         Assert.condition( next.length==1, "DtreeNode: next.length must be 1");
 
-        Integer i = new Integer( next[0]);
+        Integer i = Integer.valueOf( next[0]);
         nodeToInt.put( this, i);
         next[0] = next[0] + 1;
 

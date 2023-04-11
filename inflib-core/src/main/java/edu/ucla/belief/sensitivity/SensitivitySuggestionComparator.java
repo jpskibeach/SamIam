@@ -24,13 +24,11 @@ public class SensitivitySuggestionComparator implements Comparator {
 			return suggestion1.getObject().
 				compareTo(suggestion2.getObject());
 		else if (choice == ABSOLUTE_CHANGE)
-			return new Double(suggestion1.
-				getAbsoluteChange()).compareTo(new
-				Double(suggestion2.getAbsoluteChange()));
+			return Double.valueOf(suggestion1.getAbsoluteChange())
+				.compareTo(Double.valueOf(suggestion2.getAbsoluteChange()));
 		else if (choice == LOG_ODDS_CHANGE)
-			return new Double(suggestion1.getLogOddsChange()).
-				compareTo(new Double(suggestion2.
-				getLogOddsChange()));
+			return Double.valueOf(suggestion1.getLogOddsChange())
+				.compareTo(Double.valueOf(suggestion2.getLogOddsChange()));
 		return 0;
 	}
 }

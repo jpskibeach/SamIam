@@ -616,7 +616,7 @@ public class Xmlizer
 				else throw new Exception( "failed to create internal node "+strNodeID+", missing child definition" );
 
 				//internal.changeCacheFactor( factor );
-				mapRCNodetoDouble.put( internal, new Double( factor ) );
+				mapRCNodetoDouble.put( internal, Double.valueOf( factor ) );
 				mapIDtoRCNode.put( strNodeID, internal );
 
 				if( strNodeID.startsWith( STR_PREFIX_ID_ROOT ) )

@@ -84,7 +84,7 @@ public class RecoveryInferenceEngine extends AbstractInferenceEngine implements 
 		if( flag_compare2exact ){
 			if( (buckets == null) || (buckets.length < 2) ){ buckets = new Table[2]; }
 			int id = bridge.convert( var );
-			buckets[0] = bridge.convert( engine.  varConditional( id ) );
+			buckets[0] = bridge.convert( engine.varConditional( id ) );
 			buckets[1] = this.exactConditional( var );
 			return buckets;
 		}

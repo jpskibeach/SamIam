@@ -73,10 +73,10 @@ public abstract class Dynamator
 	abstract public Object                       retrieveState( PropertySuperintendent arbitrary );
 	abstract public Collection            getClassDependencies();
 	abstract public Dynamator            getCanonicalDynamator();
-	strictfp public boolean                         isEditable(){ return false; }
-	strictfp public Commitable                getEditComponent( Container cont ){ return null; }
-	strictfp public void                   commitEditComponent(){}
-	strictfp public JMenu                             getJMenu(){ return null; }
+	public boolean                         isEditable(){ return false; }
+	public Commitable                getEditComponent( Container cont ){ return null; }
+	public void                   commitEditComponent(){}
+	public JMenu                             getJMenu(){ return null; }
 
 	/** @since 20081030 */
 	public Dynamator fixPropertySuperintendent( PropertySuperintendent arbitrary ){

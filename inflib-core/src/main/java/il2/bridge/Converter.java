@@ -40,7 +40,7 @@ public class Converter{
       index = new HashMap (vars.size());
       for (int i = 0; i < vars.size(); i++) {
         FiniteVariable fv=(FiniteVariable)vars.get(i);
-        index.put(fv,new Integer(i));
+        index.put(fv,Integer.valueOf(i));
         domain.addDim(fv.getID(),fv.instances());
       }
     }
@@ -86,7 +86,7 @@ public class Converter{
 			index=new HashMap(vars.size());
 			for(int i=0;i<vars.size();i++){
 				FiniteVariable fv=(FiniteVariable)vars.get(i);
-				index.put(fv,new Integer(i));
+				index.put(fv,Integer.valueOf(i));
 				domain.addDim(fv.getID(),fv.instances());
 				tables[i]=convert( fv.getCPTShell( fv.getDSLNodeType() ).getCPT() );
 			}

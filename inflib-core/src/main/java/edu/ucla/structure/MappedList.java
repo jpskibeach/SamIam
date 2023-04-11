@@ -97,7 +97,7 @@ public class MappedList implements List, Cloneable
 		this(values.length);
 		for (int i = 0; i < values.length; i++)
 		{
-			add(new Integer(values[i]));
+			add(Integer.valueOf(values[i]));
 		}
 	}
 
@@ -130,7 +130,7 @@ public class MappedList implements List, Cloneable
 			return false;
 		}
 
-		map.put(o, new Integer(list.size()));
+		map.put(o, Integer.valueOf(list.size()));
 		list.add(o);
 		return true;
 	}
@@ -316,7 +316,7 @@ public class MappedList implements List, Cloneable
 		{
 			for( int i=index; i<list.size(); i++ )
 			{
-				map.put( list.get(i), new Integer(i) );
+				map.put( list.get(i), Integer.valueOf(i) );
 			}
 			map.remove( removed );
 		}
@@ -369,7 +369,7 @@ public class MappedList implements List, Cloneable
 
 		Object result = list.set( index, element );
 		map.remove( result );
-		map.put( element, new Integer(index) );
+		map.put( element, Integer.valueOf(index) );
 		return result;
 	}
 
@@ -418,8 +418,8 @@ public class MappedList implements List, Cloneable
 		Object temp = list.get(i);
 		list.set(i, list.get(j));
 		list.set(j, temp);
-		map.put(list.get(i), new Integer(i));
-		map.put(list.get(j), new Integer(j));
+		map.put(list.get(i), Integer.valueOf(i));
+		map.put(list.get(j), Integer.valueOf(j));
 	}
 
 	/**

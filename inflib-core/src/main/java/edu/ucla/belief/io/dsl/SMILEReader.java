@@ -358,10 +358,10 @@ public class SMILEReader
 			if( FLAG_VERBOSE ) Definitions.STREAM_VERBOSE.println( "\tstates: " + listStates );//debug
 
 			List huginPosition = new ArrayList( (int)2 );
-			huginPosition.add( new Integer( dsl_args[INDEX_X_POSITION] ) );
+			huginPosition.add( Integer.valueOf( dsl_args[INDEX_X_POSITION] ) );
 			//Invert the y coordinate
-			//huginPosition.add( new Integer( (int)0 - dsl_args[INDEX_Y_POSITION] ) );
-			huginPosition.add( new Integer( dsl_args[INDEX_Y_POSITION] ) );
+			//huginPosition.add( Integer.valueOf( (int)0 - dsl_args[INDEX_Y_POSITION] ) );
+			huginPosition.add( Integer.valueOf( dsl_args[INDEX_Y_POSITION] ) );
 			if( FLAG_VERBOSE ) Definitions.STREAM_VERBOSE.println( "\tposition: " + huginPosition );//debug
 
 			Map values = new HashMap();
@@ -371,10 +371,10 @@ public class SMILEReader
 			values.put( PropertySuperintendent.KEY_HUGIN_POSITION, huginPosition );
 			values.put( PropertySuperintendent.KEY_HUGIN_STATES, listStates );
 
-			values.put( DSLConstants.KEY_POSITION_WIDTH, new Integer( dsl_args[INDEX_WIDTH] ) );
-			values.put( DSLConstants.KEY_POSITION_HEIGHT, new Integer( dsl_args[INDEX_HEIGHT] ) );
-			values.put( DSLConstants.KEY_EXTRADEFINITION_MANDATORY, new Boolean( dsl_args[INDEX_MANDATORY] != (int)0 ) );
-			values.put( DSLConstants.KEY_EXTRADEFINITION_RANKED, new Boolean( dsl_args[INDEX_RANKED] != (int)0 ) );
+			values.put( DSLConstants.KEY_POSITION_WIDTH, Integer.valueOf( dsl_args[INDEX_WIDTH] ) );
+			values.put( DSLConstants.KEY_POSITION_HEIGHT, Integer.valueOf( dsl_args[INDEX_HEIGHT] ) );
+			values.put( DSLConstants.KEY_EXTRADEFINITION_MANDATORY, Boolean.valueOf( dsl_args[INDEX_MANDATORY] != (int)0 ) );
+			values.put( DSLConstants.KEY_EXTRADEFINITION_RANKED, Boolean.valueOf( dsl_args[INDEX_RANKED] != (int)0 ) );
 
 			if( userKeys != null && userValues != null && userKeys.length == userValues.length )
 			{
@@ -395,7 +395,7 @@ public class SMILEReader
 				//if( weights.length > 0 )
 				//{
 				//	List listWeights = new ArrayList( weights.length );
-				//	for( int i=0; i<weights.length; i++ ) listWeights.add( new Double( weights[i] ) );
+				//	for( int i=0; i<weights.length; i++ ) listWeights.add( Double.valueOf( weights[i] ) );
 				//	values.put( DSLConstants.keyNOISYORWEIGHTS, listWeights );
 				//}
 			}
@@ -410,7 +410,7 @@ public class SMILEReader
 			if( dsl_args[INDEX_DEFAULT_STATE_INDEX] != (int)-1 )
 			{
 				values.put( DSLConstants.KEY_EXTRADEFINITION_SETASDEFAULT, Boolean.TRUE );
-				values.put( DSLConstants.KEY_EXTRADEFINITION_DEFAULT_STATE, new Integer( dsl_args[INDEX_DEFAULT_STATE_INDEX] ) );
+				values.put( DSLConstants.KEY_EXTRADEFINITION_DEFAULT_STATE, Integer.valueOf( dsl_args[INDEX_DEFAULT_STATE_INDEX] ) );
 			}
 
 			List listTargets = null;
@@ -448,8 +448,8 @@ public class SMILEReader
 		if( FLAG_VERBOSE ) Definitions.STREAM_VERBOSE.println( "Java added node to network: { " + id + ", " + name + " }" );//debug
 	}
 
-	private static final Integer one = new Integer( (int)1 );
-	private static final Integer zero = new Integer( (int)0 );
+	private static final Integer one = Integer.valueOf( (int)1 );
+	private static final Integer zero = Integer.valueOf( (int)0 );
 
 	private void putNetworkParameter( Object key, Object value )
 	{
@@ -459,7 +459,7 @@ public class SMILEReader
 
 	private void putNetworkParameter( Object key, int value )
 	{
-		myGenieNet.getProperties().put( key, new Integer( value ) );
+		myGenieNet.getProperties().put( key, Integer.valueOf( value ) );
 		if( FLAG_VERBOSE ) Definitions.STREAM_VERBOSE.println( "Java put network parameter: { " + key + ", " + value + " }" );
 	}
 
@@ -502,7 +502,7 @@ public class SMILEReader
 
 				Map values = new HashMap();
 				List listData = new ArrayList( probabilities.length );
-				for( int i=0; i<probabilities.length; i++ ) listData.add( new Double( probabilities[i] ) );
+				for( int i=0; i<probabilities.length; i++ ) listData.add( Double.valueOf( probabilities[i] ) );
 				values.put( PropertySuperintendent.KEY_HUGIN_potential_data, listData );
 
 				info = new PotentialInfo( new HuginPotential( joints, conditioned, values ) );

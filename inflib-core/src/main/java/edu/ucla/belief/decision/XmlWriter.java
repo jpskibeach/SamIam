@@ -277,7 +277,7 @@ public class XmlWriter
 	private String getID( Object obj ){
 		if( myWritten.containsKey( obj ) ) return myWritten.get(obj).toString();
 		else{
-			Integer id = new Integer( myIDCounter++ );
+			Integer id = Integer.valueOf( myIDCounter++ );
 			myWritten.put( obj, id );
 			return id.toString();
 		}

@@ -113,7 +113,7 @@ public class Macros
 		final Set<Integer>      used = new HashSet<Integer>( 2 );
 		for( FiniteVariable fv : variables( bn ) ){
 			if( MATCHER_AUXILIARY_VAR.reset( fv.getID() ).matches() ){
-				used.add( new Integer( MATCHER_AUXILIARY_VAR.group( 2 ) ) );
+				used.add( Integer.valueOf( MATCHER_AUXILIARY_VAR.group( 2 ) ) );
 			}
 		}
 		int unique = 0;

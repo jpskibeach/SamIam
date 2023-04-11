@@ -8,6 +8,7 @@ import edu.ucla.util.HiddenProperty;
 import edu.ucla.util.ImpactProperty;
 import edu.ucla.util.InOutDegreeProperty;
 import edu.ucla.util.EvidenceAssertedProperty;
+import edu.ucla.util.InterventionAssertedProperty;
 import edu.ucla.util.InferenceValidProperty;
 import edu.ucla.util.QueryParticipantProperty;
 import edu.ucla.util.CSITypeProperty;
@@ -28,7 +29,7 @@ public abstract class VariableImpl implements Variable
 	//{ cpt valid, diagnosis type, evidence, hidden, impact, in-out degree, map, query participant, sensitivity policy }
 	//public static final EnumProperty[] PROPERTIES = new EnumProperty[] { InferenceValidProperty.PROPERTY, DiagnosisType.PROPERTY, EvidenceAssertedProperty.PROPERTY, HiddenProperty.PROPERTY, ImpactProperty.PROPERTY, InOutDegreeProperty.PROPERTY, MapProperty.PROPERTY, QueryParticipantProperty.PROPERTY, /* DSLNodeType.PROPERTY,*/ ExcludePolicy.PROPERTY };
 	private static EnumProperty[] PROPERTIES;
-	public static final int INT_NUM_PROPERTIES = (int)11;
+	public static final int INT_NUM_PROPERTIES = (int)12;
 
 	/** @since 091504 */
 	public static final void initProperties(){
@@ -40,6 +41,7 @@ public abstract class VariableImpl implements Variable
 		tempProperties[i++] = CSITypeProperty.PROPERTY;
 		tempProperties[i++] = DiagnosisType.PROPERTY;
 		tempProperties[i++] = EvidenceAssertedProperty.PROPERTY;
+		tempProperties[i++] = InterventionAssertedProperty.PROPERTY;
 		tempProperties[i++] = HiddenProperty.PROPERTY;
 		tempProperties[i++] = ImpactProperty.PROPERTY;
 		tempProperties[i++] = InOutDegreeProperty.PROPERTY;

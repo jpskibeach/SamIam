@@ -43,7 +43,7 @@ public abstract class ConnectivityOrderer implements Orderer{
     private Set toSet(IntSet element){
 	Set result=new HashSet(2*element.size());
 	for(int i=0;i<element.size();i++){
-	    result.add(new Integer(element.get(i)));
+	    result.add(Integer.valueOf(element.get(i)));
 	}
 	return result;
     }

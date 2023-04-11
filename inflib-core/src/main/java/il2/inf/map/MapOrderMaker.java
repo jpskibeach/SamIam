@@ -51,7 +51,7 @@ public class MapOrderMaker{
     }
     private void computeChangeCosts(int node,int parent,double parentCost){
 	double cost=parentCost+domain.size(getCluster(node));
-	changeCosts.put(new Integer(node),new Double(cost));
+	changeCosts.put(Integer.valueOf(node),Double.valueOf(cost));
 	IntSet neighbors=getOtherNeighbors(node,parent);
 	for(int i=0;i<neighbors.size();i++){
 	    computeChangeCosts(neighbors.get(i),node,cost);
@@ -61,7 +61,7 @@ public class MapOrderMaker{
     private IntList largestToSmallest(IntSet treeNodes){
 	double[] values=new double[treeNodes.size()];
 	for(int i=0;i<values.length;i++){
-	    values[i]=((Double)changeCosts.get(new Integer(treeNodes.get(i)))).doubleValue();
+	    values[i]=((Double)changeCosts.get(Integer.valueOf(treeNodes.get(i)))).doubleValue();
 	}
 	int[] inds=ArrayUtils.sortedInds(values);
 	IntList result=new IntList(values.length);
@@ -83,7 +83,7 @@ public class MapOrderMaker{
     }
 
     private IntSet getCluster(int node){
-	return (IntSet)tree.clusters.get(new Integer(node));
+	return (IntSet)tree.clusters.get(Integer.valueOf(node));
     }
 
     private IntList getOrder(int node,int parent){
@@ -143,7 +143,7 @@ public class MapOrderMaker{
 	double bestScore=0;
 	int best=-1;
 	for(int i=0;i<v.size();i++){
-	    Integer vi=new Integer(v.get(i));
+	    Integer vi=Integer.valueOf(v.get(i));
 	    IntSet vars=(IntSet)tree.clusters.get(vi);
 	    double sz=domain.size(vars);
 	    if(sz>bestScore){
@@ -162,9 +162,9 @@ public class MapOrderMaker{
 	}
 	IntSet mv=getCluster(node).intersection(mapvars);
 	for(int i=0;i<neighbors.size();i++){
-	    mv=mv.union((IntSet)participation.get(new Integer(neighbors.get(i))));
+	    mv=mv.union((IntSet)participation.get(Integer.valueOf(neighbors.get(i))));
 	}
-        participation.put(new Integer(node),mv);
+        participation.put(Integer.valueOf(node),mv);
 	return domain.size(mv);
     }
     private int chooseBestRoot(){
@@ -195,7 +195,7 @@ public class MapOrderMaker{
 	    neighbors=getOtherNeighbors(current,previous);
 	    nextSize=0;
 	    for(int i=0;i<neighbors.size();i++){
-		double sz=getSize((IntSet)participation.get(new Integer(neighbors.get(i))));
+		double sz=getSize((IntSet)participation.get(Integer.valueOf(neighbors.get(i))));
 		if(sz>nextSize){
 		    nextChosen=neighbors.get(i);
 		    nextSize=sz;

@@ -80,16 +80,13 @@ public class CPTParameter implements Comparable
 
 		for (int i = 0; i < parentInstances.length; i++)
 		{
-			int indexCompare = new
-				Integer(parentInstances[i].getIndex()).
-				compareTo(new
-				Integer(cptParameter.parentInstances[i].
-				getIndex()));
+			int indexCompare = Integer.valueOf(parentInstances[i].getIndex())
+				.compareTo(Integer.valueOf(cptParameter.parentInstances[i].getIndex())); 
 			if (indexCompare != 0) return indexCompare;
 		}
 
-		return new Integer(varInstance.getIndex()).compareTo(
-			new Integer(cptParameter.varInstance.getIndex()));
+		return Integer.valueOf(varInstance.getIndex())
+			.compareTo(Integer.valueOf(cptParameter.varInstance.getIndex())); 
 	}
 
 	/** @since 20060208 */

@@ -77,7 +77,7 @@ public abstract class DgraphCreateHMetis {
 
 	static void addLeafNodes( Graph tree, ArrayList leafNodes, Map leafNodesToInts) {
 		for( int i=0; i<leafNodes.size(); i++) {
-			Integer n = new Integer(i);
+			Integer n = Integer.valueOf(i);
 			tree.add(n);
 			leafNodesToInts.put( leafNodes.get(i), n);
 		}
@@ -113,12 +113,12 @@ public abstract class DgraphCreateHMetis {
 		Map clusters = new HashMap( leafNodes.size() * 3);
 
 		for( int i=0; i<leafNodes.size(); i++) {
-			Integer n = new Integer(i);
+			Integer n = Integer.valueOf(i);
 			clusters.put( n, new Index((Index)leafNodes.get(i)));
 		}
 
 		for( int i=leafNodes.size(); i<tree.size(); i++) {
-			Integer n = new Integer(i);
+			Integer n = Integer.valueOf(i);
 
 			Set nei = tree.neighbors( n); //either 2(root) or 3(internal)
 			//All of n's children are less than n, therefore find the
@@ -168,7 +168,7 @@ public abstract class DgraphCreateHMetis {
 	}
 
 	static void removeRoot( Graph tree, Map clusters) {
-		Integer rt = new Integer( tree.size()-1);
+		Integer rt = Integer.valueOf( tree.size()-1);
 		Set neighbors = new HashSet( tree.neighbors(rt));
 		if( neighbors.size()!=2) { throw new IllegalStateException();}
 		Iterator iter = neighbors.iterator();

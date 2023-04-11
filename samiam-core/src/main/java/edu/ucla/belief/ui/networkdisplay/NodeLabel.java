@@ -29,6 +29,7 @@ public class NodeLabel extends NetworkComponentLabelImpl implements NodeProperty
 	  FLAG_DISPLAY_LIKELIEST     = true;
 	private static String
 	  STRING_HTMLColorObserved   = "FF0000",
+	  STRING_HTMLColorIntervened = "0000FF",
 	  STRING_HTMLColorLikeliest  = "006600",
 	  STRING_HTMLColorFlip       = "FFFFFF";
 
@@ -112,7 +113,7 @@ public class NodeLabel extends NetworkComponentLabelImpl implements NodeProperty
 		if( myDVar != null && !myDVar.isSampleMode() ) myDVar.getNetworkInternalFrame().addNodePropertyChangeListener( this );
 		//setPreferences();
 		NodeLabel.this.handleHidden();
-		NodeLabel.this.updateNodeIconObserved();
+		NodeLabel.this.updateNodeIconEvidence();
 	}
 
 	/** @since 20050607 */
@@ -159,7 +160,15 @@ public class NodeLabel extends NetworkComponentLabelImpl implements NodeProperty
 		if( BUNDLE_OF_PREFERENCES_NODELABEL != null ) return BUNDLE_OF_PREFERENCES_NODELABEL.validate( prefs );
 
 		String   key  = STR_KEY_PREFERENCE_BUNDLE;
-		String[] keys = new String[] { SamiamPreferences.nodesDisplayLikeliestValue, SamiamPreferences.nodeBorderClrObserved, SamiamPreferences.nodeTextLikeliestValueClr, SamiamPreferences.nodeTextFlippedValueClr, SamiamPreferences.nodeLikeliestBreakLine, SamiamPreferences.displayNodeLabelIfAvail };
+		String[] keys = new String[] { 
+			SamiamPreferences.nodesDisplayLikeliestValue, 
+			SamiamPreferences.nodeBorderClrObserved, 
+			SamiamPreferences.nodeBorderClrIntervened,
+			SamiamPreferences.nodeTextLikeliestValueClr, 
+			SamiamPreferences.nodeTextFlippedValueClr, 
+			SamiamPreferences.nodeLikeliestBreakLine, 
+			SamiamPreferences.displayNodeLabelIfAvail 
+		};
 
 		BUNDLE_OF_PREFERENCES_NODELABEL = new TargetedBundle( key, keys, prefs ){
 			public void setPreference( int index, Object value ){
@@ -171,15 +180,18 @@ public class NodeLabel extends NetworkComponentLabelImpl implements NodeProperty
 						STRING_HTMLColorObserved = Util.htmlEncode( (Color) value );
 						break;
 					case 2:
+						STRING_HTMLColorIntervened = Util.htmlEncode( (Color) value );
+						break;
+					case 3: 
 						STRING_HTMLColorLikeliest = Util.htmlEncode( (Color) value );
 						break;
-					case 3:
+					case 4:
 						STRING_HTMLColorFlip = Util.htmlEncode( (Color) value );
 						break;
-					case 4:
+					case 5:
 						FLAG_LIKELIEST_BREAKS_LINE = ((Boolean)value).booleanValue();
 						break;
-					case 5:
+					case 6:
 						break;
 					default:
 						throw new IllegalArgumentException();
@@ -316,16 +328,17 @@ public class NodeLabel extends NetworkComponentLabelImpl implements NodeProperty
 	public void evidenceChanged( EvidenceChangeEvent ece, double globalMaximumProbability )
 	{
 		invalidateMonitor( ece, globalMaximumProbability );
-		if( ece != null && ece.recentEvidenceChangeVariables.contains( myDVar ) ) updateNodeIconObserved();
+		if( ece != null && ece.recentEvidenceChangeVariables.contains( myDVar ) ) updateNodeIconEvidence();
 		setDVarText();//reText();
 		repaint();
 	}
 
 	/** @since 011403 */
-	private void updateNodeIconObserved()
+	private void updateNodeIconEvidence()
 	{
 		NodeIcon icon = getNodeIcon();
 		if( icon != null ) icon.setObserved( myDVar != null && myDVar.getObservedValue() != null );
+		if( icon != null ) icon.setIntervened( myDVar != null && myDVar.getIntervenedValue() != null );
 	}
 
 	/**
@@ -449,6 +462,7 @@ public class NodeLabel extends NetworkComponentLabelImpl implements NodeProperty
 	}
 
 	public static final String STR_OPERATOR_IDENTICAL_TO = Util.htmlEncode( " \u2261 " );
+	public static final String STR_OPERATOR_STRICTLY_EQUIV_TO = Util.htmlEncode("\u2263");
 	public static final String STR_OPERATOR_SIMILAR_TO = Util.htmlEncode( " \u2245 " );
 
 /* profiling
@@ -529,8 +543,13 @@ NetworkDisplay.initComponents()
 				Object evidenceValue = ec.getValue( myDVar );
 				if( evidenceValue != null ){
 					likeliest = evidenceValue;
-					operator = STR_OPERATOR_IDENTICAL_TO;
-					color = STRING_HTMLColorObserved;
+					if (ec.isObservation( myDVar )) {
+						operator = STR_OPERATOR_IDENTICAL_TO;
+						color = STRING_HTMLColorObserved; 
+					} else {
+						operator = STR_OPERATOR_STRICTLY_EQUIV_TO; 
+						color = STRING_HTMLColorIntervened; 
+					}
 					myLastLikeliest = null;
 				}
 				else{

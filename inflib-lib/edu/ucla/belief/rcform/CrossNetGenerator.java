@@ -13,9 +13,9 @@ public class CrossNetGenerator
 		boolean scramble = true;
 		
 		int k = -1;
-		int m = new Integer(args[0]);
-		//int k = new Integer(args[0]);
-		int h = new Integer(args[1]);
+		int m = Integer.valueOf(args[0]);
+		//int k = Integer.valueOf(args[0]);
+		int h = Integer.valueOf(args[1]);
 		
 		String appendix = "";
 		if (args.length > 2)

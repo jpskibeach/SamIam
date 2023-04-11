@@ -162,7 +162,7 @@ public class DGraph extends JoinTree
 	    result=1+Math.max(height(hts,ch1),height(hts,ch2));
 	}
 	if(hts!=null){
-	    hts.put(node,new Integer(result));
+	    hts.put(node,Integer.valueOf(result));
 	}
 	return result;
     }
@@ -189,7 +189,7 @@ public class DGraph extends JoinTree
     }*/
 
     private void findRoot(){
-	Integer top=new Integer(tree().size()-1);
+	Integer top=Integer.valueOf(tree().size()-1);
 	Set neighbors=tree().neighbors(top);
 	Integer n=largest(neighbors);
 	root=new UPair(top.intValue(),n.intValue());

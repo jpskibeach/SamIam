@@ -299,7 +299,7 @@ static public boolean TODO_REMOVE_DO_INDEX_CACHING_DURING_CREATION = false;
 		HashMap ret = new HashMap();
 		for( RCIterator itr = getIterator(); itr.hasNext();) {
 			RCNode n = itr.nextNode();
-			ret.put( n, new Double(n.getCacheFactor()));
+			ret.put( n, Double.valueOf(n.getCacheFactor()));
 		}
 		return ret;
 	}

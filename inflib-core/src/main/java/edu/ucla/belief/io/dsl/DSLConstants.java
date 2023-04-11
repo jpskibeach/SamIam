@@ -121,7 +121,7 @@ public class DSLConstants
 
 		ArrayList cptList = new ArrayList(cptSize);
 		for (int i = 0; i < cptSize; i++)
-			cptList.add(new Double(cpt[i]));
+			cptList.add(Double.valueOf(cpt[i]));
 		return cptList;
 	}
 }

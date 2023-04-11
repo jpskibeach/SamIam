@@ -73,7 +73,7 @@ public class LingoPreference extends AbstractPreference
 			Color              colorSymb                 = Color.orange.darker().darker();
 
 			myOrdinals                                   = new Integer[ Angle.values().length ];
-			for( int i=0; i<myOrdinals.length; i++ ) myOrdinals[i] = new Integer( i );
+			for( int i=0; i<myOrdinals.length; i++ ) myOrdinals[i] = Integer.valueOf( i );
 		  //ComboBoxModel      model                     = new DefaultComboBoxModel( myOrdinals );
 			JComboBox[]        combos                    = new JComboBox[ Angle.values().length ];
 

@@ -32,7 +32,7 @@ public class CPTImportColumnInfo
 		if( !myVariable.contains( instance ) ) throw new RuntimeException( myVariable.getID() + " does not contain \"" + instance.toString() + "\"" );
 		int index = myVariable.index( instance );
 		if( myMapTokenToIndex == null ) myMapTokenToIndex = new HashMap( myVariable.size() );
-		myMapTokenToIndex.put( token, new Integer(index) );
+		myMapTokenToIndex.put( token, Integer.valueOf(index) );
 	}
 
 	public int indexForToken( String token ){

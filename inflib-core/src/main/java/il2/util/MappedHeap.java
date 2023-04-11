@@ -15,14 +15,14 @@ public class MappedHeap extends Heap{
 	priority=new HashMap(priorityMap);
 	heapLocation=new HashMap(2*heapContents.size());
 	for(int i=0;i<heapContents.size();i++){
-	    heapLocation.put(heapContents.get(i),new Integer(i));
+	    heapLocation.put(heapContents.get(i),Integer.valueOf(i));
 	}
 	initialize(heapContents.size());
     }
 
     public final void add(Object element,Object p){
 	priority.put(element,p);
-	Integer loc=new Integer(heapContents.size());
+	Integer loc=Integer.valueOf(heapContents.size());
 	heapContents.add(element);
 	heapLocation.put(element,loc);
 	elementAdded();
@@ -31,7 +31,7 @@ public class MappedHeap extends Heap{
     public final void updatePriority(Object element,Object p){
 	Integer loc=(Integer)heapLocation.get(element);
 	if(loc==null){
-	    loc=new Integer(heapContents.size());
+	    loc=Integer.valueOf(heapContents.size());
 	    heapContents.add(element);
 	    heapLocation.put(element,loc);
 	    elementAdded();
@@ -78,8 +78,8 @@ public class MappedHeap extends Heap{
 	Object temp2=heapContents.get(j);
 	heapContents.set(i,temp2);
 	heapContents.set(j,temp1);
-	heapLocation.put(temp2,new Integer(i));
-	heapLocation.put(temp1,new Integer(j));
+	heapLocation.put(temp2,Integer.valueOf(i));
+	heapLocation.put(temp1,Integer.valueOf(j));
     }
 
 }

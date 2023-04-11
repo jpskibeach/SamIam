@@ -85,6 +85,7 @@ public class      CPTMonitor
 
 		try{
 			this.color_observed = (Color) variable.getNetworkInternalFrame().getPackageOptions().getMappedPreference( SamiamPreferences.nodeBorderClrObserved ).getValue();
+			this.color_intervened = (Color) variable.getNetworkInternalFrame().getPackageOptions().getMappedPreference( SamiamPreferences.nodeBorderClrIntervened ).getValue();
 		}catch( Throwable thrown ){
 			Util.warn( thrown, "CPTMonitor()" );
 		}
@@ -331,7 +332,10 @@ public class      CPTMonitor
 
 	public boolean setTopbarExcited( boolean excited ){
 		boolean observed = this.variable.getObservedValue() != null;
-		this.topbar.setBackground( excited ? COLOR_TOPBAR_MOUSEOVER : (observed ? color_observed : COLOR_TOPBAR_NORMAL) );
+		boolean intervened = this.variable.getIntervenedValue() != null; 
+		boolean evidence = observed || intervened; 
+		Color color_evidence = observed ? color_observed : color_intervened; 
+		this.topbar.setBackground( excited ? COLOR_TOPBAR_MOUSEOVER : (evidence ? color_evidence : COLOR_TOPBAR_NORMAL) );
 		this.excited.setText(      excited ? STR_EXCITED            :                              STR_CHILL            );
 		return excited;
 	}
@@ -644,6 +648,7 @@ public class      CPTMonitor
 		scrollbar          = null;
 		recent             = null;
 		color_observed     = null;
+		color_intervened   = null; 
 
 		return this;
 	}
@@ -663,5 +668,6 @@ public class      CPTMonitor
 	private    JScrollBar                     scrollbar;
 	private    BitSet                         recent;
 	private    Color                          color_observed;
+	private	   Color						  color_intervened;
 	private    Map<Redirect,SamiamAction>     redirect2action;// = new EnumMap<Redirect,SamiamAction>( Redirect.class );
 }

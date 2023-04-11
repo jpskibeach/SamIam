@@ -24,7 +24,7 @@ public class Binner{
 	return result;
     }
     public Set removeItemsContaining(int var){
-	Integer varI=new Integer(var);
+	Integer varI=Integer.valueOf(var);
 	if(!activeVars.remove(varI)){
 	    throw new IllegalArgumentException("Does not contain "+var);
 	}
@@ -39,7 +39,7 @@ public class Binner{
 		if(v!=var){
 		    bins[v].remove(element);
 		    if(bins[v].size()==0){
-			activeVars.remove(new Integer(v));
+			activeVars.remove(Integer.valueOf(v));
 			bins[v]=null;
 		    }
 		}
@@ -60,7 +60,7 @@ public class Binner{
 	    int var=vars.get(i);
 	    if(bins[var]==null){
 		bins[var]=new HashSet();
-		activeVars.add(new Integer(var));
+		activeVars.add(Integer.valueOf(var));
 	    }
 	    bins[vars.get(i)].add(sd);
 	}

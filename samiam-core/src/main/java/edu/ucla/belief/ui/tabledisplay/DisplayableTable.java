@@ -68,7 +68,7 @@ public class DisplayableTable extends JTable {
 		DefaultCellEditor editor = new DefaultCellEditor(new
 			JTextField());
 		editor.setClickCountToStart(1);
-		Class doubleClass = new Double(0).getClass();
+		Class doubleClass = Double.valueOf(0).getClass();
 		setDefaultEditor(doubleClass, editor);
 		setDefaultRenderer(doubleClass, new
 			DoubleTableCellRenderer(new DoubleFormat(16)));
@@ -86,7 +86,7 @@ public class DisplayableTable extends JTable {
 	public void setTableValueAt(double value, int table, int row) {
 		validValue = true;
 		values[table][row] = value;
-		setValueAt(new Double(value), row, vars.length + table);
+		setValueAt(Double.valueOf(value), row, vars.length + table);
 	}
 
 	private void resetTableValueAt(int table, int row) {

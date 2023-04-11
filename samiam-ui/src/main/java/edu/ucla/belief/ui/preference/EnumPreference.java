@@ -80,7 +80,7 @@ public class EnumPreference<E extends Enum<E>> extends ObjectPreference implemen
 			ListSelectionModel lsm = myJList.getSelectionModel();
 			Integer            index;
 			for( int i = e.getFirstIndex(); i <= e.getLastIndex(); i++ ){
-				index = new Integer(i);
+				index = Integer.valueOf(i);
 				if( lsm.isSelectedIndex(i) ) { if(! myHistory.contains(index)) myHistory.addLast( index ); }
 				else                         {                                 myHistory .remove( index ); }
 			}

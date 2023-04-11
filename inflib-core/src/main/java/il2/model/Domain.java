@@ -50,10 +50,10 @@ public class Domain{
 	logSizes.add(Math.log(vals.length)/LOG2);
 	names.add(name);
 	instanceNames.add(vals);
-	nameToInd.put(name,new Integer(var));
+	nameToInd.put(name,Integer.valueOf(var));
 	HashMap inm=new HashMap(vals.length);
 	for(int i=0;i<vals.length;i++){
-	    inm.put(vals[i],new Integer(i));
+	    inm.put(vals[i],Integer.valueOf(i));
 	}
 	instanceNamesMap.add(inm);
 	return var;

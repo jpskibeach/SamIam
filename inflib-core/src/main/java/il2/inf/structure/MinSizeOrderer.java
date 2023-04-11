@@ -26,6 +26,6 @@ public class MinSizeOrderer extends ConnectivityOrderer{
 	    int n1=((Integer)iter1.next()).intValue();
 	    total*=domain.size(n1);
 	}
-	return new Double(total);
+	return Double.valueOf(total);
     }
 }

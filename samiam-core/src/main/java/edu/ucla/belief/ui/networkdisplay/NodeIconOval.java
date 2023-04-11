@@ -57,13 +57,24 @@ public class NodeIconOval extends NodeIcon
 		else
 		{
 		Color effectiveBorderColor;
-		if( isObserved() ) effectiveBorderColor = borderColorObserved;
-		else effectiveBorderColor = borderColor;
-		g.setColor( effectiveBorderColor );
+		if( isObserved() ) {
+			effectiveBorderColor = borderColorObserved; 
+		} else if( isIntervened() ) {
+			effectiveBorderColor = borderColorIntervened; 
+		} else {
+			effectiveBorderColor = borderColor;
+		}
 
-		if( isSelected() ) g2.setStroke( selectedBorderStroke );
-		else if( isObserved() ) g2.setStroke( observedBorderStroke );
-		else g2.setStroke( borderStroke );
+		g.setColor( effectiveBorderColor );
+		if( isSelected() ) {
+			g2.setStroke( selectedBorderStroke );
+		} else if( isObserved() ) {
+			g2.setStroke( observedBorderStroke );
+		} else if( isIntervened() ) {
+			g2.setStroke( intervenedBorderStroke ); 
+		} else {
+			g2.setStroke( borderStroke );
+		}
 		}
 
 		g2.drawOval( newx, newy, mySizeEffective.width, mySizeEffective.height );

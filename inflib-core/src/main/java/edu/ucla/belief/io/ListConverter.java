@@ -54,14 +54,14 @@ public class ListConverter {
     public static List toList(int[] values) {
         List result = new ArrayList(values.length);
         for (int i = 0; i < values.length; i++) {
-            result.add(new Integer(values[i]));
+            result.add(Integer.valueOf(values[i]));
         }
         return result;
     }
     public static List toList(double[] values) {
         List result = new ArrayList(values.length);
         for (int i = 0; i < values.length; i++) {
-            result.add(new Double(values[i]));
+            result.add(Double.valueOf(values[i]));
         }
         return result;
     }

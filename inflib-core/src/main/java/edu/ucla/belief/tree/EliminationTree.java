@@ -30,7 +30,7 @@ public class EliminationTree {
      * @return -1 if parent is the root, the parent of node otherwise.
      */
     public int parent(int node) {
-        Collection parent = tree.outGoing(new Integer(node));
+        Collection parent = tree.outGoing(Integer.valueOf(node));
         if (parent.size() == 0) {
             return -1;
         } else {
@@ -38,7 +38,7 @@ public class EliminationTree {
         }
     }
     public int[] children(int node) {
-        Collection children = tree.inComing(new Integer(node));
+        Collection children = tree.inComing(Integer.valueOf(node));
         int[] result = new int[children.size()];
         Iterator iter = children.iterator();
         for (int i = 0; i < result.length; i++) {

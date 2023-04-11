@@ -31,7 +31,7 @@ public class BooleanPreference extends AbstractPreference
 
 	public Object hookValueClone()
 	{
-		return new Boolean( ((Boolean)myValue).booleanValue() );
+		return Boolean.valueOf( ((Boolean)myValue).booleanValue() );
 	}
 
 	public void hookSetEditComponentValue( Object newVal )
@@ -48,7 +48,7 @@ public class BooleanPreference extends AbstractPreference
 
 	public Object getCurrentEditedValue()
 	{
-		return new Boolean( myJCheckBox.isSelected() );
+		return Boolean.valueOf( myJCheckBox.isSelected() );
 	}
 
 	protected String valueToString()

@@ -308,6 +308,7 @@ public abstract class NetworkComponentLabelImpl extends JLabel implements Networ
 			if( current != null ){
 				newIcon.setSelected( current.isSelected() );
 				newIcon.setObserved( current.isObserved() );
+				newIcon.setIntervened( current.isIntervened() );
 				newIcon.setHidden( current.isHidden() );
 			}
 			setIcon( newIcon );

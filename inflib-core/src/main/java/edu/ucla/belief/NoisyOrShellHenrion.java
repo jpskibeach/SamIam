@@ -166,7 +166,7 @@ public class NoisyOrShellHenrion implements NoisyOrShell
 	public List weightsAsList()
 	{
 		List ret = new ArrayList( myWeights.length );
-		for( int i=0; i<myWeights.length; i++ ) ret.add( new Double( myWeights[i] ) );
+		for( int i=0; i<myWeights.length; i++ ) ret.add( Double.valueOf( myWeights[i] ) );
 		return ret;
 	}
 
@@ -534,7 +534,7 @@ public class NoisyOrShellHenrion implements NoisyOrShell
 
 		ArrayList cptList = new ArrayList(cptSize);
 		for (int i = 0; i < cptSize; i++)
-			cptList.add(new Double(cpt[i]));
+			cptList.add(Double.valueOf(cpt[i]));
 		return cptList;
 	}
 */

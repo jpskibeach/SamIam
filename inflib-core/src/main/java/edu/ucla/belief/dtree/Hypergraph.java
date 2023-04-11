@@ -41,7 +41,7 @@ public class Hypergraph {
                     col = new HashSet();
                     data.put( var, col);
                 }
-                col.add( new Integer(i));
+                col.add( Integer.valueOf(i));
             }
         }
     }
@@ -82,13 +82,13 @@ public class Hypergraph {
 
 			int numvars = n.vars().size();
 			for( int j=0; j<numvars; j++) {
-				Object var = new Integer(n.vars().get(j));
+				Object var = Integer.valueOf(n.vars().get(j));
 				Collection col = ret.nodeSet( var);
 				if( col == null) {
 					col = new HashSet();
 					ret.data.put( var, col);
 				}
-				col.add( new Integer(i));
+				col.add( Integer.valueOf(i));
 			}
 		}
 

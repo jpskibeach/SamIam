@@ -369,9 +369,9 @@ public abstract class StandardNodeImpl extends FiniteVariableImpl implements Sta
 			else if( tempValue instanceof List       ){ newValue = new ArrayList( (List) tempValue ); }
 			else if( tempValue instanceof Collection ){ newValue = Collections.unmodifiableCollection( (Collection)tempValue ); }
 			else if( tempValue instanceof EnumValue  ){ newValue = tempValue; }//( tempValue instanceof DiagnosisType || tempValue instanceof DSLNodeType )
-			else if( tempValue instanceof Integer    ){ newValue = new Integer( ((Integer)tempValue).    intValue() ); }
-			else if( tempValue instanceof Double     ){ newValue = new  Double( ( (Double)tempValue). doubleValue() ); }
-			else if( tempValue instanceof Boolean    ){ newValue = new Boolean( ((Boolean)tempValue).booleanValue() ); }
+			else if( tempValue instanceof Integer    ){ newValue = Integer.valueOf( ((Integer)tempValue).    intValue() ); }
+			else if( tempValue instanceof Double     ){ newValue = Double.valueOf( ( (Double)tempValue). doubleValue() ); }
+			else if( tempValue instanceof Boolean    ){ newValue = Boolean.valueOf( ((Boolean)tempValue).booleanValue() ); }
 			else if( tempValue instanceof Cloneable  ){
 				try{
 					Method method = tempValue.getClass().getMethod( "clone", (Class[]) null );

@@ -508,7 +508,7 @@ public class HuginLogReader implements HuginLogReaderConstants {
       jj_consume_token(JUNCTION_TREE_DECL_LIT1);
       t = jj_consume_token(NUM);
       jj_consume_token(JUNCTION_TREE_DECL_LIT2);
-                        myRoots.add( new Integer( t.image ) );
+                        myRoots.add( Integer.valueOf( t.image ) );
       label_8:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {

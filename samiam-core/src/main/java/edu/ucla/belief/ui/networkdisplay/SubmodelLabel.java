@@ -171,6 +171,7 @@ public class SubmodelLabel extends NetworkComponentLabelImpl
 			if( current != null ){
 				newIcon.setSelected( current.isSelected() );
 				newIcon.setObserved( false/*current.isObserved()*/ );
+				newIcon.setIntervened(false);
 				newIcon.setHidden( current.isHidden() );
 			}
 			setIcon( newIcon );

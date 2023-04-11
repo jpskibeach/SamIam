@@ -63,6 +63,8 @@ public interface DisplayableFiniteVariable extends Variable, FiniteVariable, Hug
 	public DisplayableBeliefNetwork getBeliefNetwork();
 	public Object getObservedValue();
 	public int getObservedIndex();
+	public Object getIntervenedValue(); 
+	public int getIntervenedIndex(); 
 	public void changeDisplayText( boolean dspLabelIfAvail );
 	public void changeDisplayText();
 	public void changePackageOptions();

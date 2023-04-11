@@ -126,7 +126,7 @@ public class RC2CreatorDtToDg {
 				}
 				else {
 					rootsToReturn.add(roots[0]);
-					varToRootIndx.put(varsOfInterest.iterator().next(), new Integer(0));
+					varToRootIndx.put(varsOfInterest.iterator().next(), Integer.valueOf(0));
 				}
 				return new ReducedRootSet((RC2Node[])rootsToReturn.toArray(new RC2Node[rootsToReturn.size()]), varToRootIndx);
 			}
@@ -154,7 +154,7 @@ public class RC2CreatorDtToDg {
 						if(nodesCovered[i].containsAll(family)) {
 							//add it
 							rootsToReturn.add(roots[0]);
-							Integer rtIndx = new Integer(rootsToReturn.size()-1);
+							Integer rtIndx = Integer.valueOf(rootsToReturn.size()-1);
 							for(Iterator itr_c = nodesCovered[i].iterator(); itr_c.hasNext();) {
 								Object varIncl = itr_c.next();
 								if(myVarsOfInterest.contains(varIncl)) {
@@ -168,7 +168,7 @@ public class RC2CreatorDtToDg {
 				else {
 					System.out.println("Variable " + var + " was in vars of interest, but not in any root cutsets.");
 					myVarsOfInterest.remove(var);
-					varToRootIndx.put(var, new Integer(-1));
+					varToRootIndx.put(var, Integer.valueOf(-1));
 				}
 			}
 		}
@@ -198,7 +198,7 @@ public class RC2CreatorDtToDg {
 
 			if(bestCutsetSize > 0) {
 				rootsToReturn.add(roots[bestCutsetIndx]); //add this one to return
-				Integer rtIndx = new Integer(rootsToReturn.size()-1);
+				Integer rtIndx = Integer.valueOf(rootsToReturn.size()-1);
 
 				for(Iterator itr = nodesCovered[bestCutsetIndx].iterator(); itr.hasNext();) {
 					Object var = itr.next();

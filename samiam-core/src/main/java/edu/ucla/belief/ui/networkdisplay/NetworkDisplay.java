@@ -1,8 +1,8 @@
 package edu.ucla.belief.ui.networkdisplay;
 
-import        edu.ucla.belief.ui.internalframes.Bridge2Tiger;
-import        edu.ucla.belief.ui.internalframes.Bridge2Tiger.Troll;
-import        edu.ucla.belief.ui.internalframes.Bridge2Tiger.ProbabilityRewriteArgs;
+import edu.ucla.belief.ui.internalframes.Bridge2Tiger;
+import edu.ucla.belief.ui.internalframes.Bridge2Tiger.Troll;
+import edu.ucla.belief.ui.internalframes.Bridge2Tiger.ProbabilityRewriteArgs;
 import edu.ucla.belief.ui.*;
 import edu.ucla.belief.ui.util.*;
 import edu.ucla.belief.ui.displayable.*;
@@ -1183,6 +1183,9 @@ public class NetworkDisplay extends JInternalFrame implements
 						for( Iterator itr = myEdgeList.iterator(); itr.hasNext();){
 							((Arrow)itr.next()).paint( g, rect, hidehiddenedges );
 						}
+						for( Iterator itr = myFadedEdgeList.iterator(); itr.hasNext();){
+							((Arrow)itr.next()).paint( g, rect, hidehiddenedges );
+						}
 					}
 				}
 
@@ -1910,13 +1913,13 @@ public class NetworkDisplay extends JInternalFrame implements
 		for( Iterator edgeItr = outEdgeSet.iterator(); edgeItr.hasNext();)
 		{
 			dVar = (DisplayableFiniteVariable) edgeItr.next();
-			lblSink = findDesinationLabel( dVar );
+			lblSink = findDestinationLabel( dVar );
 			makeArrow( lblSource, lblSink, false );
 		}
 	}
 
 	/** @since 20020422 */
-	protected NetworkComponentLabel findDesinationLabel( DisplayableFiniteVariable dVar )
+	protected NetworkComponentLabel findDestinationLabel( DisplayableFiniteVariable dVar )
 	{
 		DSLSubmodel submodelDest = dVar.getDSLSubmodel();
 		if( submodelDest == null || submodelDest == mySubmodel ) return (NetworkComponentLabel) dVar.getNodeLabel();		else if( submodelDest.getParent() == mySubmodel )
@@ -1964,6 +1967,30 @@ public class NetworkDisplay extends JInternalFrame implements
 			}
 			synchronized( mySynchronizationEdgeList ){
 				myEdgeList.add( ar );
+			}
+		}
+	}
+
+	/** @since 20230411 */
+	protected void makeFadedEdges()
+	{
+		synchronized ( mySynchronizationEdgeList ){
+			for( Iterator itr = myFadedEdgeCoords.iterator(); itr.hasNext(); )
+			{
+				NetworkComponentLabel[] coords = (NetworkComponentLabel[])itr.next();
+				NetworkComponentLabel st = coords[0]; 
+				NetworkComponentLabel ed = coords[1];
+
+				if( ed == null || st == null ){ return; }
+
+				final Arrow ar = new Arrow( st, ed, this, mySamiamPreferences );
+				if( this.hasDecorators() ){
+					for( Iterator it = myListDecorators.iterator(); it.hasNext(); ){
+						((Decorator)it.next()).decorateArrow( ar, hnInternalFrame );
+					}
+				}
+
+				myFadedEdgeList.add( ar.setIntervened(true) );
 			}
 		}
 	}
@@ -2766,7 +2793,7 @@ public class NetworkDisplay extends JInternalFrame implements
 					Dimension dimGlobal = myBeliefNetwork.getGlobalNodeSize( new Dimension() );
 					if( (dimGlobal == null) || (dimGlobal.width < 1) || (dimGlobal.height < 1) ){
 						Dimension dim = (Dimension) prefSize.getValue();
-						bnProps.put( PropertySuperintendent.KEY_HUGIN_NODE_SIZE, Arrays.asList( new Integer[]{ new Integer( dim.width ), new Integer( dim.height ) } ) );
+						bnProps.put( PropertySuperintendent.KEY_HUGIN_NODE_SIZE, Arrays.asList( new Integer[]{ Integer.valueOf( dim.width ), Integer.valueOf( dim.height ) } ) );
 					}
 				}
 			}catch( Throwable thrown ){
@@ -2961,8 +2988,8 @@ public class NetworkDisplay extends JInternalFrame implements
 		//System.out.println( "\n\nJava NetworkDisplay adding node at actual: (" + pActual + "), virtual: (" + pVirtual + ")"  );
 
 		ArrayList loc = new ArrayList(2);
-		loc.add( new Integer( pVirtual.x ) );
-		loc.add( new Integer( pVirtual.y ) );
+		loc.add( Integer.valueOf( pVirtual.x ) );
+		loc.add( Integer.valueOf( pVirtual.y ) );
 
 		if( DEBUG_COORDINATES ) Util.STREAM_VERBOSE.println();
 
@@ -3006,8 +3033,8 @@ public class NetworkDisplay extends JInternalFrame implements
 		//System.out.println( "\n\nJava NetworkDisplay adding node at actual: (" + pActual + "), virtual: (" + pVirtual + ")"  );
 
 		ArrayList loc = new ArrayList(2);
-		loc.add( new Integer( pVirtual.x ) );
-		loc.add( new Integer( pVirtual.y ) );
+		loc.add( Integer.valueOf( pVirtual.x ) );
+		loc.add( Integer.valueOf( pVirtual.y ) );
 
 		if( DEBUG_COORDINATES ) Util.STREAM_VERBOSE.println();
 
@@ -3128,8 +3155,6 @@ public class NetworkDisplay extends JInternalFrame implements
 	*/
 	public void netStructureChanged( NetStructureEvent ev )
 	{
-		//System.out.println( "NetworkDisplay.netStructureChanged()" );
-
 		BeliefNetwork bn = hnInternalFrame.getBeliefNetwork();
 		Point nodeLoc = new Point();
 		Rectangle rect = new Rectangle();
@@ -3250,12 +3275,66 @@ public class NetworkDisplay extends JInternalFrame implements
 			return;
 		}
 
+		// look for intervened nodes
+		if( ev.eventType == NetStructureEvent.INTERVENE_EDGE && ev.finiteVars != null)
+		{
+			// for each variable in event, get all incoming edges into this vertex/node
+			for( Iterator fv_itr = ev.finiteVars.iterator(); fv_itr.hasNext(); )
+			{
+				DisplayableFiniteVariable fv_in = (DisplayableFiniteVariable)fv_itr.next();
+				Set in = new HashSet(bn.inComing(fv_in));
+				for( Iterator in_itr = in.iterator(); in_itr.hasNext();)
+				{
+					// for all incoming edges that exist in myEdgeList
+					DisplayableFiniteVariable fv_out = (DisplayableFiniteVariable) in_itr.next();
+
+					synchronized( mySynchronizationEdgeList ){
+						for( ListIterator out_itr = myEdgeList.listIterator(); out_itr.hasNext(); ){
+							Arrow ar = (Arrow)out_itr.next();
+							if(ar.isEqual( fv_out, fv_in )){
+								// add start/end vertices to myFadedEdgeCoords
+								myFadedEdgeCoords.add(new NetworkComponentLabel[]{ar.getStart(), ar.getEnd()});
+								// remove edge from DAG
+								bn.removeEdge(fv_out, fv_in);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// look for unintervened nodes
+		if( ev.eventType == NetStructureEvent.UNINTERVENE_EDGE )
+		{
+			// get all incoming edges into this vertex/node 
+			// search in myFadedEdgeCoords since this edge doesn't exist in the
+			// bn representation of the network
+			for( Iterator fv_itr = ev.finiteVars.iterator(); fv_itr.hasNext(); )
+			{
+				DisplayableFiniteVariable fv_in = (DisplayableFiniteVariable)fv_itr.next();
+
+				synchronized( mySynchronizationEdgeList ){
+					for( ListIterator faded_itr = myFadedEdgeCoords.listIterator(); faded_itr.hasNext();)
+					{
+						NetworkComponentLabel[] coords = (NetworkComponentLabel[])faded_itr.next();
+						if (coords[1].getFiniteVariable() == fv_in){
+							faded_itr.remove();
+							bn.addEdge(coords[0].getFiniteVariable(), fv_in);
+						}
+					}
+				}
+			}
+		}
+
 		synchronized( mySynchronizationEdgeList ){ clearArrows( myEdgeList ); }
 		makeVariableSourceEdges( variablesMySubmodel, bn );
 		makeSubmodelSourceEdges(                      bn );
 
 		synchronized( mySynchronizationEdgeList ){ clearArrows( myListRecoverableArrows ); }
 		makeRecoverableArrows(   variablesMySubmodel, bn );
+
+		synchronized( mySynchronizationEdgeList ){ clearArrows( myFadedEdgeList ); }
+		makeFadedEdges();
 
 		try{ refreshNotoriousEdges(); }
 		catch( Throwable thrown ){ System.err.println( "warning: NetworkDisplay.netStructureChanged() caught " + thrown ); }
@@ -3744,7 +3823,12 @@ public class NetworkDisplay extends JInternalFrame implements
 	}
 
 	/** List of edges (Arrow objects) in the network.*/
-	protected ArrayList myEdgeList = new ArrayList(), myListRecoverableArrows = new ArrayList();
+	protected ArrayList myEdgeList = new ArrayList();
+	protected ArrayList myListRecoverableArrows = new ArrayList();
+	/** List storing start and end vertices of faded edges.  */
+	protected ArrayList<NetworkComponentLabel[]> myFadedEdgeCoords = new ArrayList<NetworkComponentLabel[]>();
+	protected ArrayList<Arrow> myFadedEdgeList = new ArrayList<Arrow>();
+	// protected ArrayList myFadedEdgeCoords = new ArrayList();
 	/** List of nodes (NetworkComponentLabel objects) in the network.*/
 	protected ArrayList myComponentList = new ArrayList();
 

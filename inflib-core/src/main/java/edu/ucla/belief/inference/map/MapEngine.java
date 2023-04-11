@@ -137,7 +137,7 @@ public class MapEngine extends TableEliminationEngine
 			int tloc = to[i].index(tinst);
 			int[] finst = from[i].mindex(locations[i][tloc], null);
 			instance.put(vars[i],
-				new Integer(finst[from[i].variableIndex(vars[i])]));
+				Integer.valueOf(finst[from[i].variableIndex(vars[i])]));
 		}
 
 		return convert(instance);

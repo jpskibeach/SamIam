@@ -140,7 +140,7 @@ public class ProbabilityDataHandler implements DataHandler
 	{
 		if( 0 <= possibleIndex && possibleIndex < myData.length )
 		{
-			return new Double( myData[ possibleIndex ] );
+			return Double.valueOf( myData[ possibleIndex ] );
 		}
 		else
 		{

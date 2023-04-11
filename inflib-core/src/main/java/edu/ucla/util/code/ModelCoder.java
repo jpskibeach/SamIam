@@ -352,7 +352,7 @@ public class ModelCoder extends AbstractCodeGenius implements CodeGenius
 			out.println( " };" );
 			String strVariableName = "id"+stri;
 			out.println( "    int          "+strVariableName+" = domain.addDim( name"+stri+", values"+stri+" );" );
-			mapIndicesToVariableNames.put( new Integer(indexVar), strVariableName );
+			mapIndicesToVariableNames.put( Integer.valueOf(indexVar), strVariableName );
 			out.println();
 		}
 
@@ -432,9 +432,9 @@ public class ModelCoder extends AbstractCodeGenius implements CodeGenius
 		int length = set.size();
 		int lastIndex = length-1;
 		for( int i=0; i<lastIndex; i++ ){
-			out.print( mapIndicesToVariableNames.get( new Integer( set.get(i) ) ) + ", " );
+			out.print( mapIndicesToVariableNames.get( Integer.valueOf( set.get(i) ) ) + ", " );
 		}
-		out.print( mapIndicesToVariableNames.get( new Integer( set.get(lastIndex) ) ) );
+		out.print( mapIndicesToVariableNames.get( Integer.valueOf( set.get(lastIndex) ) ) );
 	}
 
 	public static void printRepeat( String toRepeat, int num, String[] stris, PrintStream out )

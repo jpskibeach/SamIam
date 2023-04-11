@@ -139,7 +139,7 @@ public class ImpactTableModel extends AbstractTableModel implements Comparator
 				Table newMarginal1 = myInferenceEngine.conditional( struct1.variable );
 				distanceMeasure1 = struct1.marginal.distanceMeasure( newMarginal1 );
 				struct1.marginal = newMarginal1;
-				struct1.distanceMeasure = new Double( distanceMeasure1 );
+				struct1.distanceMeasure = Double.valueOf( distanceMeasure1 );
 				struct1.flagValid = true;
 			}
 
@@ -149,7 +149,7 @@ public class ImpactTableModel extends AbstractTableModel implements Comparator
 				Table newMarginal2 = myInferenceEngine.conditional( struct2.variable );
 				distanceMeasure2 = struct2.marginal.distanceMeasure( newMarginal2 );
 				struct2.marginal = newMarginal2;
-				struct2.distanceMeasure = new Double( distanceMeasure2 );
+				struct2.distanceMeasure = Double.valueOf( distanceMeasure2 );
 				struct2.flagValid = true;
 			}
 
@@ -181,9 +181,9 @@ public class ImpactTableModel extends AbstractTableModel implements Comparator
 	}
 
 	public static final double ZERO = (double)0;
-	public static final Double DOUBLE_ZERO = new Double( ZERO );
-	public static final Double DOUBLE_NEGATIVE_INFINITY = new Double( Double.NEGATIVE_INFINITY  );
-	public static final Double DOUBLE_POSITIVE_INFINITY = new Double( Double.POSITIVE_INFINITY );
+	public static final Double DOUBLE_ZERO = Double.valueOf( ZERO );
+	public static final Double DOUBLE_NEGATIVE_INFINITY = Double.valueOf( Double.NEGATIVE_INFINITY  );
+	public static final Double DOUBLE_POSITIVE_INFINITY = Double.valueOf( Double.POSITIVE_INFINITY );
 	public static final NumberFormat FORMAT = new DecimalFormat( "0.0####" );
 
 	public static class Struct

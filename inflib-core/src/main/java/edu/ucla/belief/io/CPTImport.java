@@ -202,7 +202,7 @@ public class CPTImport
 		}
 
 		public void record( FiniteVariable variable, int indexInstance ){
-			myMapping.put( variable, new Integer( indexInstance ) );
+			myMapping.put( variable, Integer.valueOf( indexInstance ) );
 		}
 
 		public void setParameter( String tokenValue ) throws Exception{

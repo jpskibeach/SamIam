@@ -8,7 +8,7 @@ public class Bar extends EvidenceIcon {
 	private int direction;
 
 	public Bar(int width, int height, Color color, int direction) {
-		super(width, height, color, color);
+		super(width, height, color, color, color);
 		this.direction = direction;
 		setDirection(direction);
 	}

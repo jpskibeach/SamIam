@@ -18,7 +18,7 @@ public class MonitorMouseListener extends MouseInputAdapter
 	  STR_METHOD_ZORDER        =   "setComponentZOrder";
 
 	protected static final Object[]
-	  ARRAY_ZORDER             =   new Object[]{ null, new Integer(0) };
+	  ARRAY_ZORDER             =   new Object[]{ null, Integer.valueOf(0) };
 
 	protected        MonitorMouseListener(){
 		try{

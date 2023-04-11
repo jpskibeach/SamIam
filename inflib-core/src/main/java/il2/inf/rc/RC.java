@@ -25,7 +25,7 @@ public class RC{
     }
 
     private void createIncomingRC(int ind,Table[] leaves){
-	Integer n=new Integer(ind);
+	Integer n=Integer.valueOf(ind);
 	Integer child=(Integer)(dgraph.tree().neighbors(n).iterator().next());
 	RCNode node=createRCSubtree(child,n,leaves);
 	node.initialize(dgraph.separator(n.intValue(),child.intValue()).vars());
@@ -84,7 +84,7 @@ public class RC{
     }
 
     public void invalidate(int tableIndex){
-	Integer node=new Integer(tableIndex);
+	Integer node=Integer.valueOf(tableIndex);
 	Integer neighbor=(Integer)dgraph.tree().neighbors(node).iterator().next();
 	invalidateOutGoing(new Pair(tableIndex,neighbor.intValue()));
 	propagationTime=0;
@@ -92,13 +92,13 @@ public class RC{
 
     public double value(){
 	UPair rootEdge=dgraph.root();
-	Integer s1=new Integer(rootEdge.s1);
-	Integer s2=new Integer(rootEdge.s2);
+	Integer s1=Integer.valueOf(rootEdge.s1);
+	Integer s2=Integer.valueOf(rootEdge.s2);
 	RCNode c1=getRCSubtree(s1,s2);
 	RCNode c2=getRCSubtree(s2,s1);
 
 	long start=System.currentTimeMillis();
-	RCNode root=new InternalRCNode(domain,c1,c2,c1.context().vars(),globalInstance,new Integer(-1));
+	RCNode root=new InternalRCNode(domain,c1,c2,c1.context().vars(),globalInstance,Integer.valueOf(-1));
 	root.initialize(new IntSet());
 	double result=root.rc(0);
 	long finish=System.currentTimeMillis();
@@ -121,7 +121,7 @@ public class RC{
 
 
     public Table getIncoming(int tableIndex){
-	Integer to=new Integer(tableIndex);
+	Integer to=Integer.valueOf(tableIndex);
 	Integer from=(Integer)dgraph.tree().neighbors(to).iterator().next();
 	RCNode node=getRCSubtree(from,to);
 	Index context=dgraph.separator(tableIndex,from.intValue());
@@ -151,7 +151,7 @@ public class RC{
     }
 
     private LeafRCNode leaf(int leafInd){
-	Integer lind=new Integer(leafInd);
+	Integer lind=Integer.valueOf(leafInd);
 	Integer neighbor=(Integer)dgraph.tree().neighbors(lind).iterator().next();
 	return (LeafRCNode)getRCSubtree(lind,neighbor);
     }

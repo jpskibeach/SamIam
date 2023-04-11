@@ -3692,11 +3692,11 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		if( closeAll() && myListInternalFrames.isEmpty() )
 		{
 			try{
-				mySamiamPreferences.putProperty( STR_KEY_VISIBLE_STATUSBAR,  new Boolean(            myShowStatusBarItem.isSelected() ) );
-				mySamiamPreferences.putProperty( STR_KEY_VISIBLE_TOOLBAR,    new Boolean(              myShowToolBarItem.isSelected() ) );
-				mySamiamPreferences.putProperty( STR_KEY_VISIBLE_ICBTOOLBAR, new Boolean( myShowInstantiationToolBarItem.isSelected() ) );
+				mySamiamPreferences.putProperty( STR_KEY_VISIBLE_STATUSBAR,  Boolean.valueOf(            myShowStatusBarItem.isSelected() ) );
+				mySamiamPreferences.putProperty( STR_KEY_VISIBLE_TOOLBAR,    Boolean.valueOf(              myShowToolBarItem.isSelected() ) );
+				mySamiamPreferences.putProperty( STR_KEY_VISIBLE_ICBTOOLBAR, Boolean.valueOf( myShowInstantiationToolBarItem.isSelected() ) );
 				mySamiamPreferences.putProperty( STR_KEY_ICBTCONSTRAINTS,    edu.ucla.util.AbstractStringifier.reflect( BorderLayout.class, null, "getConstraints", new Class[]{ java.awt.Component.class }, myCenterPain.getLayout(), new Object[]{ myInstantiationClipboardToolBar }, BorderLayout.EAST ) );//((BorderLayout) myCenterPain.getLayout()).getConstraints( myInstantiationClipboardToolBar ) );
-				mySamiamPreferences.putProperty( STR_KEY_ICBTORIENTATION,    new Integer( myInstantiationClipboardToolBar.getOrientation() ) );
+				mySamiamPreferences.putProperty( STR_KEY_ICBTORIENTATION,    Integer.valueOf( myInstantiationClipboardToolBar.getOrientation() ) );
 			}catch( Throwable thrown ){
 				System.err.println( "warning: UI.exitProgram() caught " + thrown );
 			}
@@ -3965,8 +3965,8 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 				int numEvidence = (int)4;
 
 				String message = null;
-				String strEpsilon = JOptionPane.showInputDialog( this, "Please choose value for epsilon.", new Double( epsilon ) );
-				String strNumEvidence = JOptionPane.showInputDialog( this, "Please choose number of\nrandom evidence values to set.", new Integer( numEvidence ) );
+				String strEpsilon = JOptionPane.showInputDialog( this, "Please choose value for epsilon.", Double.valueOf( epsilon ) );
+				String strNumEvidence = JOptionPane.showInputDialog( this, "Please choose number of\nrandom evidence values to set.", Integer.valueOf( numEvidence ) );
 
 				try{
 					epsilon = Double.parseDouble( strEpsilon );

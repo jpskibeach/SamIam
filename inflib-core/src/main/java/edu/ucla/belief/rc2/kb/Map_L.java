@@ -211,7 +211,7 @@ public class Map_L extends KBMap {
 						}
 						//for each clauses added
 						for(int clN=oldnumClCreated; clN<numClCreated; clN++) {
-							col.add(new Integer(clN));
+							col.add(Integer.valueOf(clN));
 						}
 					}
 

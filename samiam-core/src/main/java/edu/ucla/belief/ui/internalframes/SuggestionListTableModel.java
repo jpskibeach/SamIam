@@ -152,7 +152,7 @@ public class SuggestionListTableModel extends AbstractTableModel implements Tabl
 		{
 			this.variable = variable;
 			this.table = table;
-			this.logodds = new Double( table.getLogOddsChange() );
+			this.logodds = Double.valueOf( table.getLogOddsChange() );
 			this.intervals = table.probabilityIntervals();
 		}
 
@@ -249,7 +249,7 @@ public class SuggestionListTableModel extends AbstractTableModel implements Tabl
 	private VariableLabelRenderer myVariableLabelRenderer;
 	private DoubleTableCellRenderer myDoubleTableCellRenderer = new DoubleTableCellRenderer(new DoubleFormat(6));
 
-	public static final Double DOUBLE_ZERO = new Double( (double)0 );
+	public static final Double DOUBLE_ZERO = Double.valueOf( (double)0 );
 	public static final int INT_INDEX_VARIABLE = (int)0;
 	public static final int INT_INDEX_LOG_ODDS = (int)1;
 }

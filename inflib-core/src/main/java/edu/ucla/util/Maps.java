@@ -82,7 +82,7 @@ public class Maps{
         HashMap result=new HashMap(vals.size());
         int current=0;
         for(Iterator iter=vals.iterator();iter.hasNext();){
-            result.put(new Integer(current),iter.next());
+            result.put(Integer.valueOf(current),iter.next());
             current++;
         }
         return result;
@@ -91,7 +91,7 @@ public class Maps{
         HashMap result=new HashMap(vals.size());
         int current=0;
         for(Iterator iter=vals.iterator();iter.hasNext();){
-            result.put(iter.next(),new Integer(current));
+            result.put(iter.next(),Integer.valueOf(current));
             current++;
         }
         return result;

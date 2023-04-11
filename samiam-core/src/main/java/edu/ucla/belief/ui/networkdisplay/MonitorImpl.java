@@ -469,9 +469,10 @@ public class MonitorImpl extends JPanel implements Monitor
 		{
 			//System.out.print( "..." + myDFV );
 			int observedIndex = myDFV.getObservedIndex();
+			int intervenedIndex = myDFV.getIntervenedIndex();
 			for( Iterator itr = evidLabels.iterator(); itr.hasNext(); )
 			{
-				((EvidenceLabel) itr.next()).warnEvidence( observedIndex );
+				((EvidenceLabel) itr.next()).warnEvidence( observedIndex, intervenedIndex );
 			}
 		}
 		//System.out.println();
@@ -568,7 +569,6 @@ public class MonitorImpl extends JPanel implements Monitor
 		Table tbl = null;
 		if( myApproxEngine != null ){
 			ApproxReport report = myApproxEngine.getLatestReport();
-
 			tbl = report.getConditional(myDFV);
 			if(   TABLES.length != 1 ){ TABLES = new Table[]{ tbl }; }
 			else{ TABLES[0] = tbl; }
@@ -581,6 +581,10 @@ public class MonitorImpl extends JPanel implements Monitor
 		}
 
 		int observedIndex = myDFV.getObservedIndex();
+		int intervenedIndex = myDFV.getIntervenedIndex(); 
+		/** emilydebug 
+		 * TODO: fix to also do this for intervenedIndex
+		 */
 
 		EvidenceLabel el;
 		Iterator itr = evidLabels.iterator();
@@ -615,22 +619,22 @@ public class MonitorImpl extends JPanel implements Monitor
 			else normal = max;
 
 			i=0;
-			el.drawOdds( bufferOdds[i], normal, observedIndex, bufferPr[i] );
+			el.drawOdds( bufferOdds[i], normal, observedIndex, intervenedIndex, bufferPr[i] );
 			++i;
 			while( itr.hasNext() )
 			{
 				el = (EvidenceLabel) itr.next();
-				el.drawOdds( bufferOdds[i], normal, observedIndex, bufferPr[i] );
+				el.drawOdds( bufferOdds[i], normal, observedIndex, intervenedIndex, bufferPr[i] );
 				++i;
 			}
 		}
 		else
 		{
-			el.drawEvidence( TABLES, observedIndex );
+			el.drawEvidence( TABLES, observedIndex, intervenedIndex );
 			while( itr.hasNext() )
 			{
 				el = (EvidenceLabel) itr.next();
-				el.drawEvidence( TABLES, observedIndex );
+				el.drawEvidence( TABLES, observedIndex, intervenedIndex );
 			}
 		}
 
@@ -824,6 +828,7 @@ public class MonitorImpl extends JPanel implements Monitor
 	}
 
 	/** @deprecated */
+	@Deprecated
 	public void		setActualScale( double factor )
 	{
 		//theUtilDimension.setSize( myVirtualSize );

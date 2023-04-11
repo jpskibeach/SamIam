@@ -75,7 +75,7 @@ public class DgraphCreateHMetis1 extends DgraphCreateHMetis {
 			Integer l = (Integer)leafNodesToInts.get(leafNodes.get(0));
 			Integer r = (Integer)leafNodesToInts.get(leafNodes.get(1));
 
-			Integer n = new Integer(tree.size());
+			Integer n = Integer.valueOf(tree.size());
 			tree.addEdge(l,n);
 			tree.addEdge(r,n);
 
@@ -147,7 +147,7 @@ public class DgraphCreateHMetis1 extends DgraphCreateHMetis {
                     Collection newEdge = new HashSet();
                     for( Iterator itr2 = vertices.iterator(); itr2.hasNext();) {
                         Integer v = (Integer)itr2.next();
-                        newEdge.add( new Integer( oldToNew[v.intValue()]));
+                        newEdge.add( Integer.valueOf( oldToNew[v.intValue()]));
                     }
                     rt.putHyperedge( edge, newEdge);
                 }
@@ -155,7 +155,7 @@ public class DgraphCreateHMetis1 extends DgraphCreateHMetis {
                     Collection newEdge = new HashSet();
                     for( Iterator itr2 = vertices.iterator(); itr2.hasNext();) {
                         Integer v = (Integer)itr2.next();
-                        newEdge.add( new Integer( oldToNew[v.intValue()]));
+                        newEdge.add( Integer.valueOf( oldToNew[v.intValue()]));
                     }
                     lf.putHyperedge( edge, newEdge);
                 }
@@ -166,7 +166,7 @@ public class DgraphCreateHMetis1 extends DgraphCreateHMetis {
             Integer left = createSubTree( lf, leafLf, leafNodesToInts, tree);
             Integer right = createSubTree( rt, leafRt, leafNodesToInts, tree);
 
-            Integer n = new Integer(tree.size());
+            Integer n = Integer.valueOf(tree.size());
             tree.addEdge( left, n);
             tree.addEdge( right, n);
             return n;

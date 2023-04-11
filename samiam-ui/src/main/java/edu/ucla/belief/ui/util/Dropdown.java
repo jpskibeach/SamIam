@@ -469,7 +469,7 @@ public class Dropdown<E> extends JComboBox implements KeyListener//, ListSelecti
 			ListSelectionModel lsm = myList.getSelectionModel();
 			Integer            index;
 			for( int i = first; i <= last; i++ ){
-				index = new Integer(i);
+				index = Integer.valueOf(i);
 				myHistory.remove( index );
 				if( lsm.isSelectedIndex(i) ) myHistory.addLast( index );
 			}
@@ -515,8 +515,8 @@ public class Dropdown<E> extends JComboBox implements KeyListener//, ListSelecti
 		for( java.lang.reflect.Method method : claZz.getMethods() ) stream.println( method.getName() + "()" );
 
 		final Dropdown<Domain> dropdown = new Dropdown<Domain>( Domain.values(), new int[]{ 0, 10 }, " people" );
-		Integer[] finite = new Integer[10];
-		for( int i=0; i<finite.length; i++ ) finite[i] = new Integer(i);
+		Integer[] finite = Integer.valueOf[10];
+		for( int i=0; i<finite.length; i++ ) finite[i] = Integer.valueOf(i);
 		JPanel pnl = new JPanel();
 		pnl.add( new JLabel( "[" ) );
 		final JComboBox lower = new JComboBox( finite );

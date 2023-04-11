@@ -32,7 +32,7 @@ public class DGraphs{
 	List potentials=new ArrayList(leaves.length);
 	edu.ucla.structure.Graph tree=new HashGraph();
 	for(int i=0;i<leaves.length;i++){
-	    Integer n=new Integer(i);
+	    Integer n=Integer.valueOf(i);
 	    Index ind=new Index(leaves[i]);
 	    clusters.put(n,ind);
 	    potentials.add(new DDom(n,ind));
@@ -48,7 +48,7 @@ public class DGraphs{
 	    for(int k=1;k<contents.size();k++){
 		DDom other=(DDom)contents.get(k);
 		Index ind=current.ind.combineWith(other.ind);
-		Integer n=new Integer(tree.size());
+		Integer n=Integer.valueOf(tree.size());
 		//System.out.println(current.node+"->"+n);
 		//System.out.println(other.node+"->"+n);
 		//System.out.println(n+"[[ "+ind.vars()+" ]]");

@@ -28,6 +28,6 @@ public class MinFillOrderer extends ConnectivityOrderer{
 		}
 	    }
 	}
-	return new Integer(total/2);
+	return Integer.valueOf(total/2);
     }
 }

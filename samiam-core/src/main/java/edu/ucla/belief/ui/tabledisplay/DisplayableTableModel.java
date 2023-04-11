@@ -30,8 +30,7 @@ public class DisplayableTableModel extends DefaultTableModel {
 			for (int j = 0; j < varsLength; j++)
 				rowData[i][j] = ((FiniteVariable) vars.get(j)).instance(mind[j]);
 			for (int j = 0; j < tableNames.length; j++)
-				rowData[i][varsLength + j] = new
-					Double(values[j][i]);
+				rowData[i][varsLength + j] = Double.valueOf(values[j][i]);
 		}
 
 		Object[] columnNames = new Object[varsLength + tableNames.length];
@@ -56,6 +55,6 @@ public class DisplayableTableModel extends DefaultTableModel {
 	public Class getColumnClass(int columnIndex) {
 		if (columnIndex < varsLength)
 			return new Object().getClass();
-		return new Double(0).getClass();
+		return Double.valueOf(0).getClass();
 	}
 }

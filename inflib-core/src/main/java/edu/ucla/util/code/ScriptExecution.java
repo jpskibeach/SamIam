@@ -69,7 +69,7 @@ public class ScriptExecution
 
 		private void notifyImpl( int exitval, boolean timedout, boolean interrupted ){
 			synchronized( this ){
-				ProcessSitter.this.myExitValue = new Integer( exitval );
+				ProcessSitter.this.myExitValue = Integer.valueOf( exitval );
 				myBaby.setOutcome( exitval, timedout, interrupted );
 				this.notifyAll();
 			}
@@ -199,7 +199,7 @@ public class ScriptExecution
 	}
 
 	public void setOutcome( int exitValue, boolean timedout, boolean interrupted ){
-		this.myExitValue = new Integer( exitValue );
+		this.myExitValue = Integer.valueOf( exitValue );
 		this.myFlagTimedOut = timedout;
 		this.myFlagInterrupted = interrupted;
 	}

@@ -105,8 +105,8 @@ public enum Editor{
 		}
 
 		public Object          read( JComponent   comp               ){
-			if(      comp instanceof WholeNumberField ){ return new Integer( ((WholeNumberField)comp).getValue() ); }
-			else if( comp instanceof JSlider          ){ return new Integer( (         (JSlider)comp).getValue() ); }
+			if(      comp instanceof WholeNumberField ){ return Integer.valueOf( ((WholeNumberField)comp).getValue() ); }
+			else if( comp instanceof JSlider          ){ return Integer.valueOf( (         (JSlider)comp).getValue() ); }
 			else return null;
 		}
 		public Object     writeImpl( JComponent   comp, Object value ){
@@ -162,7 +162,7 @@ public enum Editor{
 			return df;
 		}
 
-		public Object          read( JComponent   comp               ){ return new Double( ((DecimalField)comp).getValue() ); }
+		public Object          read( JComponent   comp               ){ return Double.valueOf( ((DecimalField)comp).getValue() ); }
 		public Object     writeImpl( JComponent   comp, Object value ){
 			((DecimalField)comp).setValue( ((Number)value).doubleValue() );
 			return value;
@@ -208,7 +208,7 @@ public enum Editor{
 			return jcb;
 		}
 
-		public Object          read( JComponent   comp               ){ return new Boolean( ((JCheckBox)comp).isSelected() ); }
+		public Object          read( JComponent   comp               ){ return Boolean.valueOf( ((JCheckBox)comp).isSelected() ); }
 		public Object     writeImpl( JComponent   comp, Object value ){
 			((JCheckBox)comp).setSelected( ((Boolean)value).booleanValue() );
 			return value;

@@ -32,6 +32,8 @@ abstract public class NodeIcon implements Icon, PreferenceListener
 	private boolean isSelected = false;
 	/** Is the icon observed or not.*/
 	private boolean isObserved = false;
+	/** Is the icon intervened or not. */
+	private boolean isIntervened = false; 
 	protected boolean myFlagHidden = false;
 
 	/** Size of the icon .*/
@@ -44,9 +46,11 @@ abstract public class NodeIcon implements Icon, PreferenceListener
 	//other options
 	protected Color borderColor;
 	protected Color borderColorObserved;
+	protected Color borderColorIntervened; 
 	protected Color backgroundColor;
 	protected BasicStroke borderStroke;
 	protected BasicStroke observedBorderStroke;
+	protected BasicStroke intervenedBorderStroke; 
 	protected BasicStroke selectedBorderStroke;
 
 	protected DisplayableFiniteVariable myDVar = null;
@@ -107,7 +111,11 @@ abstract public class NodeIcon implements Icon, PreferenceListener
 			myStrokeWidth = (int)( selectedBorderStroke.getLineWidth() );
 			recalculateEffective();
 		}
-		else setObserved( isObserved );
+		else 
+		{
+			setObserved( isObserved );
+			setIntervened( isIntervened );
+		}
 	}
 
 	public boolean isObserved()
@@ -126,6 +134,26 @@ abstract public class NodeIcon implements Icon, PreferenceListener
 			else newStroke = borderStroke;
 
 			myStrokeWidth = (int)( newStroke.getLineWidth() );
+			recalculateEffective();
+		}
+	}
+
+	public boolean isIntervened()
+	{
+		return isIntervened; 
+	}
+
+	public void setIntervened( boolean intervened )
+	{
+		isIntervened = intervened; 
+
+		if ( !isSelected() )
+		{
+			BasicStroke newStroke; 
+			if( isIntervened ) newStroke = intervenedBorderStroke;
+			else newStroke = borderStroke;
+			
+			myStrokeWidth = (int)( newStroke.getLineWidth() ); 
 			recalculateEffective();
 		}
 	}
@@ -229,6 +257,12 @@ abstract public class NodeIcon implements Icon, PreferenceListener
 		setObserved( isObserved );
 	}
 
+	public void changeIntervenedBorderStroke( BasicStroke st )
+	{
+		intervenedBorderStroke = st; 
+		setIntervened( isIntervened );
+	}
+
 	public void changeSelectedBorderStroke( BasicStroke st )
 	{
 		selectedBorderStroke = st;
@@ -257,7 +291,16 @@ abstract public class NodeIcon implements Icon, PreferenceListener
 		if( BUNDLE_OF_PREFERENCES != null ) return BUNDLE_OF_PREFERENCES.validate( prefs );
 
 		String   key  = STR_KEY_PREFERENCE_BUNDLE;
-		String[] keys = new String[] { SamiamPreferences.nodeBorderClr, SamiamPreferences.nodeBorderClrObserved, SamiamPreferences.nodeBkgndClr, SamiamPreferences.nodeNormalStroke, SamiamPreferences.nodeObservedStroke, SamiamPreferences.nodeWideStroke };
+		String[] keys = new String[] { 
+			SamiamPreferences.nodeBorderClr, 
+			SamiamPreferences.nodeBorderClrObserved, 
+			SamiamPreferences.nodeBorderClrIntervened,
+			SamiamPreferences.nodeBkgndClr, 
+			SamiamPreferences.nodeNormalStroke, 
+			SamiamPreferences.nodeObservedStroke, 
+			SamiamPreferences.nodeIntervenedStroke,
+			SamiamPreferences.nodeWideStroke 
+		};
 
 		BUNDLE_OF_PREFERENCES = new TargetedBundle( key, keys, prefs ){
 			public void begin( Object me, boolean force ){
@@ -272,16 +315,22 @@ abstract public class NodeIcon implements Icon, PreferenceListener
 					case 1:
 						nodeicon.borderColorObserved = (Color) value;
 						break;
-					case 2:
-						nodeicon.changeBackgroundColor( (Color) value );
+					case 2: 
+						nodeicon.borderColorIntervened = (Color) value;
 						break;
 					case 3:
-						nodeicon.changeBorderStroke( new BasicStroke( ((Number)value).floatValue() ) );
+						nodeicon.changeBackgroundColor( (Color) value );
 						break;
 					case 4:
-						nodeicon.changeObservedBorderStroke( new BasicStroke( ((Number)value).floatValue() ) );
+						nodeicon.changeBorderStroke( new BasicStroke( ((Number)value).floatValue() ) );
 						break;
 					case 5:
+						nodeicon.changeObservedBorderStroke( new BasicStroke( ((Number)value).floatValue() ) );
+						break;
+					case 6:
+						nodeicon.changeIntervenedBorderStroke( new BasicStroke( ((Number)value).floatValue() ) );
+						break;
+					case 7: 
 						nodeicon.changeSelectedBorderStroke( new BasicStroke( ((Number)value).floatValue() ) );
 						break;
 					default:

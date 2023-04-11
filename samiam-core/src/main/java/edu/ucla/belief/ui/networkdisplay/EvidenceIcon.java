@@ -28,13 +28,14 @@ public class EvidenceIcon implements Icon, PreferenceListener
 	                      myActualSize   = new Dimension();
 	/** Determines whether the evidence was set manually or automatically.*/
 	private   boolean     myFlagObserved = false,
+						  myFlagIntervened = false,
 	                      myFlagWarn     = false;
 	/** Certainty of the evidence.*/
 	private   double[]    values         = new double[]{ 0.0 };
 	/** Direction to draw (vert vs hor) */
 	private   int         direction      = HORIZONTAL,
 	                      cardinality    = 1;
-	private   Color[]     manualColors, myWarnColors, autoColors;
+	private   Color[]     manualColors, intervenedColors, myWarnColors, autoColors;
 
 	/** @since 20030307 */
 	public void recalculateActual( CoordinateTransformer xformer )
@@ -49,21 +50,24 @@ public class EvidenceIcon implements Icon, PreferenceListener
 		if( ! flag ){ myActualSize.setSize( myVirtualSize ); }
 	}
 
-	protected EvidenceIcon( Dimension sz, Color man, Color auto )
+	protected EvidenceIcon( Dimension sz, Color man, Color intervene, Color auto )
 	{
-		this( sz.width, sz.height, man, auto);
+		this( sz.width, sz.height, man, intervene, auto);
 	}
 
-	protected EvidenceIcon( int w, int h, Color man, Color auto )
+	protected EvidenceIcon( int w, int h, Color man, Color intervene, Color auto )
 	{
 		changeVirtualSize( w, h );
 		manualColors = new Color[]{ man  };
+		intervenedColors = new Color[]{ intervene }; 
 		autoColors   = new Color[]{ auto };
 	}
 
 	public EvidenceIcon( SamiamPreferences monitorPrefs )
 	{
-		this( 5, 5, Color.red, Color.blue );
+		// TODO: maybe change to black? 
+		// emilydebug
+		this( 5, 5, Color.red, Color.blue, Color.blue );
 
 		EvidenceIcon.validatePreferenceBundle( monitorPrefs );
 		setPreferences();
@@ -88,7 +92,6 @@ public class EvidenceIcon implements Icon, PreferenceListener
 	public EvidenceIcon setValues( double[] vals, int card ){
 		cardinality = card;
 		if( (values == null) || (values.length < cardinality) ){ values = new double[ cardinality ]; }
-
 		double v;
 		for( int i=0; i<cardinality; i++ ){
 			v = vals[i];
@@ -100,16 +103,28 @@ public class EvidenceIcon implements Icon, PreferenceListener
 	}
 
 	/** Used to set manual vs automatic evidence selection.*/
-	public void setManuallySetEvid( boolean in)
+	public void setManuallySetObserve( boolean in )
 	{
 		setWarn( false );
 		myFlagObserved = in;
+	}
+
+	public void setManuallySetIntervene( boolean in )
+	{
+		setWarn( false );
+		myFlagIntervened = in;
 	}
 
 	/** @since 20030710 */
 	public boolean isObserved()
 	{
 		return myFlagObserved;
+	}
+
+	/** @since 20230406 */
+	public boolean isIntervened()
+	{
+		return myFlagIntervened;
 	}
 
 	/** @since 20030710 */
@@ -145,6 +160,10 @@ public class EvidenceIcon implements Icon, PreferenceListener
 		else if( myFlagObserved ){
 			card        = 1;
 			colors      = manualColors;
+		}
+		else if( myFlagIntervened ){
+			card 		= 1;
+			colors 		= intervenedColors;
 		}
 
 		double displayVal;
@@ -184,6 +203,13 @@ public class EvidenceIcon implements Icon, PreferenceListener
 	{
 		if(   manualColors == null ){ manualColors = new Color[]{ clr }; }
 		else{ manualColors[0] = clr; }
+	}
+
+	/** Allow options to change */
+	public void changeIntervenedColor( Color clr )
+	{
+		if(   intervenedColors == null ){ intervenedColors = new Color[]{ clr }; }
+		else{ intervenedColors[0] = clr; }
 	}
 
 	/** Allow options to change.*/
@@ -252,7 +278,14 @@ public class EvidenceIcon implements Icon, PreferenceListener
 		if( BUNDLE_OF_PREFERENCES != null ) return BUNDLE_OF_PREFERENCES.validate( prefs );
 
 		String   key  = STR_KEY_PREFERENCE_BUNDLE;
-		String[] keys = new String[] { SamiamPreferences.evidDlgRectSize, SamiamPreferences.evidDlgManualClr, SamiamPreferences.evidDlgWarnClr, SamiamPreferences.evidDlgAutoClr, SamiamPreferences.evidDlgAutoClr2 };
+		String[] keys = new String[] { 
+			SamiamPreferences.evidDlgRectSize, 
+			SamiamPreferences.evidDlgManualClr, 
+			SamiamPreferences.evidDlgIntervenedClr,
+			SamiamPreferences.evidDlgWarnClr, 
+			SamiamPreferences.evidDlgAutoClr, 
+			SamiamPreferences.evidDlgAutoClr2 
+		};
 
 		BUNDLE_OF_PREFERENCES = new TargetedBundle( key, keys, prefs ){
 			public void begin( Object me, boolean force ){
@@ -269,12 +302,15 @@ public class EvidenceIcon implements Icon, PreferenceListener
 						evidenceicon.changeManualColor( (Color) value );
 						break;
 					case 2:
-						evidenceicon.myWarnColors = new Color[]{ (Color) value };
+						evidenceicon.changeIntervenedColor( (Color) value ); 
 						break;
 					case 3:
-						evidenceicon.changeAutoColor( 0, (Color) value );
+						evidenceicon.myWarnColors = new Color[]{ (Color) value };
 						break;
 					case 4:
+						evidenceicon.changeAutoColor( 0, (Color) value );
+						break;
+					case 5:
 						evidenceicon.changeAutoColor( 1, (Color) value );
 						break;
 					default:

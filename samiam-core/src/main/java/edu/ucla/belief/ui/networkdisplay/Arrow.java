@@ -5,6 +5,8 @@ import edu.ucla.belief.ui.preference.*;
 import edu.ucla.util.HiddenProperty;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
+
 import edu.ucla.belief.*;
 
 /** This class will store and draw a directed arrow from start to end. */
@@ -13,6 +15,7 @@ public class Arrow implements CoordinateVirtual, PreferenceListener
 	protected Point                   startLoc = new Point(), endLoc = new Point();
 	private   double                  theta;
 	private   boolean                 myFlagVisible = true, myFlagRecoverable = false, myFlagDrawPolygon = true;
+	private   boolean				  isFaded = false; // If arrow is an incoming arrow into an intervened variable, the arrow is faded. 
 	protected Dimension               myVirtualSize, myActualSize = new Dimension();
 	protected CoordinateTransformer   myCoordinateTransformer;
 	private   Polygon                 myPolygon = new Polygon( new int[3], new int[3], 3 );
@@ -27,6 +30,12 @@ public class Arrow implements CoordinateVirtual, PreferenceListener
 	/** @since 20080221 */
 	public Arrow setRecoverable( boolean flag ){
 		myFlagRecoverable = flag;
+		return this;
+	}
+
+	/** @since 20230410 */
+	public Arrow setIntervened( boolean isIntervened ){
+		isFaded = isIntervened;
 		return this;
 	}
 
@@ -337,6 +346,10 @@ public class Arrow implements CoordinateVirtual, PreferenceListener
 
 		Stroke oldStroke = g2.getStroke();
 		g2.setStroke( myFlagRecoverable ? STROKE_RECOVERABLE : myEdgeStroke );
+		if (isFaded){
+			GradientPaint gp = new GradientPaint(startLoc.x, startLoc.y, Color.white, endLoc.x, endLoc.y, Color.black);
+			g2.setPaint(gp);
+		}
 		g2.drawLine( startLoc.x, startLoc.y, endLoc.x, endLoc.y );
 		g2.setStroke( oldStroke );
 	}

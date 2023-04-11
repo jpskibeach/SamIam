@@ -880,9 +880,9 @@ public class Pedigree
 				//now eliminate all families with final children (eliminate parents if they don't have ancestors)
 				for(Iterator itr1 = famWithFinalChildren.iterator(); itr1.hasNext();) {
 					NuclearFamily nf1 = (NuclearFamily)itr1.next();
-					for(int i=0; i<nf1.child.length; i++) here.add(new Integer(nf1.child[i].personID));
-					if(nf1.father.fatherID==0 && nf1.father.motherID==0) here.add(new Integer(nf1.father.personID));
-					if(nf1.mother.fatherID==0 && nf1.mother.motherID==0) here.add(new Integer(nf1.mother.personID));
+					for(int i=0; i<nf1.child.length; i++) here.add(Integer.valueOf(nf1.child[i].personID));
+					if(nf1.father.fatherID==0 && nf1.father.motherID==0) here.add(Integer.valueOf(nf1.father.personID));
+					if(nf1.mother.fatherID==0 && nf1.mother.motherID==0) here.add(Integer.valueOf(nf1.mother.personID));
 					notDone.remove(nf1);
 				}
 
@@ -917,7 +917,7 @@ public class Pedigree
 				per = id.substring(0, under);
 				loc = id.substring(under+1);
 
-				Integer perInt = new Integer(per);
+				Integer perInt = Integer.valueOf(per);
 
 				for(int i=0; i<peopleHere.size(); i++) {
 					if(((Set)peopleHere.get(i)).contains(perInt)) {
@@ -1740,7 +1740,7 @@ public class Pedigree
 												for(int i=0; i<mgPhaseRemoval.size(); i++) {
 													stateParser.parse(mgPhaseRemoval.instance(i));
 													if(stateParser.indx1==stateParser.indx2) {
-														homozygousStatesInFounder.add(new Integer(i));
+														homozygousStatesInFounder.add(Integer.valueOf(i));
 													}
 												}
 
@@ -1762,7 +1762,7 @@ public class Pedigree
 
 												for(TableIndex.Iterator itrT = ind.iterator(); itrT.hasNext();) {
 													int ci = itrT.next();
-													Integer parVal = new Integer(itrT.current()[parIndx]);
+													Integer parVal = Integer.valueOf(itrT.current()[parIndx]);
 
 													//Force selector into state 0
 													if(homozygousStatesInFounder.contains(parVal)) {
@@ -2093,7 +2093,7 @@ public class Pedigree
 			}
 
 			{ //Setup Possible Phase Removal
-				Integer perIDint = new Integer(per.personID);
+				Integer perIDint = Integer.valueOf(per.personID);
 				Collection possiblePlaces = (Collection)peopleNeedingPhaseRemoval_MG.get(perIDint);
 				if(possiblePlaces==null) {
 					possiblePlaces = new ArrayList();

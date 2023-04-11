@@ -165,7 +165,7 @@ public class CachingScheme{
 
 
     private void updateCallsForSubtree(Map calls, Pair t){
-	calls.put(t,new Double(computeLocalCalls(calls,t)));
+	calls.put(t,Double.valueOf(computeLocalCalls(calls,t)));
 	Integer[] children=dg.children(t);
 	for(int i=0;i<children.length;i++){
 	    updateCallsForSubtree(calls,new Pair(children[i].intValue(),t.s1));
@@ -181,7 +181,7 @@ public class CachingScheme{
 	    return ((Double)obj).doubleValue();
 	}
 	double c=computeLocalCalls(calls,t);
-	calls.put(t,new Double(c));
+	calls.put(t,Double.valueOf(c));
 	return c;
     }
 
@@ -216,7 +216,7 @@ public class CachingScheme{
 	    return ((Double)obj).doubleValue();
 	}
 	double c=computeLocalCPC(cpc,node);
-	cpc.put(node,new Double(c));
+	cpc.put(node,Double.valueOf(c));
 	return c;
     }
 
@@ -290,7 +290,7 @@ public class CachingScheme{
 	    return ((Double)result).doubleValue();
 	}
 	double score=computeLocalScore(cpc,calls,node);
-	scores.put(node,new Double(score));
+	scores.put(node,Double.valueOf(score));
 	return score;
     }
 

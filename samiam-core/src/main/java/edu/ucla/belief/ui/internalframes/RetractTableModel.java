@@ -54,7 +54,7 @@ public class RetractTableModel extends DefaultTableModel
 		Object[][] rowData = new Object[1][evidenceVars.length + 1];
 		rowData[0][0] = "Pr(X = x | e - x)";
 		for (int i = 0; i < evidenceVars.length; i++)
-		rowData[0][i + 1] = new Double(values[i]);
+		rowData[0][i + 1] = Double.valueOf(values[i]);
 
 		Object[] columnNames = new Object[evidenceVars.length + 1];
 		columnNames[0] = "Retract evidence X = x";
@@ -98,14 +98,13 @@ public class RetractTableModel extends DefaultTableModel
 
 		rowData[0][0] = "No retraction";
 		for (int i = 0; i < varInstances.length; i++)
-		rowData[0][i + 1] = new Double(conditionals[i]);
+		rowData[0][i + 1] = Double.valueOf(conditionals[i]);
 
 		for (int i = 0; i < evidenceVars.length; i++)
 		{
 			rowData[i + 1][0] = evidenceInstances[i];
 			for (int j = 0; j < varInstances.length; j++)
-			rowData[i + 1][j + 1] = new
-			Double(values[i][j]);
+			rowData[i + 1][j + 1] = Double.valueOf(values[i][j]);
 		}
 
 		Object[] columnNames = new Object[varInstances.length +
@@ -126,7 +125,7 @@ public class RetractTableModel extends DefaultTableModel
 	{
 		if (columnIndex == 0)
 		return new Object().getClass();
-		return new Double(0).getClass();
+		return Double.valueOf(0).getClass();
 	}
 
 	public double retract( VariableInstance varInstance, FiniteVariable evidenceVar )

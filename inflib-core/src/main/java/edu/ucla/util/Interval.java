@@ -79,7 +79,7 @@ public class Interval {
 
 	public String toString() {
 		if (isPoint())
-			return new Double(lowerBound).toString();
+			return Double.valueOf(lowerBound).toString();
 		else if (isEmpty())
 			return "";
 		else if (lowerBound == getAbsoluteLowerBound())

@@ -80,7 +80,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 			controller.resetEvidence();
 		}catch( Exception exception ){
 			if( Util.DEBUG_VERBOSE ) edu.ucla.belief.ui.util.Util.STREAM_VERBOSE.println( "InstantiationClipBoardImpl.cut() caught " + exception );
-			NetworkInternalFrame.showEvidenceWarning( exception, /*flagUnobserve*/ true, (FiniteVariable)null, null, (Component)myUI );
+			NetworkInternalFrame.showEvidenceWarning( exception, true, true, (FiniteVariable)null, null, (Component)myUI );
 			return;
 		}
 	}
@@ -101,7 +101,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 					return;
 				}catch( Exception exception ){//StateNotFoundException snfe ){
 					if( Util.DEBUG_VERBOSE ) edu.ucla.belief.ui.util.Util.STREAM_VERBOSE.println( "InstantiationClipBoardImpl.paste() caught " + exception );
-					NetworkInternalFrame.showEvidenceWarning( exception, /*flagUnobserve*/ false, (FiniteVariable)null, null, (Component)myUI );
+					NetworkInternalFrame.showEvidenceWarning( exception, true, true, (FiniteVariable)null, null, (Component)myUI );
 					return;
 				}
 			}
@@ -160,7 +160,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 				//return;
 			}catch( Exception exception ){//StateNotFoundException snfe ){
 				if( Util.DEBUG_VERBOSE ) edu.ucla.belief.ui.util.Util.STREAM_VERBOSE.println( "InstantiationClipBoardImpl.paste() caught " + exception );
-				NetworkInternalFrame.showEvidenceWarning( exception, /*flagUnobserve*/ false, (FiniteVariable)null, null, (Component)myUI );
+				NetworkInternalFrame.showEvidenceWarning( exception, true, true, (FiniteVariable)null, null, (Component)myUI );
 			}
 
 			if( (!missingVariables.isEmpty()) || (!missingStates.isEmpty()) )

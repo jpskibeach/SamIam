@@ -82,11 +82,11 @@ public class EvidenceDialog extends JInternalFrame implements Monitor//, Compone
 			JScrollPane sp = new JScrollPane( pn);
 			setContentPane( sp);
 
-			EvidenceLabel el = new EvidenceLabel( monitorPrefs, dspVar, 0, null, -1 );
+			EvidenceLabel el = new EvidenceLabel( monitorPrefs, dspVar, 0, null, -1, -1 );
 			evidLabels.add( el);
 			pn.add( el.asComponent() );
 
-			el = new EvidenceLabel( monitorPrefs, dspVar, 1, null, -1 );
+			el = new EvidenceLabel( monitorPrefs, dspVar, 1, null, -1, -1 );
 			evidLabels.add( el);
 			pn.add( el.asComponent() );
 		}
@@ -95,6 +95,7 @@ public class EvidenceDialog extends JInternalFrame implements Monitor//, Compone
 			Table conditional = null;
 			if( ie != null ) conditional = ie.conditional( dspVar );
 			int observedIndex = dspVar.getObservedIndex();
+			int intervenedIndex = dspVar.getIntervenedIndex();
 
 			evidLabels = new ArrayList( dspVar.size() );
 
@@ -104,7 +105,7 @@ public class EvidenceDialog extends JInternalFrame implements Monitor//, Compone
 			setContentPane( sp);
 
 			for( int i = 0; i < dspVar.size(); i++) {
-				EvidenceLabel el = new EvidenceLabel( monitorPrefs, dspVar, i, conditional, observedIndex );
+				EvidenceLabel el = new EvidenceLabel( monitorPrefs, dspVar, i, conditional, observedIndex, intervenedIndex );
 				evidLabels.add( el );
 				pn.add( el.asComponent() );
 			}
@@ -390,6 +391,7 @@ public class EvidenceDialog extends JInternalFrame implements Monitor//, Compone
 	/**
 		@deprecated
 	*/
+	@Deprecated
 	public void		setActualScale( double factor )
 	{
 		//theUtilDimension.setSize( myVirtualSize );

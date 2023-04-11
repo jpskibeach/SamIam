@@ -313,7 +313,7 @@ public class RC2Utils {
 		double ret = 0;
 
 		if(nd.isRoot()) { //one call from caller
-			callsToNode.put(nd, new Double(1));
+			callsToNode.put(nd, Double.valueOf(1));
 		}
 		if(!nd.isLeaf()) { //internal node (ancestors already done)
 			RC2NodeInternal ndi = (RC2NodeInternal)nd;
@@ -332,10 +332,10 @@ public class RC2Utils {
 				}
 
 				if(isCached) { //cached here
-					callsToChild = new Double(ndi.context().totalStateSpace.doubleValue() * ndi.numCutsetInstantiations());
+					callsToChild = Double.valueOf(ndi.context().totalStateSpace.doubleValue() * ndi.numCutsetInstantiations());
 				}
 				else {
-					callsToChild = new Double(callsHere * ndi.numCutsetInstantiations());
+					callsToChild = Double.valueOf(callsHere * ndi.numCutsetInstantiations());
 				}
 
 				//update callsToNode for children
@@ -343,10 +343,10 @@ public class RC2Utils {
 				Double r = (Double)callsToNode.get(ndi.right);
 
 				if(l==null) { callsToNode.put(ndi.left, callsToChild);}
-				else { callsToNode.put(ndi.left, new Double(callsToChild.doubleValue() + l.doubleValue()));}
+				else { callsToNode.put(ndi.left, Double.valueOf(callsToChild.doubleValue() + l.doubleValue()));}
 
 				if(r==null) { callsToNode.put(ndi.right, callsToChild);}
-				else { callsToNode.put(ndi.right, new Double(callsToChild.doubleValue() + r.doubleValue()));}
+				else { callsToNode.put(ndi.right, Double.valueOf(callsToChild.doubleValue() + r.doubleValue()));}
 			}
 		}
 		else {
@@ -611,7 +611,7 @@ public class RC2Utils {
 		double ret = 0;
 
 		if(nd.isRoot()) { //one call from caller
-			callsToNode.put(nd, new Double(1));
+			callsToNode.put(nd, Double.valueOf(1));
 		}
 		if(!nd.isLeaf()) { //internal node (ancestors already done)
 			RC2NodeInternal ndi = (RC2NodeInternal)nd;
@@ -642,10 +642,10 @@ public class RC2Utils {
 				}
 
 				if(isCached) { //cached here
-					callsToChild = new Double(cntxRed * cutRed);
+					callsToChild = Double.valueOf(cntxRed * cutRed);
 				}
 				else {
-					callsToChild = new Double(callsHere * cutRed);
+					callsToChild = Double.valueOf(callsHere * cutRed);
 				}
 
 				//update callsToNode for children
@@ -653,10 +653,10 @@ public class RC2Utils {
 				Double r = (Double)callsToNode.get(ndi.right);
 
 				if(l==null) { callsToNode.put(ndi.left, callsToChild);}
-				else { callsToNode.put(ndi.left, new Double(callsToChild.doubleValue() + l.doubleValue()));}
+				else { callsToNode.put(ndi.left, Double.valueOf(callsToChild.doubleValue() + l.doubleValue()));}
 
 				if(r==null) { callsToNode.put(ndi.right, callsToChild);}
-				else { callsToNode.put(ndi.right, new Double(callsToChild.doubleValue() + r.doubleValue()));}
+				else { callsToNode.put(ndi.right, Double.valueOf(callsToChild.doubleValue() + r.doubleValue()));}
 			}
 		}
 		else {

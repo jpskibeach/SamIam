@@ -91,12 +91,12 @@ public class MethodHmetis extends CreationMethod
 
 	public static final int[] ARRAY_BALANCE_FACTORS = { 1,10,20,30,40 };
 	public static final String STR_BALANCE_FACTOR_ALL = "All";
-	public static Object[] ARRAY_BALANCE_FACTOR_ITEMS = null;//{ STR_BALANCE_FACTOR_ALL,new Integer( 1 ),new Integer( 10 ),new Integer( 20 ),new Integer( 30 ),new Integer( 40 ) };
+	public static Object[] ARRAY_BALANCE_FACTOR_ITEMS = null;//{ STR_BALANCE_FACTOR_ALL, Integer.valueOf( 1 ), Integer.valueOf( 10 ), Integer.valueOf( 20 ), Integer.valueOf( 30 ), Integer.valueOf( 40 ) };
 
 	static
 	{
 		ARRAY_BALANCE_FACTOR_ITEMS = new Object[ ARRAY_BALANCE_FACTORS.length + 1 ];
 		ARRAY_BALANCE_FACTOR_ITEMS[0] = STR_BALANCE_FACTOR_ALL;
-		for( int i=0; i<ARRAY_BALANCE_FACTORS.length; i++ ) ARRAY_BALANCE_FACTOR_ITEMS[i+1] = new Integer( ARRAY_BALANCE_FACTORS[i] );
+		for( int i=0; i<ARRAY_BALANCE_FACTORS.length; i++ ) ARRAY_BALANCE_FACTOR_ITEMS[i+1] = Integer.valueOf( ARRAY_BALANCE_FACTORS[i] );
 	}
 }

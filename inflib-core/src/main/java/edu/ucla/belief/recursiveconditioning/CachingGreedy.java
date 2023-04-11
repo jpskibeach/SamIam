@@ -145,7 +145,7 @@ public class CachingGreedy extends CachingScheme {
 		}
 		else {
 			double score = computeLocalScore( cpc, calls, node);
-			scores.put( node, new Double( score));
+			scores.put( node, Double.valueOf( score));
 			return score;
 		}
 	}
@@ -225,7 +225,7 @@ public class CachingGreedy extends CachingScheme {
 		}
 		else {
 			double c = computeLocalCalls( calls, t);
-			calls.put( t, new Double(c));
+			calls.put( t, Double.valueOf(c));
 			return c;
 		}
 	}
@@ -260,7 +260,7 @@ public class CachingGreedy extends CachingScheme {
 		}
 		else {
 			double c = computeLocalCPC( cpc, node);
-			cpc.put( node, new Double(c));
+			cpc.put( node, Double.valueOf(c));
 			return c;
 		}
 	}

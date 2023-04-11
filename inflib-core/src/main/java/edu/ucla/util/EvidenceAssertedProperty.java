@@ -34,7 +34,7 @@ public class EvidenceAssertedProperty extends FlagProperty
 
 	public static FlagValue valueFor( Variable var, EvidenceController controller )
 	{
-		return ( controller.getValue(var) == null ) ? PROPERTY.FALSE : PROPERTY.TRUE;
+		return ( controller.getObservedValue(var) == null ) ? PROPERTY.FALSE : PROPERTY.TRUE;
 	}
 
 	public static void setValue( Variable var, EvidenceController controller )
@@ -42,9 +42,9 @@ public class EvidenceAssertedProperty extends FlagProperty
 		var.setProperty( PROPERTY, valueFor( var, controller ) );
 	}
 
-	public static void setAllValues( Collection vars, EvidenceController controller )
+	public static void setAllValues( Collection<Object> vars, EvidenceController controller )
 	{
-		for( Iterator it = vars.iterator(); it.hasNext(); )
+		for( Iterator<Object> it = vars.iterator(); it.hasNext(); )
 			setValue( (Variable)it.next(), controller );
 	}
 }

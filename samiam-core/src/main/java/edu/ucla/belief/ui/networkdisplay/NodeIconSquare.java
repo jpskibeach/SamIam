@@ -29,14 +29,25 @@ public class NodeIconSquare extends NodeIcon
 		g.fillRect( newx, newy, mySizeEffective.width, mySizeEffective.height );
 
 		Color effectiveBorderColor;
-		if( isObserved() ) effectiveBorderColor = borderColorObserved;
-		else effectiveBorderColor = borderColor;
+		if( isObserved() ) {
+			effectiveBorderColor = borderColorObserved; 
+		} else if( isIntervened() ) {
+			effectiveBorderColor = borderColorIntervened; 
+		} else {
+			effectiveBorderColor = borderColor;
+		}
 		g.setColor( effectiveBorderColor );
 
 		Graphics2D g2 = (Graphics2D)g;
-		if( isSelected() ) g2.setStroke( selectedBorderStroke );
-		else if( isObserved() ) g2.setStroke( observedBorderStroke );
-		else g2.setStroke( borderStroke );
+		if( isSelected() ) {
+			g2.setStroke( selectedBorderStroke );
+		} else if( isObserved() ) {
+			g2.setStroke( observedBorderStroke );
+		} else if( isIntervened() ) {
+			g2.setStroke( intervenedBorderStroke ); 
+		} else {
+			g2.setStroke( borderStroke );
+		}
 
 		g2.drawRect( newx, newy, mySizeEffective.width, mySizeEffective.height );
 	}

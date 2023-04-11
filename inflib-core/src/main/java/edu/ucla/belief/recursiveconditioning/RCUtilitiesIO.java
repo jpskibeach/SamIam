@@ -111,7 +111,7 @@ final public class RCUtilitiesIO {
         Assert.notNull( next, "RCNode: next cannot be null");
         Assert.condition( next.length==1, "RCNode: next.length must be 1");
 
-        Integer i = new Integer( next[0]);
+        Integer i = Integer.valueOf( next[0]);
         nodeToInt.put( nd, i);
         next[0] = next[0] + 1;
 
@@ -153,7 +153,7 @@ final public class RCUtilitiesIO {
         Assert.notNull( next, "RCNode: next cannot be null");
         Assert.condition( next.length==1, "RCNode: next.length must be 1");
 
-        Integer i = new Integer( next[0]);
+        Integer i = Integer.valueOf( next[0]);
         nodeToInt.put( nd, i);
         next[0] = next[0] + 1;
 
@@ -328,15 +328,15 @@ final public class RCUtilitiesIO {
 
 			//create node
 			if(numTokens == 4) { //leaf node
-				Integer num = new Integer(token[1]);
+				Integer num = Integer.valueOf(token[1]);
 				RCNodeLeaf nd = new RCNodeLeaf(rc, (FiniteVariable)bn.forID(token[2]));
 				intToNode.put(num,nd);
 				if(token[0].equalsIgnoreCase("ROOT")) {roots.add(nd);}
 			}
 			else if(numTokens == 5) { //internal node
-				Integer num = new Integer(token[1]);
-				Integer lf = new Integer(token[3]);
-				Integer rt = new Integer(token[4]);
+				Integer num = Integer.valueOf(token[1]);
+				Integer lf = Integer.valueOf(token[3]);
+				Integer rt = Integer.valueOf(token[4]);
 				RCNodeInternalBinaryCache nd = new RCNodeInternalBinaryCache(rc, (RCNode)intToNode.get(lf), (RCNode)intToNode.get(rt));
 				intToNode.put(num,nd);
 				if(token[0].equalsIgnoreCase("ROOT")) {roots.add(nd);}

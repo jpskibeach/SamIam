@@ -174,11 +174,11 @@ public class NeticaReader implements NeticaReaderConstants {
       case NUM:
         tok = jj_consume_token(NUM);
                 if(tok.image.equals("-INFINITY")){
-                        {if (true) return new Double(Double.NEGATIVE_INFINITY);}
+                        {if (true) return Double.valueOf(Double.NEGATIVE_INFINITY);}
                 }else if(tok.image.equals("INFINITY")){
-                        {if (true) return new Double(Double.POSITIVE_INFINITY);}
+                        {if (true) return Double.valueOf(Double.POSITIVE_INFINITY);}
                 }
-                {if (true) return new Double(tok.image);}
+                {if (true) return Double.valueOf(tok.image);}
         break;
       case 15:
         obj = list();

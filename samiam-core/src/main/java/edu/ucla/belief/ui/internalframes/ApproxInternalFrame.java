@@ -422,7 +422,7 @@ public class ApproxInternalFrame extends JInternalFrame implements
 		parentList.add(source);
 		childList.add(sink);
 		mySetRemovedEdges.add( new DirectedEdge( source, sink ) );
-		startList.add( new Double( startValue ) );
+		startList.add( Double.valueOf( startValue ) );
 
 		displayRemovedEdges();
 		nif.getNetworkDisplay().refresh();

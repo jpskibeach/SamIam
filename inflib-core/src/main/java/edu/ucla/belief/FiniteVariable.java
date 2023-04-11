@@ -72,6 +72,7 @@ public interface FiniteVariable extends Variable
 
 	public CPTShell getCPTShell();
 	/** @deprecated */
+	@Deprecated
 	public void setCPTShell( CPTShell shell );
 	//public DecisionShell getDecisionShell();
 	//public void setDecisionShell( DecisionShell shell );

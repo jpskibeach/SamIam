@@ -232,7 +232,7 @@ public abstract class ExcludePolicy implements EnumValue
 
 	/* @since 20060411 */
 	private static boolean[] getCachedUniformExcludeArray( int size, boolean value, Map/*<Integer,boolean[]>*/ map ){
-		Integer key = new Integer( size );
+		Integer key = Integer.valueOf( size );
 		boolean[] ret = null;
 
 		if( map.containsKey( key ) ) ret = (boolean[]) map.get( key );

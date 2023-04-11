@@ -540,7 +540,6 @@ public class SamiamPreferences
 	private boolean readOptionsFromFileSAX( File fileInput )
 	{
 		if( FLAG_DEBUG_PREFERENCES ) Util.STREAM_VERBOSE.println( "SamiamPreferences.readOptionsFromFileSAX()" );
-
 		PreferencesHandler ph = new PreferencesHandler();
 		ph.setSamiamPreferences( this );
 
@@ -797,14 +796,14 @@ public class SamiamPreferences
 
 		PreferenceGroup ret = new PreferenceGroup( AnimationDspNme );
 
-		this.addMappedPreference( ret.add( new IntegerPreference( animationSlowdownMilliseconds, "Slowdown (milliseconds)", new Integer( (int)AnimationPreferenceHandler.LONG_DELAY_MS_DEFAULT ), (int)AnimationPreferenceHandler.LONG_DELAY_MS_FLOOR, (int)AnimationPreferenceHandler.LONG_DELAY_MS_CEILING ) ) );
-		this.addMappedPreference( ret.add( new IntegerPreference( animationSteps, "Steps per animation", new Integer( AnimationPreferenceHandler.INT_STEPS_DEFAULT ), AnimationPreferenceHandler.INT_STEPS_FLOOR, AnimationPreferenceHandler.INT_STEPS_CEILING ) ) );
+		this.addMappedPreference( ret.add( new IntegerPreference( animationSlowdownMilliseconds, "Slowdown (milliseconds)", Integer.valueOf( (int)AnimationPreferenceHandler.LONG_DELAY_MS_DEFAULT ), (int)AnimationPreferenceHandler.LONG_DELAY_MS_FLOOR, (int)AnimationPreferenceHandler.LONG_DELAY_MS_CEILING ) ) );
+		this.addMappedPreference( ret.add( new IntegerPreference( animationSteps, "Steps per animation", Integer.valueOf( AnimationPreferenceHandler.INT_STEPS_DEFAULT ), AnimationPreferenceHandler.INT_STEPS_FLOOR, AnimationPreferenceHandler.INT_STEPS_CEILING ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( animationResetFirst, "Reset first*", AnimationPreferenceHandler.FLAG_RESET_FIRST_DEFAULT ? Boolean.TRUE : Boolean.FALSE ) ) );
-		this.addMappedPreference( ret.add( new IntegerPreference( animationInterveningPauseMillis, "Intervening pause (milliseconds) (* checked)", new Integer( (int)AnimationPreferenceHandler.LONG_PAUSE_DEFAULT ), (int)AnimationPreferenceHandler.LONG_PAUSE_FLOOR, (int)AnimationPreferenceHandler.LONG_PAUSE_CEILING ) ) );
+		this.addMappedPreference( ret.add( new IntegerPreference( animationInterveningPauseMillis, "Intervening pause (milliseconds) (* checked)", Integer.valueOf( (int)AnimationPreferenceHandler.LONG_PAUSE_DEFAULT ), (int)AnimationPreferenceHandler.LONG_PAUSE_FLOOR, (int)AnimationPreferenceHandler.LONG_PAUSE_CEILING ) ) );
 
 		this.addMappedPreference( ret.add( new BooleanPreference( animationScaleImpact, "Scale node size for evidence impact", AnimationPreferenceHandler.FLAG_SCALE_IMPACT_DEFAULT ? Boolean.TRUE : Boolean.FALSE ) ) );
-		this.addMappedPreference( ret.add( new DoublePreference( animationMinimumScale, "Minimum scale factor", new Double( AnimationPreferenceHandler.DOUBLE_MIN_SCALE_FACTOR_DEFAULT ), AnimationPreferenceHandler.DOUBLE_MIN_SCALE_FACTOR_FLOOR, AnimationPreferenceHandler.DOUBLE_MIN_SCALE_FACTOR_CEILING ) ) );
-		this.addMappedPreference( ret.add( new DoublePreference( animationMaximumScale, "Maximum scale factor", new Double( AnimationPreferenceHandler.DOUBLE_MAX_SCALE_FACTOR_DEFAULT ), AnimationPreferenceHandler.DOUBLE_MAX_SCALE_FACTOR_FLOOR, AnimationPreferenceHandler.DOUBLE_MAX_SCALE_FACTOR_CEILING ) ) );
+		this.addMappedPreference( ret.add( new DoublePreference( animationMinimumScale, "Minimum scale factor", Double.valueOf( AnimationPreferenceHandler.DOUBLE_MIN_SCALE_FACTOR_DEFAULT ), AnimationPreferenceHandler.DOUBLE_MIN_SCALE_FACTOR_FLOOR, AnimationPreferenceHandler.DOUBLE_MIN_SCALE_FACTOR_CEILING ) ) );
+		this.addMappedPreference( ret.add( new DoublePreference( animationMaximumScale, "Maximum scale factor", Double.valueOf( AnimationPreferenceHandler.DOUBLE_MAX_SCALE_FACTOR_DEFAULT ), AnimationPreferenceHandler.DOUBLE_MAX_SCALE_FACTOR_FLOOR, AnimationPreferenceHandler.DOUBLE_MAX_SCALE_FACTOR_CEILING ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( animationLockStep, "Scale at uniform rate", AnimationPreferenceHandler.FLAG_LOCK_STEP_DEFAULT ? Boolean.TRUE : Boolean.FALSE ) ) );
 
 		this.addMappedPreference( ret.add( new BooleanPreference( animationIntensifyEntropy, "Intensify node color for entropy", AnimationPreferenceHandler.FLAG_INTENSIFY_ENTROPY_DEFAULT ? Boolean.TRUE : Boolean.FALSE ) ) );
@@ -856,14 +855,14 @@ public class SamiamPreferences
 
 		this.addMappedPreference( ret.add( new BooleanPreference( displayNodeLabelIfAvail, "Show node labels instead of identifiers (if available)", Boolean.TRUE ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( autoCalculatePrE, "Show Pr(e) in status bar", Boolean.TRUE ) ) );
-		this.addMappedPreference( ret.add( new IntegerPreference( statusBarPointSize, "Status bar point size", new Integer( (int)10 ) ) ) );
+		this.addMappedPreference( ret.add( new IntegerPreference( statusBarPointSize, "Status bar point size", Integer.valueOf( (int)10 ) ) ) );
 
 		UIManager.LookAndFeelInfo[] lookAndFeelInfos = javax.swing.UIManager.getInstalledLookAndFeels();
 		//Object[] suitableForMenu = new Object[ lookAndFeelInfos.length ];
 		//for( int i=0; i<suitableForMenu.length; i++ ) suitableForMenu[i] = lookAndFeelInfos[i].getClassName();
 		this.addMappedPreference( ret.add( new ObjectPreference( STR_LOOKANDFEEL_CLASSNAME, "User interface look and feel", javax.swing.UIManager.getSystemLookAndFeelClassName(), lookAndFeelInfos, new LookAndFeelConverter() ) ) );
 
-		this.addMappedPreference( ret.add( new IntegerPreference( maxRecentDocuments, "Maximum recent documents in File menu", new Integer( INT_DEAFULT_MAX_RECENT_DOCUMENTS ) ) ) );
+		this.addMappedPreference( ret.add( new IntegerPreference( maxRecentDocuments, "Maximum recent documents in File menu", Integer.valueOf( INT_DEAFULT_MAX_RECENT_DOCUMENTS ) ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( autoCPTInvalid, "Automatically invalidate CPTs", Boolean.FALSE ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( nodesDisplayLikeliestValue, "Nodes display likeliest value", Boolean.TRUE ) ) );
 
@@ -911,8 +910,8 @@ public class SamiamPreferences
 	{
 		PreferenceGroup ret = new PreferenceGroup( STR_KEY_GROUP_INFERENCE );
 
-		this.addMappedPreference( ret.add( new IntegerPreference( inferenceMinFillRepetitions, "Min fill, best of N repetitions", new Integer( edu.ucla.belief.EliminationHeuristic.INT_MINFILL_REPS_DEFAULT ), 1, 999999 ) ) );
-		this.addMappedPreference( ret.add( new IntegerPreference( inferenceMinFillSeed, "Min fill, new random seed (not saved)", new Integer( new Random().nextInt( Integer.MAX_VALUE ) ) ) ) );
+		this.addMappedPreference( ret.add( new IntegerPreference( inferenceMinFillRepetitions, "Min fill, best of N repetitions", Integer.valueOf( edu.ucla.belief.EliminationHeuristic.INT_MINFILL_REPS_DEFAULT ), 1, 999999 ) ) );
+		this.addMappedPreference( ret.add( new IntegerPreference( inferenceMinFillSeed, "Min fill, new random seed (not saved)", Integer.valueOf( new Random().nextInt( Integer.MAX_VALUE ) ) ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( inferenceMAPExplorerFullScreenWidth, "MAP Solution Explorer, maximize width", Boolean.TRUE ) ) );
 
 		this.addMappedPreference( ret.add( new BooleanPreference( STR_ASK_BEFORE_CPTCOPY, "Ask before modifying cpt (cpt copy tool)", Boolean.TRUE ) ) );
@@ -939,7 +938,7 @@ public class SamiamPreferences
 	private void addIrregularities(){
 		//PreferenceGroup infGroup = this.getPreferenceGroup( STR_KEY_GROUP_INFERENCE );
 		IntegerPreference pref = (IntegerPreference) this.getMappedPreference( inferenceMinFillSeed );
-		pref.setValue( new Integer( new Random().nextInt( Integer.MAX_VALUE ) ) );
+		pref.setValue( Integer.valueOf( new Random().nextInt( Integer.MAX_VALUE ) ) );
 	}
 
 	//net
@@ -949,6 +948,7 @@ public class SamiamPreferences
 	public static final String nodeShape = "nodeShape";
 	public static final String nodeBorderClr = "nodeBorderClr";
 	public static final String nodeBorderClrObserved = "nodeBorderClrObserved";
+	public static final String nodeBorderClrIntervened = "nodeBorderClrIntervened"; 
 	public static final String nodeBkgndClr = "nodeBkgndClr";
 	public static final String nodeTextClr = "nodeTextClr";
 	public static final String nodeTextLikeliestValueClr = "nodeTextLikeliestValueClr";
@@ -959,6 +959,7 @@ public class SamiamPreferences
 	public static final String nodeDefaultSize = "nodeDefaultSize";
 	public static final String nodeNormalStroke = "nodeNormalStroke";
 	public static final String nodeObservedStroke = "nodeObservedStroke";
+	public static final String nodeIntervenedStroke = "nodeIntervenedStroke"; 
 	public static final String nodeWideStroke = "nodeWideStroke";
 	//edge
 	public static final String edgeArrowTipSize = "edgeArrowTipSize";
@@ -977,8 +978,9 @@ public class SamiamPreferences
 		this.addMappedPreference( ret.add( new ObjectPreference( nodeShape, "Node shape", IconFactory.DEFAULT, IconFactory.ARRAY, new IconFactoryConverter() ) ) );
 		this.addMappedPreference( ret.add( new ColorPreference( nodeBorderClr, "Node border color", Color.black ) ) );
 		this.addMappedPreference( ret.add( new ColorPreference( nodeBorderClrObserved, "Node border color (observed)", Color.red ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( nodeBorderClrIntervened, "Node border color (intervened)", Color.blue ) ) ); 
 		this.addMappedPreference( ret.add( new ColorPreference( nodeBkgndClr, "Node background color", new Color( 255,255,204 ) ) ) );
-		this.addMappedPreference( ret.add( new ColorPreference( nodeTextClr, "Node name color", Color.blue ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( nodeTextClr, "Node name color", Color.black ) ) );
 		this.addMappedPreference( ret.add( new ColorPreference( nodeTextLikeliestValueClr, "Likeliest value color (stable)", new Color( 00,102,00 ) ) ) );
 		this.addMappedPreference( ret.add( new ColorPreference( nodeTextFlippedValueClr, "Likeliest value color (flipped)", new Color( 255,255,255 ) ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( nodeLikeliestBreakLine, "Likeliest value always second line", Boolean.FALSE ) ) );
@@ -986,14 +988,14 @@ public class SamiamPreferences
 
 		this.addMappedPreference( ret.add( new DimensionPreference( nodeDefaultSize, "Default node size", new Dimension( 130,55 ) ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( netSizeOverRidesPrefs, "Use size in network file if available", Boolean.FALSE ) ) );
-		this.addMappedPreference( ret.add( new DoublePreference( nodeNormalStroke, "Node border width (unselected)", new Double( (double)1.0 ), (double)0.1, (double)16 ) ) );
-		this.addMappedPreference( ret.add( new DoublePreference( nodeObservedStroke, "Node border width (observed)", new Double( (double)3.0 ), (double)0.1, (double)16 ) ) );
-		this.addMappedPreference( ret.add( new DoublePreference( nodeWideStroke, "Node border width (selected)", new Double( (double)5.0 ), (double)0.1, (double)16 ) ) );
+		this.addMappedPreference( ret.add( new DoublePreference( nodeNormalStroke, "Node border width (unselected)", Double.valueOf( (double)1.0 ), (double)0.1, (double)16 ) ) );
+		this.addMappedPreference( ret.add( new DoublePreference( nodeObservedStroke, "Node border width (observed)", Double.valueOf( (double)3.0 ), (double)0.1, (double)16 ) ) );
+		this.addMappedPreference( ret.add( new DoublePreference( nodeIntervenedStroke, "Node border width (intervened)", Double.valueOf( (double)3.0 ), (double)0.1, (double)16 ) ) );
+		this.addMappedPreference( ret.add( new DoublePreference( nodeWideStroke, "Node border width (selected)", Double.valueOf( (double)5.0 ), (double)0.1, (double)16 ) ) );
 		//edge
 		this.addMappedPreference( ret.add( new DimensionPreference( edgeArrowTipSize, "Arrow tip size", new Dimension( 10, 6) ) ) );
 		this.addMappedPreference( ret.add( new ColorPreference( edgeClr, "Edge color", Color.black ) ) );
-		this.addMappedPreference( ret.add( new DoublePreference( arrowStroke, "Edge width", new Double( (double)1.0 ), (double)0.1, (double)16 ) ) );
-
+		this.addMappedPreference( ret.add( new DoublePreference( arrowStroke, "Edge width", Double.valueOf( (double)1.0 ), (double)0.1, (double)16 ) ) );
 		//((ColorPreference)this.getMappedPreference( nodeBkgndClr )).debug = true;
 
 		return ret;
@@ -1053,16 +1055,17 @@ public class SamiamPreferences
 
 	//evidence dialog boxes (Monitors)
 	public static final String
-	  evidDlgManualClr             = "evidDlgManualClr",
-	  evidDlgWarnClr               = "evidDlgWarnClr",
-	  evidDlgAutoClr               = "evidDlgAutoClr",
-	  evidDlgAutoClr2              = "evidDlgAutoClr2",
-	  evidDlgRectSize              = "evidDlgRectSize",
-	  evidDlgTextClr               = "evidDlgTextClr",
-	  evidDlgView                  = "evidDlgView",
+	  evidDlgManualClr = "evidDlgManualClr",
+	  evidDlgIntervenedClr = "evidDlgIntervenedClr", 
+	  evidDlgWarnClr = "evidDlgWarnClr",
+	  evidDlgAutoClr = "evidDlgAutoClr",
+	  evidDlgAutoClr2 = "evidDlgAutoClr2",
+	  evidDlgRectSize = "evidDlgRectSize",
+	  evidDlgTextClr = "evidDlgTextClr",
+	  evidDlgView = "evidDlgView",
 	  evidDlgMinimumFractionDigits = "evidDlgMinimumFractionDigits",
-	  evidDlgZooms                 = "evidDlgZooms",
-	  evidDlgZoomFactor            = "evidDlgZoomFactor";
+	  evidDlgZooms = "evidDlgZooms",
+	  evidDlgZoomFactor = "evidDlgZoomFactor";
 
 	/** @since 20030703 */
 	public static class FormatManagerConverter implements ObjectPreference.DomainConverter
@@ -1094,28 +1097,30 @@ public class SamiamPreferences
 		PreferenceGroup ret = new PreferenceGroup( MonitorsDspNme );
 
 		//evidence dialog boxes (Monitors)
-		this.addMappedPreference( ret.add( new     ColorPreference( evidDlgManualClr,             "Observed evidence color",       Color.red                     ) ) );
-		this.addMappedPreference( ret.add( new     ColorPreference( evidDlgWarnClr,               "Computation in progress color", Color.pink                    ) ) );
-		this.addMappedPreference( ret.add( new     ColorPreference( evidDlgAutoClr,               "First unobserved color",        Color.green.darker()          ) ) );
-		this.addMappedPreference( ret.add( new     ColorPreference( evidDlgAutoClr2,              "Second unobserved color",       Color.green.darker().darker().darker().darker() ) ) );
-		this.addMappedPreference( ret.add( new DimensionPreference( evidDlgRectSize,              "Evidence bar size",         new Dimension( 25, 12 )           ) ) );
-		this.addMappedPreference( ret.add( new     ColorPreference( evidDlgTextClr,               "Text color",                    Color.blue                    ) ) );
-		this.addMappedPreference( ret.add( new    ObjectPreference( evidDlgView,                  "View", EvidenceLabel.PERCENT_MANAGER, EvidenceLabel.ARRAY_MANAGERS, new FormatManagerConverter() ) ) );
-		this.addMappedPreference( ret.add( new   IntegerPreference( evidDlgMinimumFractionDigits, "Probability precision",     new Integer( 2 )                  ) ) );
-		this.addMappedPreference( ret.add( new   BooleanPreference( evidDlgZooms,                 "Zoom with network*",            Boolean.FALSE                 ) ) );
-		this.addMappedPreference( ret.add( new    DoublePreference( evidDlgZoomFactor,            "Zoom % (* not checked)", new Double( (double)100 ), (double)0.00000000023283064365386962890625, (double)65536 ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( evidDlgManualClr, "Observed evidence color", Color.red ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( evidDlgIntervenedClr, "Intervened color", Color.blue ) ) ); 
+		this.addMappedPreference( ret.add( new ColorPreference( evidDlgWarnClr, "Computation in progress color", Color.pink ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( evidDlgAutoClr, "First unobserved color", Color.green.darker() ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( evidDlgAutoClr2, "Second unobserved color", Color.green.darker().darker().darker().darker() ) ) );
+		this.addMappedPreference( ret.add( new DimensionPreference( evidDlgRectSize, "Evidence bar size", new Dimension( 25, 12 ) ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( evidDlgTextClr, "Text color", Color.black ) ) );
+		this.addMappedPreference( ret.add( new ObjectPreference( evidDlgView, "View", EvidenceLabel.PERCENT_MANAGER, EvidenceLabel.ARRAY_MANAGERS, new FormatManagerConverter() ) ) );
+		this.addMappedPreference( ret.add( new IntegerPreference( evidDlgMinimumFractionDigits, "Probability precision", Integer.valueOf( 2 ) ) ) );
+		this.addMappedPreference( ret.add( new BooleanPreference( evidDlgZooms, "Zoom with network*", Boolean.FALSE ) ) );
+		this.addMappedPreference( ret.add( new DoublePreference( evidDlgZoomFactor, "Zoom % (* not checked)", Double.valueOf( (double)100 ), (double)0.00000000023283064365386962890625, (double)65536 ) ) );
 
 		return ret;
 	}
 
 	public static final String
-	                           manualClr =       "manualClr",
-	                             warnClr =         "warnClr",
-	                       treeNormalClr =   "treeNormalClr",
-	  STR_SHOW_TARGET_PROBABILITIES      =        "showTargetProbabilities",
-	  STR_SHOW_AUXILIARY_PROBABILITIES   =     "showAuxiliaryProbabilities",
-	  STR_SHOW_OBSERVATION_PROBABILITIES =   "showObservationProbabilities",
-	  treeSortDefault                    =   "treeSortDefault";
+	    manualClr = "manualClr",
+		intervenedClr = "intervenedClr",
+	    warnClr = "warnClr",
+	    treeNormalClr = "treeNormalClr",
+	  	STR_SHOW_TARGET_PROBABILITIES  = "showTargetProbabilities",
+	  	STR_SHOW_AUXILIARY_PROBABILITIES = "showAuxiliaryProbabilities",
+	  	STR_SHOW_OBSERVATION_PROBABILITIES = "showObservationProbabilities",
+	  	treeSortDefault = "treeSortDefault";
 
 	/** @since 20030910 */
 	public static class EnumPropertyConverter implements ObjectPreference.DomainConverter
@@ -1146,9 +1151,10 @@ public class SamiamPreferences
 	public PreferenceGroup createTreePreferenceGroup()
 	{
 		PreferenceGroup ret = new PreferenceGroup( TreeDspNme );
-		this.addMappedPreference( ret.add( new ColorPreference( treeNormalClr, "Normal color",                  Color.black ) ) );
-		this.addMappedPreference( ret.add( new ColorPreference(       warnClr, "Computation in progress color", Color.pink  ) ) );
-		this.addMappedPreference( ret.add( new ColorPreference(     manualClr, "Observed evidence color",       Color.red   ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( treeNormalClr, "Normal color", Color.black ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( warnClr, "Computation in progress color", Color.pink ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( manualClr, "Observed evidence color", Color.red ) ) );
+		this.addMappedPreference( ret.add( new ColorPreference( intervenedClr, "Intervened color", Color.blue) ) ); 
 		//this.addMappedPreference( ret.add( new ColorPreference( autoClr, "Automatically Set Evidence Color", Color.green ) ) );
 		//this.addMappedPreference( ret.add( new DimensionPreference( rectSize, "Evidence Bar size in tree", new Dimension( 25, 12) ) ) );
 		this.addMappedPreference( ret.add( new BooleanPreference( STR_SHOW_TARGET_PROBABILITIES, "Show target probabilities", Boolean.TRUE ) ) );

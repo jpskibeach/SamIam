@@ -705,7 +705,7 @@ public class TestCompleteness
 						flagPrintUsage = true;
 						errorMessage( STR_OPT_ITERATIONS + " requires a number." );
 					}
-					else if( (intIterations = new Integer(strIterations)).intValue() <= 0 ){
+					else if( (intIterations = Integer.valueOf(strIterations)).intValue() <= 0 ){
 						errorMessage( "Iterations \"" +strIterations+ "\" is not valid." );
 					}
 				}

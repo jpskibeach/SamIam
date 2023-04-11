@@ -43,9 +43,10 @@ public class EvidenceTreeCellRenderer extends DefaultTreeCellRenderer
 
 		updateDefaults();
 
-		normalColor   = (Color) myTreePrefs.getMappedPreference( SamiamPreferences .treeNormalClr ).getValue();
-		observedColor = (Color) myTreePrefs.getMappedPreference( SamiamPreferences     .manualClr ).getValue();
-		warnColor     = (Color) myTreePrefs.getMappedPreference( SamiamPreferences       .warnClr ).getValue();
+		normalColor = (Color) myTreePrefs.getMappedPreference( SamiamPreferences.treeNormalClr ).getValue();
+		observedColor = (Color) myTreePrefs.getMappedPreference( SamiamPreferences.manualClr ).getValue();
+		warnColor = (Color) myTreePrefs.getMappedPreference( SamiamPreferences.warnClr ).getValue();
+		intervenedColor = (Color) myTreePrefs.getMappedPreference( SamiamPreferences.intervenedClr ).getValue(); 
 		//System.out.println( "EvidenceTreeCellRenderer() warnColor == " + warnColor );
 		//if( warnColor.equals( Color.pink ) ) //System.out.println( "\t(pink)" );
 
@@ -112,7 +113,7 @@ public class EvidenceTreeCellRenderer extends DefaultTreeCellRenderer
 		}
 	}
 
-	private Color normalColor, backgroundColor, observedColor, warnColor,
+	private Color normalColor, backgroundColor, observedColor, warnColor, intervenedColor,
 	              typeColor      = new Color(   0, 192, 0 ),
 	              submodelColor  = new Color( 192,   0, 0 );
 	//protected static final Dimension DIM_COMPONENT_SIZE = new Dimension( 120, 50 );
@@ -146,7 +147,7 @@ public class EvidenceTreeCellRenderer extends DefaultTreeCellRenderer
 			if( evidence == EvidenceTree.WARNING ) newForeground = warnColor;
 			else if( evidence != null )
 			{
-				newForeground = observedColor;
+				newForeground = evidenceTree.getEvidenceController().isObservation( dvar ) ? observedColor : intervenedColor; 
 				if( !expanded ) newText += " = " + evidence.toString();
 			}
 		}
@@ -184,7 +185,7 @@ public class EvidenceTreeCellRenderer extends DefaultTreeCellRenderer
 				{
 					myUtilVariableInstance.setData( parent, instance );
 					List targetList = null;
-					Integer one = new Integer( (int)1 );
+					Integer one = Integer.valueOf( (int)1 );
 					int evidenceIndex = (int)-1;
 					Object indexValue = null;
 
@@ -213,7 +214,7 @@ public class EvidenceTreeCellRenderer extends DefaultTreeCellRenderer
 			{
 				Object evidence = evidenceTree.getEvidence(parent);
 				if( evidence == EvidenceTree.WARNING  && evidenceTree.getWarningEvidenceValue(parent) == instance ) newForeground = warnColor;
-				else if( evidence == instance ) newForeground = observedColor;
+				else if( evidence == instance ) newForeground = evidenceTree.getEvidenceController().isObservation( parent ) ? observedColor : intervenedColor; 
 			}
 		}
 

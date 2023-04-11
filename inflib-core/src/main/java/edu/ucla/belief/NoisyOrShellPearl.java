@@ -284,7 +284,7 @@ public class NoisyOrShellPearl implements NoisyOrShell
 	public List weightsAsList()
 	{
 		List ret = new ArrayList( myWeights.length );
-		for( int i=0; i<myWeights.length; i++ ) ret.add( new Double( myWeights[i] ) );
+		for( int i=0; i<myWeights.length; i++ ) ret.add( Double.valueOf( myWeights[i] ) );
 		return ret;
 	}
 

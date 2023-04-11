@@ -19,7 +19,7 @@ public abstract class AbstractSSAlgorithm extends JoinTreeAlgorithm implements P
     protected void findIncomingMessages(){
 	incomingMessages=new Table[clusters.length][];
 	for(int i=0;i<clusters.length;i++){
-	    incomingMessages[i]=new Table[tree.degree(new Integer(i))];
+	    incomingMessages[i]=new Table[tree.degree(Integer.valueOf(i))];
 	}
 	int[] currentLength=new int[clusters.length];
 	for(int i=0;i<messageOrder.length;i++){

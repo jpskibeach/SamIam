@@ -122,7 +122,7 @@ public class MapTree{
 
 
     public void setSelectedValue(int mapvar,int value){
-	Tree t=(Tree)treeLocations.get(new Integer(mapvar));
+	Tree t=(Tree)treeLocations.get(Integer.valueOf(mapvar));
 	t.setSelectedValue(value);
     }
 
@@ -130,7 +130,7 @@ public class MapTree{
     public void sanityCheck(){
 	tree.sanityCheck();
 	for(int i=0;i<mapvars.size();i++){
-	    Tree t=(Tree)treeLocations.get(new Integer(mapvars.get(i)));
+	    Tree t=(Tree)treeLocations.get(Integer.valueOf(mapvars.get(i)));
 	    IntSet e=t.eliminator(t.parent);
 	    if(e.size()!=1 || e.get(1)!=mapvars.get(i)){
 		throw new IllegalStateException();
@@ -150,7 +150,7 @@ public class MapTree{
 		children[i]=new Tree(sumOut,children[i]);
 		children[i].isMapNode=true;
 		children[i].mapvar=s.get(0);
-		treeLocations.put(new Integer(s.get(0)),children[i]);
+		treeLocations.put(Integer.valueOf(s.get(0)),children[i]);
 		IntSet c=sumOut;
 	        for(int j=1;j<s.size();j++){
 		    IntSet newc=new IntSet(c);
@@ -159,7 +159,7 @@ public class MapTree{
 		    c=newc;
 		    children[i].isMapNode=true;
 		    children[i].mapvar=s.get(j);
-		    treeLocations.put(new Integer(s.get(j)),children[i]);
+		    treeLocations.put(Integer.valueOf(s.get(j)),children[i]);
 		}
 	    }
 	}
@@ -233,9 +233,9 @@ public class MapTree{
 	IntSet vars;
 	vars=jt.cluster(to).vars().intersection(mapvars);
 	for(int i=0;i<n.length;i++){
-	    vars=vars.union((IntSet)map.get(new Integer(n[i])));
+	    vars=vars.union((IntSet)map.get(Integer.valueOf(n[i])));
 	}
-	map.put(new Integer(to),vars);
+	map.put(Integer.valueOf(to),vars);
     }
 
     private int[] otherNeighbors(JoinTree jt,int cluster,int exclude){
@@ -280,7 +280,7 @@ public class MapTree{
 	Map varMap=new HashMap(jt.clusterCount());
 	for(int i=0;i<n.length;i++){
 	    mapVarsInBranch(varMap,jt,mapvars,largestCluster,n[i]);
-	    double sz=domain.size((IntSet)varMap.get(new Integer(n[i])));
+	    double sz=domain.size((IntSet)varMap.get(Integer.valueOf(n[i])));
 	    if(sz>best){
 		best=sz;
 		bestNode=n[i];
@@ -297,7 +297,7 @@ public class MapTree{
 		double highsc=0;
 		int next=-1;
 		for(int i=0;i<neibs.length;i++){
-		    double sc=domain.size((IntSet)varMap.get(new Integer(neibs[i])));
+		    double sc=domain.size((IntSet)varMap.get(Integer.valueOf(neibs[i])));
 		    if(sc>highsc){
 			next=neibs[i];
 			highsc=sc;

@@ -11,6 +11,7 @@ import edu.ucla.belief.*;
 import edu.ucla.util.EnumProperty;
 import edu.ucla.util.EnumValue;
 import edu.ucla.util.EvidenceAssertedProperty;
+import edu.ucla.util.InterventionAssertedProperty;
 import edu.ucla.belief.io.*;
 import edu.ucla.belief.io.dsl.*;
 import edu.ucla.belief.io.hugin.*;
@@ -143,6 +144,9 @@ public class EvidenceTree extends JTree implements NodePropertyChangeListener,Ev
 		interface NodePropertyChangeListener
 		@author Keith Cascio
 		@since 101102
+
+		Refresh interface if node property changes (Observation or Intervention property change).
+		@since 20230405 
 	*/
 	public void nodePropertyChanged( NodePropertyChangeEvent e )
 	{
@@ -162,6 +166,7 @@ public class EvidenceTree extends JTree implements NodePropertyChangeListener,Ev
 
 		myPropertyChangeVariables.add( e.variable );
 		if( getEnumProperty() == EvidenceAssertedProperty.PROPERTY && e.property == EvidenceAssertedProperty.PROPERTY ) hnInternalFrame.getTreeScrollPane().refreshPropertyChanges();
+		if ( getEnumProperty() == InterventionAssertedProperty.PROPERTY && e.property == InterventionAssertedProperty.PROPERTY ) hnInternalFrame.getTreeScrollPane().refreshPropertyChanges();
 	}
 
 	/*
@@ -680,11 +685,11 @@ public class EvidenceTree extends JTree implements NodePropertyChangeListener,Ev
 
 	/** @since 20080221 */
 	public Object waitForEvidence( FiniteVariable var ){
-		if( hnInternalFrame      == null ){ return null; }//dead
+		if( hnInternalFrame == null ){ return null; }//dead
 		if( myEvidenceController == null ){
 			try{
 				for( int i=0; (myEvidenceController == null) && (i<0x10); i++ ){ Thread.sleep( 0x10 ); }
-			}catch( Throwable thrown ){
+			} catch( Throwable thrown ) {
 				Util.warn( thrown, "EvidenceTree.waitForEvidence()" );
 			}
 		}

@@ -162,7 +162,7 @@ public abstract class EliminationOrderEngine {
       if (r != null) {
         java.util.ArrayList l = new java.util.ArrayList ();
         for (int i = 0; i < nodes[pe].length; i++) {
-          l.add (new Integer (nodes[pe][i]));
+          l.add (Integer.valueOf(nodes[pe][i]));
         }
         java.util.Collections.shuffle (l, r);
         for (int i = 0; i < nodes[pe].length; i++) {

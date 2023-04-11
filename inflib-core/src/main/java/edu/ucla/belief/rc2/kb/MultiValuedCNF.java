@@ -188,7 +188,7 @@ final public class MultiValuedCNF {
 				if(localV.size() != 1) {
 					addLiteral(vars.indexOf(localV), inst[inst.length-1], true); //add positive of localV
 					if(DEBUG_VERBOSE2) {System.out.println(localV + "=" + localV.instance(inst[inst.length-1]));}
-					colOfClauses.add(new Integer(oldc));
+					colOfClauses.add(Integer.valueOf(oldc));
 				}
 				else { //if localV only has one state, then this clause is already satisfied, remove it
 					nextClause = oldc;
@@ -207,7 +207,7 @@ final public class MultiValuedCNF {
 						int numLitAdded = 0;
 
 						addClause();
-						colOfClauses.add(new Integer(oldc));
+						colOfClauses.add(Integer.valueOf(oldc));
 						if(DEBUG_VERBOSE2) {System.out.print("Add Clause "+nextClause+" (0.0): ");}
 						for(int l=0; l<inst.length-1; l++) {
 							if(parents[l].size() != 1) {//if parent only has one state, the negation of that is unsatisfiable (so don't add)
@@ -438,7 +438,7 @@ final public class MultiValuedCNF {
 							{
 								//par1=val and par2=val => newP=val  (this is converted to the following)
 								//!par1=val or !par2=val or newP=val
-								colOfClauses.add(new Integer(mvcnf.nextClause));
+								colOfClauses.add(Integer.valueOf(mvcnf.nextClause));
 								mvcnf.addClause();
 								for(int i=0; i<parents.length; i++) {
 									mvcnf.addLiteral(parIndx[i], val_itr.current()[i], false); //pari!=val
@@ -450,7 +450,7 @@ final public class MultiValuedCNF {
 									//newP=val => par1=val  (newP!=val or par1=val)
 									//newP=val => par2=val
 									for(int i=0; i<parents.length; i++) {
-										colOfClauses.add(new Integer(mvcnf.nextClause));
+										colOfClauses.add(Integer.valueOf(mvcnf.nextClause));
 										mvcnf.addClause();
 										mvcnf.addLiteral(varIndxP, val_itr.current()[parents.length], false);
 										mvcnf.addLiteral(parIndx[i], val_itr.current()[i], true);
@@ -496,7 +496,7 @@ final public class MultiValuedCNF {
 					MappedList values = new MappedList();
 					{
 						for(int i=0; i<tbl.index().size(); i++) {
-							values.add(new Double(tbl.getCP(i)));
+							values.add(Double.valueOf(tbl.getCP(i)));
 						}
 					}
 					FiniteVariable inverterSel = new FiniteVariableImpl(id+"_inverter", values);
@@ -510,14 +510,14 @@ final public class MultiValuedCNF {
 							int st = itr.next();
 							int curr[] = itr.current();
 
-							colOfClauses.add(new Integer(mvcnf.nextClause));
+							colOfClauses.add(Integer.valueOf(mvcnf.nextClause));
 							mvcnf.addClause();
 							for(int i=0; i<varIndx.length; i++) {
 								if(varIndx[i] != Integer.MIN_VALUE) {
 									mvcnf.addLiteral(varIndx[i],curr[i],false);
 								}
 							}
-							mvcnf.addLiteral(varIndxInv,values.indexOf(new Double(tbl.getCP(st))),true);
+							mvcnf.addLiteral(varIndxInv,values.indexOf(Double.valueOf(tbl.getCP(st))),true);
 						}
 					}
 				}

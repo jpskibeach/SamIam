@@ -41,7 +41,7 @@ public class EDEdgeDeleter {
 		java.util.HashMap<int[],Integer> map =
 			new java.util.HashMap<int[],Integer>(edges.length);
 		for (int i = 0; i < edges.length; i++)
-			map.put(edges[i],new Integer(i));
+			map.put(edges[i],Integer.valueOf(i));
 		for (int i = 0; i < edges.length; i++)
 			index[i] = map.get(input[i]).intValue();
 

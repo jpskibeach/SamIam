@@ -77,7 +77,7 @@ public interface BeliefNetwork extends DirectedGraph, Cloneable
 			}
 			public static final Intention
 			  beget = new Intention( "add" ),
-			  kill  = new Intention( "delete" );
+			  kill = new Intention( "delete" );
 		};
 		/** @author keith cascio
 			@since 20091124 */
@@ -87,32 +87,34 @@ public interface BeliefNetwork extends DirectedGraph, Cloneable
 				this.noun = noun;
 			}
 			public static final Unit
-			  edge   = new Unit( "edge"     ),
-			  node   = new Unit( "variable" ),
-			  belief = new Unit( "evidence" );
+			  edge = new Unit( "edge" ),
+			  node = new Unit( "variable" ),
+			  belief = new Unit( "evidence" ),
+			  intervention = new Unit( "intervention" );
 		};
 		/** @author keith cascio
 			@since 20091124 */
 		public static class Deed{
 			public Intention intention;
-			public Unit      unit;
+			public Unit unit;
 			private Deed( Intention intention, Unit unit ){
 				this.intention = intention;
-				this.unit      = unit;
+				this.unit = unit;
 			}
 			public static final Deed
-			  CREATE_EDGE = new Deed( Intention.beget, Unit.edge   ),
-			  CREATE_NODE = new Deed( Intention.beget, Unit.node   ),
-			  OBSERVE     = new Deed( Intention.beget, Unit.belief ),
-			  DROP_EDGE   = new Deed( Intention.kill,  Unit.edge   ),
-			  DROP_NODE   = new Deed( Intention.kill,  Unit.node   ),
-			  RETRACT     = new Deed( Intention.kill,  Unit.belief );
+			  CREATE_EDGE = new Deed( Intention.beget, Unit.edge ),
+			  CREATE_NODE = new Deed( Intention.beget, Unit.node ),
+			  OBSERVE = new Deed( Intention.beget, Unit.belief ),
+			  INTERVENTION = new Deed( Intention.beget, Unit.intervention ),
+			  DROP_EDGE = new Deed( Intention.kill, Unit.edge ),
+			  DROP_NODE = new Deed( Intention.kill, Unit.node ),
+			  RETRACT = new Deed( Intention.kill, Unit.belief );
 		};
 		/** @return an error message to veto creation/removal of the edge, or creation/removal of the variable */
 		public String audit( BeliefNetwork bn, Variable from, Variable to, Collection targets, Deed deed );
 	}
 	/** @since 20091124 */
-	public boolean    addAuditor( Auditor auditor );
+	public boolean addAuditor( Auditor auditor );
 	/** @since 20091124 */
 	public boolean removeAuditor( Auditor auditor );
 	/** @since 20091124 */
@@ -125,7 +127,7 @@ public interface BeliefNetwork extends DirectedGraph, Cloneable
 	* set will be independant of it. The relations for the other parents
 	* will remain as they were before.
 	*/
-	public boolean    addEdge( Variable from, Variable to, boolean expandCPT );
+	public boolean addEdge( Variable from, Variable to, boolean expandCPT );
 
 	/** Removes an edge from the network. If argument 'forget' is true,
 	*   the resulting CPT for the variable to

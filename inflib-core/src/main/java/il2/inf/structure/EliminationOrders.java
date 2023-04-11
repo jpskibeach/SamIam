@@ -419,7 +419,7 @@ public class EliminationOrders{
         Map clusterMap = new HashMap(clusters.size());
         for (int i = 0; i < clusters.size(); i++) {
             tree.add(i);
-            clusterMap.put(new Integer(i), clusters.get(i));
+            clusterMap.put(Integer.valueOf(i), clusters.get(i));
         }
         for (int i = 0; i < clusters.size() - 1;) {
             Edge e = (Edge) h.extractMax().element();
@@ -452,7 +452,7 @@ public class EliminationOrders{
 		Graph tree = new Graph(1);
 		Map clusterMap = new HashMap(1);
 		tree.add(0);
-		clusterMap.put(new Integer(0), new IntSet(0));
+		clusterMap.put(Integer.valueOf(0), new IntSet(0));
 		return new JT( order, tree, clusterMap, domain, c, bn2 );
 	}
 
@@ -568,7 +568,7 @@ public class EliminationOrders{
 
         Map clusterMap = new HashMap(clusters.length);
         for (int i = 0; i < clusters.length; i++)
-            clusterMap.put(new Integer(i), clusters[i]);
+            clusterMap.put(Integer.valueOf(i), clusters[i]);
 
 		JT jointree = new JT( order, tree, clusterMap, domain, 
 						(il2.bridge.Converter)null, (BayesianNetwork)null );

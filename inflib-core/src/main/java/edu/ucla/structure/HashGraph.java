@@ -299,17 +299,17 @@ public class HashGraph implements Graph {
     }
     public static void main(String[] args) {
         HashGraph g = new HashGraph();
-        g.add(new Integer(5));
-        g.add(new Integer(7));
-        g.addEdge(new Integer(3), new Integer(4));
-        g.addEdge(new Integer(2), new Integer(5));
-        g.addEdge(new Integer(7), new Integer(4));
-        g.addEdge(new Integer(3), new Integer(4));
-        g.addEdge(new Integer(4), new Integer(2));
-        g.addEdge(new Integer(2), new Integer(3));
-        g.addEdge(new Integer(3), new Integer(5));
-        g.remove(new Integer(5));
-        g.add(new Integer(5));
+        g.add(Integer.valueOf(5));
+        g.add(Integer.valueOf(7));
+        g.addEdge(Integer.valueOf(3), Integer.valueOf(4));
+        g.addEdge(Integer.valueOf(2), Integer.valueOf(5));
+        g.addEdge(Integer.valueOf(7), Integer.valueOf(4));
+        g.addEdge(Integer.valueOf(3), Integer.valueOf(4));
+        g.addEdge(Integer.valueOf(4), Integer.valueOf(2));
+        g.addEdge(Integer.valueOf(2), Integer.valueOf(3));
+        g.addEdge(Integer.valueOf(3), Integer.valueOf(5));
+        g.remove(Integer.valueOf(5));
+        g.add(Integer.valueOf(5));
         Graphs.print( g, System.out );
     }
 }

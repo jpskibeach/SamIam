@@ -141,7 +141,7 @@ public class DecisionTreeEditPanel extends JPanel implements TreeSelectionListen
 				DecisionTreeEditPanel.this.setDividerLocation( ((Number)arg1).doubleValue() );
 			}
 		};
-		myDividerLocationRunner.start( (long)100, new Double( ratio ) );
+		myDividerLocationRunner.start( (long)100, Double.valueOf( ratio ) );
 	}
 
 	/** insterface TreeSelectionListener */

@@ -137,7 +137,7 @@ public class ParameterTableModel extends MultiViewTableModel implements TableMod
 				}
 				public Object getEditValue( Object value, int row ){
 					Parameter param = (Parameter) ParameterTableModel.this.getOutcomeAt( row );
-					return new Double( param.getValue() );
+					return Double.valueOf( param.getValue() );
 				}
 				public boolean setValue( Object obj, Object editedvalue, Object instance ){
 					Parameter outcome = (Parameter) obj;

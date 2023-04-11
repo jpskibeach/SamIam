@@ -70,7 +70,7 @@ public class StatesTableModel extends AbstractTableModel
 		int one = (int)1;
 		for( int i=0; i < myFiniteVariable.size(); i++ )
 		{
-			myTargetValues.add( (hasTargetNumbers) ? new Boolean( ((Integer)(targetnumbers.get(i))).intValue() == one ) : Boolean.FALSE );
+			myTargetValues.add( (hasTargetNumbers) ? Boolean.valueOf( ((Integer)(targetnumbers.get(i))).intValue() == one ) : Boolean.FALSE );
 		}
 	}
 
@@ -218,7 +218,7 @@ public class StatesTableModel extends AbstractTableModel
 					if( !objOld.equals( value ) )
 					{
 						//if( myMapIndicesToEditedValues == null ) myMapIndicesToEditedValues = new HashMap();
-						//myMapIndicesToEditedValues.put( new Integer( row ), value );
+						//myMapIndicesToEditedValues.put( Integer.valueOf( row ), value );
 						myStateObjects.set( row, value );
 						myEditedStateObjects.set( row, value );
 						myStateSet.remove( objOld );

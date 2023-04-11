@@ -84,7 +84,7 @@ public class GroupingColoringPopupHandler implements MouseListener, MenuListener
 	private void validateViewOptions(){
 		myItemDoColoring.setSelected( myGroupingColoringTableModel.isColoringEnabled() );
 		myItemDoGrouping.setSelected( myGroupingColoringTableModel.isGroupingEnabled() );
-		mySpinnerSaturation.setValue( new Double( myGroupingColoringTableModel.getSaturation() ) );
+		mySpinnerSaturation.setValue( Double.valueOf( myGroupingColoringTableModel.getSaturation() ) );
 	}
 
 	/** interface ActionListener */

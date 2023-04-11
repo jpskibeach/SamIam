@@ -665,9 +665,9 @@ final public class DecompositionStructureUtils {
 		Integer root = null;
 
 		for( int i=0; i<size; i++) { //try to find a non-leaf node for the root
-			if( !jt.tree().isLeaf(i)) { root = new Integer(i); break;}
+			if( !jt.tree().isLeaf(i)) { root = Integer.valueOf(i); break;}
 		}
-		if( root == null) { root = new Integer(0);}
+		if( root == null) { root = Integer.valueOf(0);}
 		ret.add( root);
 		return ret;
 	}

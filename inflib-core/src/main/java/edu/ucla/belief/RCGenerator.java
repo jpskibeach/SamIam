@@ -2665,7 +2665,7 @@ public class RCGenerator {
 				}
 				if(emptyTable) {
 					rc.rcCurrentCost+=2; //since this table is empty, connect it up to the root
-					emptyTablesToConnect.add(new Integer(vt.rcID));
+					emptyTablesToConnect.add(Integer.valueOf(vt.rcID));
 				}
 			}
 
@@ -2894,7 +2894,7 @@ public class RCGenerator {
 
 						if(newContext.size()==0) {//table became empty
 							rc.rcCurrentCost += (1+vt.cpc); //this table is done, add 1 to connect up this to another part of dtree & make 1 call to it
-							emptyTablesToConnect.add(new Integer(vt.rcID));
+							emptyTablesToConnect.add(Integer.valueOf(vt.rcID));
 						}
 					}
 					else {
@@ -3004,7 +3004,7 @@ public class RCGenerator {
 			}
 			else {
 				int currentRoot = nextTblNum-1;
-				emptyTablesToConnect.remove(new Integer(currentRoot)); //last root in tree
+				emptyTablesToConnect.remove(Integer.valueOf(currentRoot)); //last root in tree
 
 				while(emptyTablesToConnect.size()>1) {
 					Integer i_rem = (Integer)emptyTablesToConnect.remove(emptyTablesToConnect.size()-1);
@@ -3416,7 +3416,7 @@ public class RCGenerator {
 			HashMap intToNd = new HashMap();
 			for(int i=0; i<rc.rcObj.size(); i++) {
 				RC.RCLine ln = (RC.RCLine)rc.rcObj.get(i);
-				intToNd.put(new Integer(ln.id), ln);
+				intToNd.put(Integer.valueOf(ln.id), ln);
 			}
 			return intToNd;
 		}
@@ -3439,8 +3439,8 @@ public class RCGenerator {
 			if(current==null) throw new IllegalStateException();
 
 			if(current.type=='R' || current.type=='I') {
-				int nodebelowL = writeMap((RC.RCLine)bnDT.get(new Integer(current.left)), bnDT, out, nextNodeId, fvToColOfClauses);
-				int nodebelowR = writeMap((RC.RCLine)bnDT.get(new Integer(current.right)), bnDT, out, nextNodeId, fvToColOfClauses);
+				int nodebelowL = writeMap((RC.RCLine)bnDT.get(Integer.valueOf(current.left)), bnDT, out, nextNodeId, fvToColOfClauses);
+				int nodebelowR = writeMap((RC.RCLine)bnDT.get(Integer.valueOf(current.right)), bnDT, out, nextNodeId, fvToColOfClauses);
 
 				//add this node if both children exist
 				if(nodebelowL>=0 && nodebelowR>=0) {
@@ -3461,7 +3461,7 @@ public class RCGenerator {
 				//add a leaf node for each clause from this table
 				LinkedList list = new LinkedList();
 				for(Iterator itr = clausesAtLeaf.iterator(); itr.hasNext();) {
-					Integer nodeID = new Integer(nextNodeId[0]);
+					Integer nodeID = Integer.valueOf(nextNodeId[0]);
 					Integer clauseID = (Integer)itr.next();
 					out.println("L " + clauseID);
 
@@ -3473,7 +3473,7 @@ public class RCGenerator {
 				while(list.size()>=2) {
 					Integer first = (Integer)list.removeFirst();
 					Integer second = (Integer)list.removeFirst();
-					Integer nodeID = new Integer(nextNodeId[0]);
+					Integer nodeID = Integer.valueOf(nextNodeId[0]);
 					out.println("I " + first + " " + second);
 
 					nextNodeId[0]++;

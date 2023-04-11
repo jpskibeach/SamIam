@@ -726,7 +726,7 @@ public class HuginGenieStyleTableFactory
 			theChangingFormat.setMaximumFractionDigits( max_fraction_digits );
 			String formatted = theChangingFormat.format( ((Double)values.get( endindex1 )).doubleValue() );
 			try{
-				values.set( endindex1, new Double( Double.parseDouble( formatted ) ) );
+				values.set( endindex1, Double.valueOf( Double.parseDouble( formatted ) ) );
 			}catch( NumberFormatException e ){
 				System.err.println( "Warning: complement rounding failed." );
 			}
@@ -753,7 +753,7 @@ public class HuginGenieStyleTableFactory
 		if( sum < ZERO ) return "Probabilities out of range: SUM < 0";
 		if( sum > ONE ) return "Probabilities out of range: SUM > 1";
 
-		values.set( endindex1, new Double( 1 - sum ) );
+		values.set( endindex1, Double.valueOf( 1 - sum ) );
 
 		return null;
 	}
@@ -816,7 +816,7 @@ public class HuginGenieStyleTableFactory
 		{
 			current = ((Double)values.get( startindex )).doubleValue();
 			//System.out.print( current + ", " );//debug
-			values.set( startindex, new Double(current/sum) );
+			values.set( startindex, Double.valueOf(current/sum) );
 			++startindex;
 		}
 		return null;

@@ -2523,12 +2523,12 @@ if(s3==0 && v3!=null) {throw new IllegalStateException();}
 					int vtindx = 0;
 					while(varLists[varID][vtindx]!=null) vtindx++;
 					varLists[varID][vtindx] = vt;
-					vt.add(new Integer(varID), new Integer(vtindx));
+					vt.add(Integer.valueOf(varID), Integer.valueOf(vtindx));
 					emptyTable = false;
 				}
 				if(emptyTable) {
 					rc.currentCount+=2; //since this table is already empty include 2 to connect it up to dtree root
-					emptyTablesToConnect.add(new Integer(vt.rcID));
+					emptyTablesToConnect.add(Integer.valueOf(vt.rcID)); 
 				}
 			}
 		}//end constructor
@@ -2684,7 +2684,7 @@ if(s3==0 && v3!=null) {throw new IllegalStateException();}
 
 				if(newVTable.varToIndex.size()==0) {
 					rc.currentCount += (1+newVTable.cpc); //this table is done, add 1 to connect up this to another part of dtree & make 1 call to it
-					emptyTablesToConnect.add(new Integer(newVTable.rcID));
+					emptyTablesToConnect.add(Integer.valueOf(newVTable.rcID)); 
 					ret = rc.currentCount;
 				}
 				else { //if this one isn't empty yet and is the root, can add its costs to those it would be connected to
@@ -2697,8 +2697,8 @@ if(s3==0 && v3!=null) {throw new IllegalStateException();}
 
 		public void conditionOnVariable(FiniteVariable fv) {
 			int varID = vars.indexOf(fv);
-			Integer varID_Int = new Integer(varID);
-			Integer varID_IntNeg = new Integer(-varID-1);
+			Integer varID_Int = Integer.valueOf(varID);
+			Integer varID_IntNeg = Integer.valueOf(-varID-1);
 			if(varCounts[varID]<2) return;
 
 			for(int i=0; i<varLists[varID].length; i++) {
@@ -2867,7 +2867,7 @@ if(scoreResults.invalid()) { System.err.println(scoreResults.toString()); throw 
 			}
 			else {
 				int currentRoot = rc.nextID-1; //last one added to RC (should be in emptyTables)
-				emptyTablesToConnect.remove(new Integer(currentRoot));
+				emptyTablesToConnect.remove(Integer.valueOf(currentRoot));
 
 				while(emptyTablesToConnect.size()>1) {
 					Integer i_rem = (Integer)emptyTablesToConnect.remove(emptyTablesToConnect.size()-1);

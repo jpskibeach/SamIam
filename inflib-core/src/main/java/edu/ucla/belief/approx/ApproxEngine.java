@@ -328,11 +328,11 @@ public class ApproxEngine implements QuantitativeDependencyHandler
 			printToWriter("================================");
 		}
 		printToWriter("Summary of marginals");
-		printToWriter("Total flips = " + new Integer(flipCount).
+		printToWriter("Total flips = " + Integer.valueOf(flipCount).
 			toString());
-		printToWriter("Avg KL = " + new Double(klSum /
+		printToWriter("Avg KL = " + Double.valueOf(klSum /
 			marginalVars.length).toString());
-		printToWriter("Avg Dist = " + new Double(distSum /
+		printToWriter("Avg Dist = " + Double.valueOf(distSum /
 			marginalVars.length).toString());
 		printToWriter("================================\n");
 
@@ -586,7 +586,7 @@ public class ApproxEngine implements QuantitativeDependencyHandler
                                 if (!childList.contains(varX)) {
                                         parentList.add(varY);
                                         childList.add(varX);
-                                        startList.add(new Double(p));
+                                        startList.add(Double.valueOf(p));
                                         break;
                                 }
                         }

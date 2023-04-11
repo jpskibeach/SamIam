@@ -43,8 +43,8 @@ public class S4Compiler
 			tables[2 * i + 1] = effective.getCPT();//(Table) bn.getCPT(var);
 			indices[2 * i] = tables[2 * i].index();
 			indices[2 * i + 1] = tables[2 * i + 1].index();
-			varLoc.put(var, new Integer(2 * i));
-			famLoc.put(var, new Integer(2 * i + 1));
+			varLoc.put(var, Integer.valueOf(2 * i));
+			famLoc.put(var, Integer.valueOf(2 * i + 1));
 		}
 
 		EliminationTree tree = new JTtoET(jt, indices).getEliminationTree();
@@ -62,7 +62,7 @@ public class S4Compiler
 		{
 			FiniteVariable var = (FiniteVariable) iter.next();
 			varSizes[varInd.size()] = var.size();
-			varInd.put(var, new Integer(varInd.size()));
+			varInd.put(var, Integer.valueOf(varInd.size()));
 		}
 
 		int[][] nodeVars = new int[tree.size()][];

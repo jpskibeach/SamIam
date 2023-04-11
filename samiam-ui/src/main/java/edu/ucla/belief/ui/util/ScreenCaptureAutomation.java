@@ -2453,7 +2453,7 @@ public class ScreenCaptureAutomation
 
 					final int row    = 1;
 					final int column = 2;
-					final Double value = new Double( 0.00000056 );
+					final Double value = Double.valueOf( 0.00000056 );
 
 					new Condition(){ public void later(){
 						found.setValueAt( value, row, column );
@@ -2681,7 +2681,7 @@ public class ScreenCaptureAutomation
 
 	private void setMonitorZoom( double newZoom ){
 		mySamiamPreferences.getMappedPreference( SamiamPreferences.evidDlgZooms ).setValue( Boolean.FALSE );
-		mySamiamPreferences.getMappedPreference( SamiamPreferences.evidDlgZoomFactor ).setValue( new Double( newZoom ) );
+		mySamiamPreferences.getMappedPreference( SamiamPreferences.evidDlgZoomFactor ).setValue( Double.valueOf( newZoom ) );
 	}
 
 	public void assertingEvidence() throws Exception {
@@ -2768,7 +2768,7 @@ public class ScreenCaptureAutomation
 	}
 
 	private void setPreEShown( boolean flag ){
-		mySamiamPreferences.getMappedPreference( SamiamPreferences.autoCalculatePrE ).setValue( new Boolean( flag ) );
+		mySamiamPreferences.getMappedPreference( SamiamPreferences.autoCalculatePrE ).setValue( Boolean.valueOf( flag ) );
 	}
 
 	public void selectingNodes() throws Exception {

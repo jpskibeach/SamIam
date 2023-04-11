@@ -60,7 +60,7 @@ public class RCEngine implements PartialDerivativeEngine{
 	for(int i=0;i<tables.length;i++){
 	    IntSet s=tables[i].vars();
 	    for(int j=0;j<s.size();j++){
-		vars.add(new Integer(s.get(j)));
+		vars.add(Integer.valueOf(s.get(j)));
 	    }
 	}
 	IntMap result=new IntMap(vars.size());

@@ -131,7 +131,7 @@ final public class RC2CreatorFile extends RC2Creator {
 			if(numTokens == 4) { //leaf node
 				if(!(token[0].equalsIgnoreCase("ROOT") || token[0].equalsIgnoreCase("L"))) { throw new IllegalStateException("File Format Error: " + ln);}
 
-				Integer num = new Integer(token[1]);
+				Integer num = Integer.valueOf(token[1]);
 				RC2Node nd;
 
 				if(token[3].equalsIgnoreCase("cpt")) {
@@ -150,9 +150,9 @@ final public class RC2CreatorFile extends RC2Creator {
 			else if(numTokens == 5) { //internal node
 				if(!(token[0].equalsIgnoreCase("ROOT") || token[0].equalsIgnoreCase("I"))) { throw new IllegalStateException("File Format Error: " + ln);}
 
-				Integer num = new Integer(token[1]);
-				Integer lf = new Integer(token[3]);
-				Integer rt = new Integer(token[4]);
+				Integer num = Integer.valueOf(token[1]);
+				Integer lf = Integer.valueOf(token[3]);
+				Integer rt = Integer.valueOf(token[4]);
 				RC2NodeInternal nd = new RC2NodeInternal(nextNodeID++, rc, (RC2Node)intToNode.get(lf), (RC2Node)intToNode.get(rt), minVals);
 				intToNode.put(num,nd);
 				if(token[0].equalsIgnoreCase("ROOT")) {roots.add(nd);}

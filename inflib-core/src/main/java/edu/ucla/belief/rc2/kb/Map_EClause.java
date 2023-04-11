@@ -175,7 +175,7 @@ public class Map_EClause extends KBMap {
 					col = new HashSet();
 					fvToColOfClauses.put(fv, col);
 				}
-				col.add(new Integer(numClCreated+numEClCreated));
+				col.add(Integer.valueOf(numClCreated+numEClCreated));
 
 				//write out cnf
 				for(int z=0; z<ec.length; z++) {
@@ -200,7 +200,7 @@ public class Map_EClause extends KBMap {
 						col = new HashSet();
 						fvToColOfClauses.put(indexingList.get(vi), col);
 					}
-					col.add(new Integer(numClCreated+numEClCreated));
+					col.add(Integer.valueOf(numClCreated+numEClCreated));
 
 
 					for(int z=0; z<map[vi].length; z++) {

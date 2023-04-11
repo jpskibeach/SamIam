@@ -48,22 +48,22 @@ public class JTtoET extends Object
     private void generateTree(JoinTree jt, TableIndex[] leaves) {
         DirectedGraph dg = new HashDirectedGraph();
         for (int i = 0; i < nodeLabels.length; i++) {
-            dg.add(new Integer(nodeLabels[i]));
+            dg.add( Integer.valueOf(nodeLabels[i]));
             for (int j = 0; j < separatorLabels[i].length; j++) {
                 if (separatorLabels[i][j] > nodeLabels[i]) {
-                    dg.addEdge(new Integer(nodeLabels[i]),
-                            new Integer(separatorLabels[i][j]));
+                    dg.addEdge( Integer.valueOf(nodeLabels[i]),
+                        Integer.valueOf(separatorLabels[i][j]));
                 } else {
-                    dg.addEdge(new Integer(separatorLabels[i][j]),
-                            new Integer(nodeLabels[i]));
+                    dg.addEdge(Integer.valueOf(separatorLabels[i][j]),
+                        Integer.valueOf(nodeLabels[i]));
                 }
             }
         }
         for (int i = 0; i < assignments.length; i++) {
-            dg.addEdge(new Integer(i), new Integer(assignments[i]));
+            dg.addEdge(Integer.valueOf(i), Integer.valueOf(assignments[i]));
         }
         int topNode = dg.size();
-        dg.addEdge(new Integer(topNode - 1), new Integer(topNode));
+        dg.addEdge(Integer.valueOf(topNode - 1), Integer.valueOf(topNode));
         TableIndex[] indices = new TableIndex[dg.size()];
         int[] type = new int[dg.size()];
         for (int i = 0; i < leaves.length; i++) {

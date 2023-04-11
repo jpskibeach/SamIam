@@ -23,7 +23,7 @@ public class MapJoinTree {
         //sanityCheckJoinTree(jt);
         root=jt.tree.addNew();
         jt.tree.addEdge(root,initialRoot);
-        jt.clusters.put(new Integer(root), new IntSet());
+        jt.clusters.put(Integer.valueOf(root), new IntSet());
         //sanityCheckJoinTree(jt);
         this.mapvars=mapvars;
         domain=((Table)cpts.iterator().next()).domain();
@@ -67,7 +67,7 @@ public class MapJoinTree {
             IntSet vars=(IntSet)clusters.get(node);
 
             for(int i=0;i<vars.size();i++){
-                Integer var=new Integer(vars.get(i));
+                Integer var=Integer.valueOf(vars.get(i));
                 IntSet varLocs=(IntSet)result.get(var);
                 if(varLocs==null){
                     varLocs=new IntSet();
@@ -210,7 +210,7 @@ public class MapJoinTree {
             int neighbor=firstMention.get(v);
             int vert=jt.tree.addNew();
             jt.tree.addEdge(vert,neighbor);
-            jt.clusters.put(new Integer(vert), IntSet.singleton(v));
+            jt.clusters.put(Integer.valueOf(vert), IntSet.singleton(v));
             result.put(v,vert);
         }
         return result;
@@ -228,11 +228,11 @@ public class MapJoinTree {
         for(Iterator iter=cpts.iterator();iter.hasNext();){
             Table t=(Table)iter.next();
             int neighbor=findBestLocation(jt,t.vars(),depth,firstMention,deepest);
-            IntSet neighborVars=(IntSet)jt.clusters.get(new Integer(neighbor));
+            IntSet neighborVars=(IntSet)jt.clusters.get(Integer.valueOf(neighbor));
             int vert=jt.tree.addNew();
             jt.tree.addEdge(vert,neighbor);
-            jt.clusters.put(new Integer(vert),new IntSet(t.vars()));
-            result.put(t, new Integer(vert));
+            jt.clusters.put(Integer.valueOf(vert),new IntSet(t.vars()));
+            result.put(t, Integer.valueOf(vert));
         }
         return result;
     }
@@ -264,7 +264,7 @@ public class MapJoinTree {
                 if(d<bestDepth){
                     continue;
                 }
-                IntSet nvars=(IntSet)jt.clusters.get(new Integer(n));
+                IntSet nvars=(IntSet)jt.clusters.get(Integer.valueOf(n));
                 if(nvars.containsAll(vars)){
                     bestNode=n;
                     bestDepth=d;
@@ -279,7 +279,7 @@ public class MapJoinTree {
 
     private IntMap computeFirstMention(EliminationOrders.JT jt,int root){
         IntMap result=new IntMap(100);
-        IntSet cluster=(IntSet)jt.clusters.get(new Integer(root));
+        IntSet cluster=(IntSet)jt.clusters.get(Integer.valueOf(root));
         for(int i=0;i<cluster.size();i++){
             result.put(cluster.get(i),root);
         }
@@ -290,7 +290,7 @@ public class MapJoinTree {
         return result;
     }
     private void computeFirstMention(EliminationOrders.JT jt,int node, int parent, IntMap result){
-        IntSet cluster=(IntSet)jt.clusters.get(new Integer(node));
+        IntSet cluster=(IntSet)jt.clusters.get(Integer.valueOf(node));
         IntSet firsts=cluster.diff(result.keys());
         for(int i=0;i<firsts.size();i++){
             result.put(firsts.get(i),node);
@@ -343,7 +343,7 @@ public class MapJoinTree {
 
         private Cluster(int node,EliminationOrders.JT jt){
             me=node;
-            ind=new Index(domain,(IntSet)jt.clusters.get(new Integer(node)));
+            ind=new Index(domain,(IntSet)jt.clusters.get(Integer.valueOf(node)));
 
             neighbors=jt.tree.neighbors(node).toArray();
             myInd=new int[neighbors.length];

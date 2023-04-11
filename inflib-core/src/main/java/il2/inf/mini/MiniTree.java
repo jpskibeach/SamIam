@@ -161,7 +161,7 @@ public class MiniTree{
 
 	List dfsOrder(List l){
 	    if(children==null){
-		l.add(new Integer(leafId));
+		l.add(Integer.valueOf(leafId));
 	    }else{
 		for(int i=0;i<children.length;i++){
 		    children[i].dfsOrder(l);

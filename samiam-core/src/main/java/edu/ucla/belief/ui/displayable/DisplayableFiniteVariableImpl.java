@@ -311,7 +311,7 @@ public class DisplayableFiniteVariableImpl implements DisplayableFiniteVariable,
 	public Boolean getMandatory()
 	{
 		if( myFlagIsDSLNode ) return myDSLNode.getMandatory();
-		else return new Boolean( false );
+		else return Boolean.valueOf( false );
 	}
 	public void setMandatory( Boolean newVal )
 	{
@@ -320,7 +320,7 @@ public class DisplayableFiniteVariableImpl implements DisplayableFiniteVariable,
 	public Boolean getRanked()
 	{
 		if( myFlagIsDSLNode ) return myDSLNode.getRanked();
-		else return new Boolean( false );
+		else return Boolean.valueOf( false );
 	}
 	public void setRanked( Boolean newVal )
 	{
@@ -1009,7 +1009,7 @@ public class DisplayableFiniteVariableImpl implements DisplayableFiniteVariable,
 			EvidenceController ec = bn.getEvidenceController();
 			if( ec != null )
 			{
-				return ec.getValue( this );
+				return ec.getObservedValue( this );
 			}
 		}
 		return null;
@@ -1023,6 +1023,34 @@ public class DisplayableFiniteVariableImpl implements DisplayableFiniteVariable,
 	{
 		Object value = getObservedValue();
 		return ( value == null ) ? -1 : index( value );
+	}
+
+	/**
+	 * @author emily kao
+	 * @since 20230405
+	 */
+	public Object getIntervenedValue() 
+	{
+		BeliefNetwork bn = getBeliefNetwork(); 
+		if ( bn != null )
+		{
+			EvidenceController ec = bn.getEvidenceController(); 
+			if( ec != null )
+			{
+				return ec.getIntervenedValue( this ); 
+			}
+		}
+		return null; 
+	}
+
+	/**
+	 * @author emily kao
+	 * @since 20230405 
+	 */
+	public int getIntervenedIndex()
+	{
+		Object value = getIntervenedValue(); 
+		return ( value == null ) ? -1 : index( value ); 
 	}
 
 	/** Allow options to change.*/

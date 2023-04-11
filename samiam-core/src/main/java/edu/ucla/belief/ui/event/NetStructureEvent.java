@@ -12,6 +12,8 @@ public class NetStructureEvent extends Object
 	public static final int NODES_REMOVED = 2;
 	public static final int EDGE_ADDED = 3;
 	public static final int EDGE_REMOVED = 4;
+	public static final int INTERVENE_EDGE = 5;
+	public static final int UNINTERVENE_EDGE = 6;
 	
 	/** Set of finiteVariable objects.  Possibly null.*/
 	public Set finiteVars;

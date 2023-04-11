@@ -127,14 +127,14 @@ public class IntArrays {
     public static Integer[] integerIndex(int[] vals){
 	Integer[] result=new Integer[vals.length];
 	for(int i=0;i<result.length;i++){
-	    result[i]=new Integer(vals[i]);
+	    result[i]=Integer.valueOf(vals[i]);
 	}
 	return result;
     }
     public static Integer[] integerArray(int size){
 	Integer[] result=new Integer[size];
 	for(int i=0;i<size;i++){
-	    result[i]=new Integer(i);
+	    result[i]=Integer.valueOf(i);
 	}
 	return result;
     }

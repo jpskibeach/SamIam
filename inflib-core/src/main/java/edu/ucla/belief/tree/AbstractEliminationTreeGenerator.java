@@ -64,7 +64,7 @@ public abstract class AbstractEliminationTreeGenerator extends BucketEliminator 
         g = new HashDirectedGraph(2 * leaves.length - 1);
         clusters = new HashMap(2 * leaves.length - 1);
         for (int i = 0; i < leaves.length; i++) {
-            Object vertex = new Integer(i);
+            Object vertex = Integer.valueOf(i);
             g.add(vertex);
             clusters.put(vertex, new HashSet(leaves[i].variables()));
         }
@@ -105,7 +105,7 @@ public abstract class AbstractEliminationTreeGenerator extends BucketEliminator 
     // Returns the root of the tree formed by combining the vertices.
     protected abstract Object combine(Set vertices);
     protected Object join(Set vertices) {
-        Object parent = new Integer(next++);
+        Object parent = Integer.valueOf(next++);
         Set cluster = new HashSet();
         for (Iterator iter = vertices.iterator(); iter.hasNext();) {
             Object vertex = iter.next();
@@ -117,7 +117,7 @@ public abstract class AbstractEliminationTreeGenerator extends BucketEliminator 
         return parent;
     }
     private Object forget(Object vertex, Object var) {
-        Object parent = new Integer(next++);
+        Object parent = Integer.valueOf(next++);
         g.addEdge(vertex, parent);
         Set cluster = new HashSet((Set) clusters.get(vertex));
         cluster.remove(var);
@@ -125,7 +125,7 @@ public abstract class AbstractEliminationTreeGenerator extends BucketEliminator 
         return parent;
     }
     protected Object join(Object v1, Object v2) {
-        Object parent = new Integer(next++);
+        Object parent = Integer.valueOf(next++);
         g.addEdge(v1, parent);
         g.addEdge(v2, parent);
         Set cluster = new HashSet((Set) clusters.get(v1));

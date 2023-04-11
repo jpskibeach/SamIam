@@ -72,7 +72,7 @@ public class SensitivitySuggestionTableModel extends AbstractTableModel
 				get(i);
 
 			rowData[i][CPT_PARAMETER_COLUMN_INDEX] = tempCPTParam = suggestion.getCPTParameter();
-			rowData[i][OLD_VALUE_COLUMN_INDEX] = new Double(suggestion.getTheta());
+			rowData[i][OLD_VALUE_COLUMN_INDEX] = Double.valueOf(suggestion.getTheta());
 			rowData[i][NEW_VALUE_COLUMN_INDEX] = suggestion.getInterval();
 			rowData[i][ABSOLUTE_CHANGE_COLUMN_INDEX] = new Interval(suggestion.getAbsoluteChange(), Double.POSITIVE_INFINITY);
 			rowData[i][LOG_ODDS_CHANGE_COLUMN_INDEX] = new Interval(suggestion.getLogOddsChange(), Double.POSITIVE_INFINITY);

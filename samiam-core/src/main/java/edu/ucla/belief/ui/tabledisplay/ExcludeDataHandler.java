@@ -129,7 +129,7 @@ public class ExcludeDataHandler extends edu.ucla.belief.ui.internalframes.Abstra
 	{
 		if( 0 <= possibleIndex && possibleIndex < myExclude.length )
 		{
-			return new Boolean( myExclude[ possibleIndex ] );
+			return Boolean.valueOf( myExclude[ possibleIndex ] );
 		}
 		else
 		{

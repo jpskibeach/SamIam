@@ -12,7 +12,7 @@ public class EdgeComparator implements Comparator<int[]> {
 	public EdgeComparator(int[][] edges, double[] scores) {
 		edgeToScoreMap = new HashMap<int[],Double>( edges.length );
 		for (int edge = 0; edge < edges.length; edge++)
-			edgeToScoreMap.put(edges[edge],new Double(scores[edge]));
+			edgeToScoreMap.put(edges[edge],Double.valueOf(scores[edge]));
 	}
 	
 	public int compare(int[] edge1, int[] edge2) {

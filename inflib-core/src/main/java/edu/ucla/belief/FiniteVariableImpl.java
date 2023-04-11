@@ -152,6 +152,7 @@ public class FiniteVariableImpl extends VariableImpl implements FiniteVariable
 	}
 
 	/** @deprecated */
+	@Deprecated
 	public void setCPTShell( CPTShell shell ){
 		DSLNodeType type = null;
 		if( shell instanceof TableShell ) type = DSLNodeType.CPT;

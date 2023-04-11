@@ -60,7 +60,7 @@ public class IntegerPreference extends AbstractPreference
 
 	public Object hookValueClone()
 	{
-		return new Integer( ((Number)myValue).intValue() );
+		return Integer.valueOf( ((Number)myValue).intValue() );
 	}
 
 	protected WholeNumberField myWholeNumberField = null;
@@ -71,7 +71,7 @@ public class IntegerPreference extends AbstractPreference
 		if( myFlagBounded ){
 			if( edited < myFloor || myCeiling < edited ) return this.getValue();
 		}
-		return new Integer( edited );
+		return Integer.valueOf( edited );
 	}
 
 	protected String valueToString()

@@ -78,7 +78,7 @@ public class JoinTree{
 	return (Index)clusters.get(node);
     }
     public Index cluster(int node){
-	return (Index)clusters.get(new Integer(node));
+	return (Index)clusters.get(Integer.valueOf(node));
     }
 
     public Map separators(){
@@ -100,16 +100,16 @@ public class JoinTree{
 
 
     public Integer[] children(Pair p){
-	Set s=new HashSet(tree().neighbors(new Integer(p.s1)));
-	s.remove(new Integer(p.s2));
+	Set s=new HashSet(tree().neighbors(Integer.valueOf(p.s1)));
+	s.remove(Integer.valueOf(p.s2));
 	Integer[] result=new Integer[s.size()];
 	s.toArray(result);
 	return result;
     }
 
     public Integer[] parents(Pair p){
-	Set s=new HashSet(tree().neighbors(new Integer(p.s2)));
-	s.remove(new Integer(p.s1));
+	Set s=new HashSet(tree().neighbors(Integer.valueOf(p.s2)));
+	s.remove(Integer.valueOf(p.s1));
 	Integer[] result=new Integer[s.size()];
 	s.toArray(result);
 	return result;
@@ -140,7 +140,7 @@ public class JoinTree{
 	    Object node=iter.next();
 	    Index ind=(Index)clusters.get(node);
 	    for(int i=0;i<ind.vars().size();i++){
-		Integer v=new Integer(ind.vars().get(i));
+		Integer v=Integer.valueOf(ind.vars().get(i));
 		Set nodesContaining=(Set)orderedVarLists.get(v);
 		if(nodesContaining==null){
 		    nodesContaining=new TreeSet(sizeComparator);
@@ -167,7 +167,7 @@ public class JoinTree{
 	if(vars.size()==0){
 	    return smallestCluster;
 	}else{
-	    Collection varClusters=(Collection)orderedVarLists.get(new Integer(vars.get(0)));
+	    Collection varClusters=(Collection)orderedVarLists.get(Integer.valueOf(vars.get(0)));
 	    if(varClusters==null){
 		throw new IllegalArgumentException("No containing cluster exists");
 	    }
@@ -182,7 +182,7 @@ public class JoinTree{
 	}
     }
     public Integer leafNeighbor(int leaf){
-	Integer i=new Integer(leaf);
+	Integer i=Integer.valueOf(leaf);
 	Set neighbors=tree.neighbors(i);
 	if(neighbors.size()!=1){
 	    throw new IllegalArgumentException("not a leaf");
@@ -191,7 +191,7 @@ public class JoinTree{
     }
 
     public boolean isLeaf(int i){
-	return tree.neighbors(new Integer(i)).size()<2;
+	return tree.neighbors(Integer.valueOf(i)).size()<2;
     }
 
     public BigInteger largestClusterSize(){

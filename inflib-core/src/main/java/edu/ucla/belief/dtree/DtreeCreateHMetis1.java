@@ -127,7 +127,7 @@ public class DtreeCreateHMetis1 extends DtreeCreateHMetis {
                     Collection newEdge = new HashSet();
                     for( Iterator itr2 = vertices.iterator(); itr2.hasNext();) {
                         Integer v = (Integer)itr2.next();
-                        newEdge.add( new Integer( oldToNew[v.intValue()]));
+                        newEdge.add( Integer.valueOf( oldToNew[v.intValue()]));
                     }
                     rt.putHyperedge( edge, newEdge);
                 }
@@ -135,7 +135,7 @@ public class DtreeCreateHMetis1 extends DtreeCreateHMetis {
                     Collection newEdge = new HashSet();
                     for( Iterator itr2 = vertices.iterator(); itr2.hasNext();) {
                         Integer v = (Integer)itr2.next();
-                        newEdge.add( new Integer( oldToNew[v.intValue()]));
+                        newEdge.add( Integer.valueOf( oldToNew[v.intValue()]));
                     }
                     lf.putHyperedge( edge, newEdge);
                 }

@@ -121,14 +121,14 @@ public final class Trees extends Object
         Graph tree = new HashGraph(clusters.size());
         Map clusterMap = new HashMap(clusters.size());
         for (int i = 0; i < clusters.size(); i++) {
-            tree.add(new Integer(i));
-            clusterMap.put(new Integer(i), clusters.get(i));
+            tree.add(Integer.valueOf(i));
+            clusterMap.put(Integer.valueOf(i), clusters.get(i));
         }
         for (int i = 0; i < clusters.size() - 1;) {
             Edge e = (Edge) h.extractMax().element();
             if (forrest.find(e.v1) != forrest.find(e.v2)) {
                 forrest.union(e.v1, e.v2);
-                tree.addEdge(new Integer(e.v1), new Integer(e.v2));
+                tree.addEdge(Integer.valueOf(e.v1), Integer.valueOf(e.v2));
                 i++;
             }
         }

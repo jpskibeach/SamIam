@@ -123,7 +123,7 @@ public class DDNNF
 			if (split_line[0].equals("L"))
 			{
 				//Recover the variable and value
-				leaf_entry = new Integer(split_line[1]);
+				leaf_entry = Integer.valueOf(split_line[1]);
 				var = (FiniteVariable)index_map.get(Math.abs(leaf_entry)-1);
 				val_index = leaf_entry > 0 ? 0 : 1;
 				nodes.add(new DDNNF(new Literal(var, val_index)));
@@ -138,7 +138,7 @@ public class DDNNF
 				{
 					for (int i=3; i<split_line.length; i++)
 					{
-						child_array.add(nodes.get(new Integer(split_line[i])));
+						child_array.add(nodes.get(Integer.valueOf(split_line[i])));
 					}	 	
 					nodes.add(new DDNNF("or", child_array));
 				}
@@ -147,7 +147,7 @@ public class DDNNF
 					assert (split_line[0].equals("A"));
 					for (int i=2; i<split_line.length; i++)
 					{
-						child_array.add(nodes.get(new Integer(split_line[i])));
+						child_array.add(nodes.get(Integer.valueOf(split_line[i])));
 					}	 	
 					nodes.add(new DDNNF("and", child_array));	
 				}

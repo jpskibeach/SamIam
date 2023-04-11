@@ -346,7 +346,7 @@ public class XmlbifParser extends AbstractSaxHandler implements RunReadBIF.Monit
 
 	public static Integer intValueOf( StringBuilder accumulator ){
 		if( (accumulator == null) || (accumulator.length() < 1) ) return null;
-		return new Integer( accumulator.toString() );
+		return Integer.valueOf( accumulator.toString() );
 	}
 
 	public static class Variable{
@@ -462,7 +462,7 @@ public class XmlbifParser extends AbstractSaxHandler implements RunReadBIF.Monit
 		}
 
 		private void huginPosition( String x, String y ){
-			myProperties.put( KEY_HUGIN_POSITION, Arrays.asList( new Integer[] { new Integer(x), new Integer(y) } ) );
+			myProperties.put( KEY_HUGIN_POSITION, Arrays.asList( new Integer[] { Integer.valueOf(x), Integer.valueOf(y) } ) );
 		}
 
 		public void setLabel( String label ){

@@ -336,7 +336,7 @@ public class Graphs extends Object {
         Map m = new HashMap(g.size());
         int i = 0;
         for (Iterator iter = g.iterator(); iter.hasNext();) {
-            m.put(iter.next(), new Integer(i));
+            m.put(iter.next(), Integer.valueOf(i));
             i++;
         }
         int[][] neighbors = new int[i][];
@@ -355,7 +355,7 @@ public class Graphs extends Object {
         Map m = new HashMap(g.size());
         int i = 0;
         for (Iterator iter = g.iterator(); iter.hasNext();) {
-            m.put(iter.next(), new Integer(i));
+            m.put(iter.next(), Integer.valueOf(i));
             i++;
         }
         int[][] inComing = new int[i][];

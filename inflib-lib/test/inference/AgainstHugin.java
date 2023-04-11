@@ -320,7 +320,7 @@ public class AgainstHugin
 						errorMessage( STR_OPT_ITERATIONS + " requires a number." );
 					}
 					else{
-						intIterations = new Integer(strIterations);
+						intIterations = Integer.valueOf(strIterations);
 						int intValue = intIterations.intValue();
 						if( (intValue <= 0) || (intValue > INT_MAX_ITERATIONS) )
 							errorMessage( "Iterations \"" +strIterations+ "\" is not valid." );

@@ -18,7 +18,7 @@ public class EvidenceChangeEvent
 {
 	public Collection recentEvidenceChangeVariables = null;
 
-	public static EvidenceChangeEvent EMPTY_EVENT = new EvidenceChangeEvent( Collections.EMPTY_SET );
+	public static EvidenceChangeEvent EMPTY_EVENT = new EvidenceChangeEvent( Collections.emptySet() );
 
 	public EvidenceChangeEvent( Collection recentEvidenceChangeVariables )
 	{

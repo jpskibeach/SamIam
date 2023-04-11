@@ -50,7 +50,7 @@ public class RC2NodeLeaf extends RC2Node implements RC2Node.RC2LeafEventHandler 
 					min = data[i];
 				}
 			}
-			minVal.put( this, new Double(min));
+			minVal.put( this, Double.valueOf(min));
 		}
 
 		if(fv==null||fvLocalIndx<0) { throw new IllegalArgumentException("Illegal FiniteVariable: " + fv);}

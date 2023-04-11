@@ -155,7 +155,7 @@ public class PearlTableModel extends AbstractTableModel implements HuginGenieSty
 		{
 			return myStates.get(row);
 		}
-		else return new Double( myWeights[ calculateDataIndex( row, column ) ] );
+		else return Double.valueOf( myWeights[ calculateDataIndex( row, column ) ] );
 	}
 
 	/** interface HuginGenieStyleTableFactory.TableModelHGS

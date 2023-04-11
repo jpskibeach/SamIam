@@ -245,9 +245,9 @@ public class PreferenceGroup
 		PreferenceGroup PG = new PreferenceGroup( "DEBUG" );
 		Collection C = PG.preferences;
 
-		C.add( new BooleanPreference( "skyBlue", "Is the sky blue?", new Boolean( true ) ) );
-		C.add( new IntegerPreference( "numFingers", "Number of fingers", new Integer( 5 ) ) );
-		C.add( new DoublePreference( "piValue", "Value of pi", new Double( Math.PI ) ) );
+		C.add( new BooleanPreference( "skyBlue", "Is the sky blue?", Boolean.valueOf( true ) ) );
+		C.add( new IntegerPreference( "numFingers", "Number of fingers", Integer.valueOf( 5 ) ) );
+		C.add( new DoublePreference( "piValue", "Value of pi", Double.valueOf( Math.PI ) ) );
 		C.add( new ColorPreference( "bullColor", "Bull fighting color", Color.red ) );
 		C.add( new DimensionPreference( "roomSize", "Size of your room", new Dimension( 11,14 ) ) );
 

@@ -511,7 +511,7 @@ public class HuginReader implements ProgressMonitorable, HuginReaderConstants {
       break;
     case NUM:
       x = jj_consume_token(NUM);
-                    {if (true) return asInteger ? ((Number) new Integer( x.image )) : ((Number) new Double( x.image ));}
+                    {if (true) return asInteger ? ((Number) Integer.valueOf( x.image )) : ((Number) Double.valueOf( x.image ));}
       break;
     default:
       jj_la1[12] = jj_gen;

@@ -70,7 +70,7 @@ public class RC2NodeInternal extends RC2Node {
 				if(thism == 0.0) { flagCallLog = true; if(scalar==1.0) {System.out.println("\n\n\nWARNING: This dtree could possibly underflow.\n\n\n");}}
 				else {
 					flagCallLog = false;
-					minVal.put( this, new Double(thism));
+					minVal.put( this, Double.valueOf(thism));
 				}
 			}
 		}

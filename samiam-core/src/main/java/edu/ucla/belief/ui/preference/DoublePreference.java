@@ -60,7 +60,7 @@ public class DoublePreference extends AbstractPreference
 
 	public Object hookValueClone()
 	{
-		return new Double( ((Number)myValue).doubleValue() );
+		return Double.valueOf( ((Number)myValue).doubleValue() );
 	}
 
 	protected DecimalField myDecimalField = null;
@@ -71,7 +71,7 @@ public class DoublePreference extends AbstractPreference
 		if( myFlagBounded ){
 			if( edited < myFloor || myCeiling < edited ) return this.getValue();
 		}
-		return new Double( edited );
+		return Double.valueOf( edited );
 	}
 
 	protected String valueToString()

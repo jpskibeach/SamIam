@@ -447,7 +447,7 @@ public class NetworkInternalFrame	extends JInternalFrame
 		pack();
 		setBounds( 5, 5, 750, 490 );
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		setLayer(new Integer(ui.layer));
+		setLayer(Integer.valueOf(ui.layer));
 		addInternalFrameListener(this);
 
 		myComputationCache = new ComputationCache( this );
@@ -1084,8 +1084,8 @@ public class NetworkInternalFrame	extends JInternalFrame
 	public static List toList( Point p )
 	{
 		List ret = new ArrayList( 2 );
-		ret.add( new Integer( p.x ) );
-		ret.add( new Integer( p.y ) );
+		ret.add( Integer.valueOf( p.x ) );
+		ret.add( Integer.valueOf( p.y ) );
 		return ret;
 	}
 
@@ -2602,7 +2602,7 @@ public class NetworkInternalFrame	extends JInternalFrame
 
 	/** @since 20051006 */
 	public boolean setDefaultEvidence( Component parentComponent ){
-		boolean flagUnobserve = false, flagSuccess = false;
+		boolean flagSuccess = false; 
 		Throwable caught = null;
 		EvidenceController ec = null;
 		try{
@@ -2616,14 +2616,14 @@ public class NetworkInternalFrame	extends JInternalFrame
 				exception.printStackTrace();
 			}
 		}finally{
-			if( ! flagSuccess ){ showEvidenceWarning( caught, /*flagUnobserve*/ false, null, null, parentComponent == null ? evidenceTreeScrollPane : parentComponent ); }
+			if( ! flagSuccess ){ showEvidenceWarning( caught, true, true, null, null, parentComponent == null ? evidenceTreeScrollPane : parentComponent ); }
 		}
 		return flagSuccess;
 	}
 
 	/** @since 20051006 */
 	public boolean resetEvidence( Component parentComponent ){
-		boolean flagUnobserve = false, flagSuccess = false;
+		boolean flagSuccess = false;
 		Throwable caught = null;
 		EvidenceController ec = null;
 		try{
@@ -2637,24 +2637,44 @@ public class NetworkInternalFrame	extends JInternalFrame
 				exception.printStackTrace();
 			}
 		}finally{
-			if( ! flagSuccess ){ showEvidenceWarning( caught, /*flagUnobserve*/ false, null, null, parentComponent == null ? evidenceTreeScrollPane : parentComponent ); }
+			if( ! flagSuccess ){ showEvidenceWarning( caught, true, true, null, null, parentComponent == null ? evidenceTreeScrollPane : parentComponent ); }
 		}
 		return flagSuccess;
 	}
 
-	/** @since 20051006 */
+	/**
+	 * TODO: flag for unobserve 
+	 * @since 20230405 
+	 */
 	public boolean evidenceRequest( FiniteVariable var, Object value, Component parentComponent ){
-		boolean flagUnobserve = false;
+		boolean flagObserve = false; 
+		boolean flagIntervene = false; 
 		boolean flagSuccess = false;
 		Throwable caught = null;
-		Object valueOld = null;
+		Object valueOldObs = null; 
+		Object valueOldInt = null; 
 		EvidenceController ec = null;
 		try{
 			ec = myBeliefNetwork.getEvidenceController();
-			valueOld = ec.getValue( var );
-			flagUnobserve = (valueOld != null) && (valueOld == value);//(var.index(getEvidence(var)) == var.index(instance))
-			if( flagUnobserve ) ec.unobserve( var );
-			else ec.observe( var, value );
+			valueOldObs = ec.getObservedValue( var ); 
+			valueOldInt = ec.getIntervenedValue( var ); 
+			if (valueOldObs != null && valueOldObs == value) {
+				// if the variable was previously observed on value and we click value again,
+				// we intervene on the variable
+				ec.intervene( var,  value); 
+				flagIntervene = true; 
+				fireNetStructureChanged(new NetStructureEvent(NetStructureEvent.INTERVENE_EDGE, Collections.singleton(var)));
+			} else if (valueOldInt != null && valueOldInt == value) {
+				// if the variable was previously intevened on value and we click value again, 
+				// unobserve 
+				ec.unobserve( var ); 
+				fireNetStructureChanged(new NetStructureEvent(NetStructureEvent.UNINTERVENE_EDGE, Collections.singleton(var)));
+			
+			} else {
+				// the variable was previously unobserved, so observe value 
+				ec.observe( var, value ); 
+				flagObserve = true; 
+			}
 			flagSuccess = true;
 		}catch( Exception exception ){//StateNotFoundException e ){
 			caught = exception;
@@ -2664,14 +2684,26 @@ public class NetworkInternalFrame	extends JInternalFrame
 				exception.printStackTrace();
 			}
 		}finally{
-			if( !flagSuccess ) showEvidenceWarning( caught, flagUnobserve, var, value, parentComponent );
+			if( !flagSuccess ) showEvidenceWarning( caught, flagObserve, flagIntervene, var, value, parentComponent );
 		}
 		return flagSuccess;
 	}
 
+	/**
+	 * emilydebug
+	 */
 	/** @since 20051006 */
-	public static void showEvidenceWarning( Throwable caught, boolean flagUnobserve, FiniteVariable var, Object instance, Component parentComponent ){
-		String verb = flagUnobserve ? STR_VERB_UNOBSERVE : STR_VERB_OBSERVE;
+	public static void showEvidenceWarning( Throwable caught, boolean flagObserve, boolean flagIntervene, FiniteVariable var, Object instance, Component parentComponent ){
+		String verb; 
+		if( flagObserve && flagIntervene){
+			verb = STR_VERB_OBSERVE + " or " + STR_VERB_INTERVENE; 
+		} else if ( flagObserve ){
+			verb = STR_VERB_OBSERVE; 
+		} else if ( flagIntervene ){
+			verb = STR_VERB_INTERVENE; 
+		} else {
+			verb = STR_VERB_UNOBSERVE; 
+		}
 		String strVarValue = ((var == null) || (instance == null)) ? " values" : (" <b>" + var.toString() + "</b> == <b>" + instance.toString() + "</b>");
 		String description = "<html><nobr>Failed to " + verb + strVarValue;
 		String reason = STR_MSG_WARNING_GENERIC_FAILED_OBSERVATION;
@@ -2688,6 +2720,7 @@ public class NetworkInternalFrame	extends JInternalFrame
 
 	public static final String STR_VERB_OBSERVE   = "assert";
 	public static final String STR_VERB_UNOBSERVE = "retract";
+	public static final String STR_VERB_INTERVENE = "intervene"; 
 	public static final String STR_MSG_WARNING_GENERIC_FAILED_OBSERVATION = "unknown system error";
 	public static final String STR_TITLE_WARNING_FAILED_OBSERVATION       = "Warning: Evidence";
 
