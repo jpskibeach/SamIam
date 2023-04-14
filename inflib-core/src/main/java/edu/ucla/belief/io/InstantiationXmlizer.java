@@ -252,7 +252,7 @@ public class InstantiationXmlizer extends DefaultHandler
 				entry = (Map.Entry)it.next();
 				var = entry.getKey();
 				pair = (List)entry.getValue();
-				append( document, eltRoot, var, positive.get( var ), (String)pair.get(0), false );
+				append( document, eltRoot, var, pair.get(1), (String)pair.get(0), false );
 			}
 		}
 

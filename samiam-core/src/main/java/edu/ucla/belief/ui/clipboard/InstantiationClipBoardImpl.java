@@ -390,7 +390,9 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 				return count;
 			}
 
-			if( myMatcherImportText == null ) myMatcherImportText = Pattern.compile( "(\\w+)\\s*=\\s*(\\w+)" ).matcher( "" );
+			// if( myMatcherImportText == null ) myMatcherImportText = Pattern.compile( "(\\w+)\\s*=\\s*(\\w+)" ).matcher( "" );
+
+			if( myMatcherImportText == null ) myMatcherImportText = Pattern.compile( "(\\w+)\\s*=\\s*(\\w+)\\s*,\\s*(\\w+)" ).matcher( "" );
 
 			if( (count = importFromSystemImpl( myMatcherImportText, contents )) > 0 ){
 				revalidate();
@@ -414,7 +416,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 		if( matcher.reset( contents ).find() ){
 			clear();
 			do{
-				put( matcher.group( 1 ), matcher.group( 2 ) );
+				put( matcher.group( 1 ), Arrays.asList(matcher.group( 2 ), matcher.group( 3 )) );
 				++count;
 			} while( matcher.find() );
 		}
@@ -437,12 +439,18 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 				}
 
 				Object key;
-				String id, value;
+				String id, type, value;
 				for( Iterator it = myLexicographic.iterator(); it.hasNext(); ){
 					key   = it.next();
 					id    = ( key instanceof FiniteVariable ) ? ((FiniteVariable) key).getID() : key.toString();
 					value = get( key ).toString();
-					myBufferOutput.append( id ).append( " = " ).append( value ).append( ", " );
+					if (intervenedVars.contains(key)) {
+						type = "intervened";
+					}
+					else {
+						type = "observed";
+					}
+					myBufferOutput.append( id ).append( " = " ).append( type ).append(", ").append( value ).append( "; " );
 				}
 				if( myBufferOutput.length() > 0 ) myBufferOutput.setLength( myBufferOutput.length() - 2 );
 			}
