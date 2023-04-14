@@ -12,6 +12,7 @@ import edu.ucla.belief.FiniteVariable;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 /** java 4/java 5 factories
 
@@ -24,7 +25,7 @@ public interface Bridge2Tiger
 	/** describe the purpose of this factory */
 	public String      describe();
 	/** manufacture a new OutputPanel */
-	public OutputPanel           newOutputPanel(           Map data, Collection variables, boolean useIDRenderer );
+	public OutputPanel           newOutputPanel(           Map data, Collection variables, Set intervenedVars, boolean useIDRenderer );
 	/** manufacture a new EnumTableModel */
 	public EnumTableModel        newEnumTableModel(        BeliefNetwork bn );
 	/** manufacture a new EnumPropertyEditPanel */

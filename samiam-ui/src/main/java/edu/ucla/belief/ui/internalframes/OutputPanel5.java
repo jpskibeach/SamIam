@@ -24,12 +24,12 @@ import java.lang.reflect.*;
 	@since  20070321 */
 public class OutputPanel5 extends OutputPanel implements Grepable<VariableInstance,GrepField,Object>
 {
-	public OutputPanel5( Map<? extends FiniteVariable,?> data, Collection<? extends FiniteVariable> variables ){
-		super( data, variables, false );
+	public OutputPanel5( Map<? extends FiniteVariable,?> data, Collection<? extends FiniteVariable> variables, Set<? extends FiniteVariable> intervenedVars ){
+		super( data, variables, intervenedVars, false );
 	}
 
-	public OutputPanel5( Map<? extends FiniteVariable,?> data, Collection<? extends FiniteVariable> variables, boolean useIDRenderer ){
-		super( data, variables, useIDRenderer );
+	public OutputPanel5( Map<? extends FiniteVariable,?> data, Collection<? extends FiniteVariable> variables, Set<? extends FiniteVariable> intervenedVars, boolean useIDRenderer ){
+		super( data, variables, intervenedVars, useIDRenderer );
 	}
 
 	/** Define the grepable fields, i.e. the table columns.
@@ -153,8 +153,8 @@ public class OutputPanel5 extends OutputPanel implements Grepable<VariableInstan
 	}
 
 	/** @since 20091110 */
-	protected void init( Map data, Collection variables ){
-		super.init( data, variables );
+	protected void init( Map data, Collection variables, Set intervenedVars ){
+		super.init( data, variables, intervenedVars );
 		try{
 			Class       clazz  = Class.forName( "javax.swing.table.TableRowSorter" );
 			Method      meth   = JTable.class.getMethod( "setAutoCreateRowSorter", Boolean.class );

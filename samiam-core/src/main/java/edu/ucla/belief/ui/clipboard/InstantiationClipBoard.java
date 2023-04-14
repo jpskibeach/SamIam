@@ -4,6 +4,7 @@ import edu.ucla.belief.EvidenceController;
 import edu.ucla.belief.BeliefNetwork;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.JComponent;
 import java.io.*;
 
@@ -12,8 +13,8 @@ public interface InstantiationClipBoard extends Map
 {
 	public static final String STR_FILENAME_ICON = "PasteAlt16.gif";
 
-	public   void                  copy( Map instantiation );
-	public   void                   cut( Map instantiation, EvidenceController controller );
+	public   void                  copy( Map instantiation, Set intervenedVars );
+	public   void                   cut( Map instantiation, Set intervenedVars, EvidenceController controller );
 	public   void                 paste( BeliefNetwork network );
 	public   JComponent            view();
 	public   boolean               load()                      throws UnsupportedOperationException, IOException;

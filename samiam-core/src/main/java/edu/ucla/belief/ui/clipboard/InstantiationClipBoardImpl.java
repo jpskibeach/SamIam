@@ -6,7 +6,7 @@ import edu.ucla.belief.ui.internalframes.OutputPanel;
 import edu.ucla.belief.ui.internalframes.Bridge2Tiger;
 import edu.ucla.belief.ui.toolbar.MainToolBar;
 import edu.ucla.belief.ui.util.Util;
-
+import edu.ucla.util.Interval;
 import edu.ucla.belief.EvidenceController;
 import edu.ucla.belief.StateNotFoundException;
 import edu.ucla.belief.FiniteVariable;
@@ -20,11 +20,15 @@ import edu.ucla.belief.io.InstantiationXmlizer;
 import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
@@ -44,14 +48,17 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 	public InstantiationClipBoardImpl( UI ui )
 	{
 		myUI = ui;
+		intervenedVars = new HashSet();
 		if( NetworkIO.xmlAvailable() ) myXmlizer = new InstantiationXmlizer();
 		else if( Util.DEBUG_VERBOSE ) System.err.println( "InstantiationClipBoardImpl() xml API not available." );
 	}
 
-	public void copy( Map instantiation )
+	public void copy( Map instantiation, Set intVars )
 	{
 		clear();
-		putAll( instantiation );
+		putAll( instantiation );  
+		intervenedVars.clear();
+		if( ! intVars.isEmpty() ) intervenedVars.addAll( intVars );
 		revalidate();
 		if( myUI != null ){
 			myUI.action_PASTEEVIDENCE.setSamiamUserMode( myUI.getSamiamUserMode() );//!isEmpty() );
@@ -61,7 +68,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 	/** @since 20070904 */
 	public boolean revalidate(){
 		if( myOutputPanel != null && myGUI != null && myGUI.isShowing() ){
-			myOutputPanel.newData( this, getVariables() );
+			myOutputPanel.newData( this, getVariables(), intervenedVars );
 			return true;
 		}
 		return false;
@@ -73,9 +80,9 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 		revalidate();
 	}
 
-	public void cut( Map instantiation, EvidenceController controller )
+	public void cut( Map instantiation, Set intervenedVars, EvidenceController controller )
 	{
-		copy( instantiation );
+		copy( instantiation, intervenedVars );
 		try{
 			controller.resetEvidence();
 		}catch( Exception exception ){
@@ -87,17 +94,15 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 
 	public void paste( BeliefNetwork network )
 	{
-		//System.out.print( "InstantiationClipBoardImpl.paste()" );
 		if( !isEmpty() )
 		{
 			EvidenceController controller = network.getEvidenceController();
 
 			if( network.containsAll( keySet() ) )
 			{
-				//System.out.println( " network.containsAll()" );
 				try{
 					//controller.setObservations( this );
-					controller.observe( this );
+					controller.addEvidence(this, intervenedVars);
 					return;
 				}catch( Exception exception ){//StateNotFoundException snfe ){
 					if( Util.DEBUG_VERBOSE ) edu.ucla.belief.ui.util.Util.STREAM_VERBOSE.println( "InstantiationClipBoardImpl.paste() caught " + exception );
@@ -110,6 +115,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 			//controller.resetEvidence();
 
 			Map toObserve = new HashMap();
+			Map toIntervene = new HashMap();
 			Collection missingVariables = new LinkedList();
 			Map missingStates = new HashMap(1);
 
@@ -131,8 +137,14 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 						if( forID != null )
 						{
 							index = nextFVar.index( get( nextFVar ) );
-							if( (int)0 <= index && index < forID.size() )//controller.observe( forID, forID.instance( index ) );
-								toObserve.put( forID, forID.instance( index ) );
+							if( (int)0 <= index && index < forID.size() ) {//controller.observe( forID, forID.instance( index ) );
+								if( intervenedVars.contains( forID )) {
+									toIntervene.put( forID, forID.instance(index)); 
+								} 
+								else {
+									toObserve.put( forID, forID.instance( index ) );
+								}
+							}
 						}
 						else missingVariables.add( nextFVar.getID() );
 					}
@@ -143,9 +155,17 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 						if( forID != null )
 						{
 							instance = forID.instance( get(next).toString() );
-							if( instance != null )//controller.observe( forID, instance );
-								toObserve.put( forID, instance );
-							else missingStates.put( forID.getID(), get(next).toString() );
+							if( instance != null ) {//controller.observe( forID, instance );
+								if( intervenedVars.contains( forID )) {
+									toIntervene.put( forID, instance ); 
+								} 
+								else {
+									toObserve.put( forID, instance );
+								}
+							}
+							else {
+								missingStates.put( forID.getID(), get(next).toString() );
+							}
 						}
 						else missingVariables.add( nextString );
 					}
@@ -155,7 +175,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 			}
 
 			try{
-				controller.setObservations( toObserve );
+				controller.setEvidence( toObserve, toIntervene );
 				//controller.observe( toObserve );
 				//return;
 			}catch( Exception exception ){//StateNotFoundException snfe ){
@@ -195,8 +215,12 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 	{
 		Collection variables = getVariables();
 
-		if( myOutputPanel == null ) myOutputPanel = Bridge2Tiger.Troll.solicit().newOutputPanel( this, variables, true );//new OutputPanel( this, variables, true );
-		else myOutputPanel.newData( this, variables );
+		if( myOutputPanel == null ) {
+			myOutputPanel = Bridge2Tiger.Troll.solicit().newOutputPanel( this, variables, intervenedVars, true );//new OutputPanel( this, variables, true );
+		}
+		else {
+			myOutputPanel.newData( this, variables, intervenedVars );
+		}
 
 		if( myGUI == null ) makeGUI();
 
@@ -299,17 +323,54 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 		//return myXmlizer.load( this, fileInput );
 
 		Map map = myXmlizer.getMap( fileInput );
+		// seems like based on construction of map in InstantiationXmlizer, map type is String
+		// however, the way it is used with EvidenceController in this.copy() implies that it is an
+		// <FiniteVariable, Object> map?????
+		// emilydebug parse map to get the map and set we want
 		if( map == null ) return false;
 		else{
-			this.copy( map );
+			// emilydebug fix... not sure if correct
+			Map instantiationMap = new HashMap();
+			Set interventionSet = new HashSet();
+			Map.Entry entry;
+			FiniteVariable var; 
+			List pair;
+			String type;
+			Object value; 
+			for( Iterator itr = map.entrySet().iterator(); itr.hasNext(); ){
+				entry = (Map.Entry)itr.next();
+				var = (FiniteVariable)entry.getKey();
+				pair = (List)entry.getValue();
+				type = (String)pair.get(0);
+				value = pair.get(1);
+				instantiationMap.put(var, value);
+				if( type == InstantiationXmlizer.STR_VALUE_INT ) interventionSet.add(var);
+			}
+			this.copy( instantiationMap, interventionSet );
 			return true;
 		}
 	}
 
 	public boolean save( File fileOutput ) throws UnsupportedOperationException
 	{
+		// emilydebug create new map with the InstantiationXmlizer map structure
+		Map xmlizerMap = new HashMap(); 
+		Map.Entry entry;
+		FiniteVariable var;
+		Object value; 
+		for( Iterator itr = this.entrySet().iterator(); itr.hasNext(); ){
+			entry = (Map.Entry)itr.next();
+			var = (FiniteVariable)entry.getKey();
+			value = entry.getValue();
+			if( intervenedVars.contains(var) ){
+				xmlizerMap.put(var, Arrays.asList(InstantiationXmlizer.STR_VALUE_INT, value));
+			}
+			else {
+				xmlizerMap.put(var, Arrays.asList(InstantiationXmlizer.STR_VALUE_OBS, value));
+			}
+		}
 		if( myXmlizer == null ) throw new UnsupportedOperationException( STR_MSG_API_ERROR );
-		return myXmlizer.save( this, fileOutput );
+		return myXmlizer.save( xmlizerMap, fileOutput );
 	}
 
 	/** @since 20070904 */
@@ -433,6 +494,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 	protected Matcher        myMatcherImportXML, myMatcherImportText;
 	protected StringBuffer   myBufferOutput;
 	protected ArrayList      myLexicographic;
+	protected Set			 intervenedVars;
 
 	public static final String STR_MSG_API_ERROR = "XML API not available.";
 

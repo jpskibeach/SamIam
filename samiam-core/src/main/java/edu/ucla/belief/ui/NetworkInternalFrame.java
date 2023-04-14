@@ -905,8 +905,6 @@ public class NetworkInternalFrame	extends JInternalFrame
 	*/
 	public void evidenceChanged( EvidenceChangeEvent ECE )
 	{
-		//System.out.println( "NIF.evidenceChanged()" );
-
 		if( ui == null || mySynchronization == null ) return;//disposed
 
 		animate();
@@ -2643,7 +2641,6 @@ public class NetworkInternalFrame	extends JInternalFrame
 	}
 
 	/**
-	 * TODO: flag for unobserve 
 	 * @since 20230405 
 	 */
 	public boolean evidenceRequest( FiniteVariable var, Object value, Component parentComponent ){
@@ -2663,13 +2660,10 @@ public class NetworkInternalFrame	extends JInternalFrame
 				// we intervene on the variable
 				ec.intervene( var,  value); 
 				flagIntervene = true; 
-				fireNetStructureChanged(new NetStructureEvent(NetStructureEvent.INTERVENE_EDGE, Collections.singleton(var)));
 			} else if (valueOldInt != null && valueOldInt == value) {
 				// if the variable was previously intevened on value and we click value again, 
 				// unobserve 
 				ec.unobserve( var ); 
-				fireNetStructureChanged(new NetStructureEvent(NetStructureEvent.UNINTERVENE_EDGE, Collections.singleton(var)));
-			
 			} else {
 				// the variable was previously unobserved, so observe value 
 				ec.observe( var, value ); 

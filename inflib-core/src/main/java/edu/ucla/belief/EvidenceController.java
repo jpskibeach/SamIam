@@ -398,8 +398,9 @@ public class EvidenceController implements Cloneable
 	}
 
 	/**
-	 * Only intervene upon a variable if it has been previously selected as observed. Alert all
-	 * relevant listeners that an observed value has become an intervened value. 
+	 * Intervene upon a variable except if it is already intervened. Interveneing if variable was 
+	 * observed or unobserved is allowed due to paste functionality of instantiation clipboard. 
+	 * Alert all relevant listeners that an observed value has become an intervened value. 
 	 * @return number of changes 
 	 * @since 20230405
 	 */
@@ -407,8 +408,8 @@ public class EvidenceController implements Cloneable
 	{
 		if( ! var.contains( value ) ){ throw new StateNotFoundException( var, value ); }
 		Object prev_obsv = myMapObservations.get( var ); 
-		if ( value.equals( prev_obsv ) ){
-			pre( null, var, prev_obsv == null ? null : var, null, null, null ); 
+		pre( null, var, prev_obsv == null ? null : var, null, null, null ); 
+		if( ! myMapInterventions.containsKey(var) || value != prev_obsv) {
 			myMapObservations.remove( var ); 
 			myMapInterventions.put( var, value ); 
 			addRecentEvidenceChange( var );
@@ -416,7 +417,7 @@ public class EvidenceController implements Cloneable
 			InterventionAssertedProperty.setValue( var, this);
 			return 1; 
 		}
-		return 0; 
+		return 0;
 	}
 
 	public int intervene( Map evidence ) throws StateNotFoundException
@@ -488,10 +489,52 @@ public class EvidenceController implements Cloneable
 	/**
 	 * TODO: maybe also add setEvidence function that calls both setObservation and setIntervention
 	 * @since 20230405
+	 * emilydebug may be an unnecessary function
 	 */
 	public int setEvidence( Map obsEvidence, Map intEvidence ) throws StateNotFoundException
 	{
 		return setObservations(obsEvidence) + setInterventions(intEvidence); 
+	}
+
+	/**
+	 * Adds the evidence listed to the set of current evidence. If it is an intervened variable,
+	 * intervene on the evidence, else observe. 
+	 * @param evidence A mapping from FiniteVariables to the value they take on. 
+	 * @return count modified evidence (observations and interventions)
+	 * emilydebug: observe(Map evidence) and intervene(Map evidence) may not be necessary
+	*/
+	public int addEvidence( Map evidence, Set intervenedVars ) throws StateNotFoundException
+	{
+		Set evidenceVars = evidence.keySet();
+		Set observeVars = new HashSet(evidenceVars);
+		observeVars.removeAll(intervenedVars);
+		pre( null, null, null, observeVars, intervenedVars, null);
+
+		int count = 0; 
+		myFlagSuppressPre = true; 
+		try{
+			checkValidVariables( evidenceVars );
+			FiniteVariable var = null; 
+			Object value = null; 
+			for( Iterator iter = evidenceVars.iterator(); iter.hasNext(); ){
+				var = (FiniteVariable) iter.next(); 
+				value = evidence.get(var);
+				if (value != null) {
+					if( intervenedVars.contains( var ) ){
+						count += interveneSansCheckSansNotify( var, value );
+					} 
+					else {
+						count += observeSansCheckSansNotify( var, value );
+					}
+				}
+			}
+		} finally {
+			myFlagSuppressPre = false; 
+		}
+		
+		fireEvidenceChanged( myFlagDoNotify );
+		
+		return count;
 	}
 
 
@@ -582,6 +625,11 @@ public class EvidenceController implements Cloneable
 		evidence.putAll(myMapObservations);
 		evidence.putAll(myMapInterventions);
 		return Collections.unmodifiableSet( evidence.keySet() );
+	}
+
+	/** @since 20230412 */
+	public Set intervenedVariables(){
+		return Collections.unmodifiableSet( myMapInterventions.keySet() );
 	}
 
 	/** @since 20021029 */

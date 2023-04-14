@@ -24,6 +24,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.*;
 import java.lang.reflect.Method;
+import java.security.spec.ECGenParameterSpec;
 
 import edu.ucla.belief.*;
 import edu.ucla.belief.io.*;
@@ -1984,6 +1985,8 @@ public class NetworkDisplay extends JInternalFrame implements
 				if( ed == null || st == null ){ return; }
 
 				final Arrow ar = new Arrow( st, ed, this, mySamiamPreferences );
+				st.addFadedOutboundEdge( ar ); 
+				ed.addFadedIncomingEdge( ar );
 				if( this.hasDecorators() ){
 					for( Iterator it = myListDecorators.iterator(); it.hasNext(); ){
 						((Decorator)it.next()).decorateArrow( ar, hnInternalFrame );
@@ -3078,6 +3081,27 @@ public class NetworkDisplay extends JInternalFrame implements
 
 	public void evidenceChanged( EvidenceChangeEvent ece )
 	{
+		// check through recent evidence changes and determine if they change network structure
+		EvidenceController ec = myBeliefNetwork.getEvidenceController();
+		Collection evidenceChangeVars = ece.recentEvidenceChangeVariables;
+		Set intervenedVars = new HashSet();
+		Set unintervenedVars = new HashSet();
+
+		for( Iterator itr = evidenceChangeVars.iterator(); itr.hasNext(); )
+		{
+			FiniteVariable var = (FiniteVariable) itr.next();
+			if( ec.isIntervention( var ) ){
+				intervenedVars.add( var );
+			} 
+			else
+			{
+				unintervenedVars.add( var );
+			}
+		}
+
+		if (intervenedVars.size() != 0) netStructureChanged(new NetStructureEvent(NetStructureEvent.INTERVENE_EDGE, intervenedVars));
+		if (unintervenedVars.size() != 0) netStructureChanged(new NetStructureEvent(NetStructureEvent.UNINTERVENE_EDGE, unintervenedVars));
+
 		updateMonitors( ece );
 	}
 

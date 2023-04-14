@@ -562,7 +562,7 @@ public class MonitorImpl extends JPanel implements Monitor
 	public Table evidenceChangedImpl( EvidenceChangeEvent ece, double globalMaximumProbability )
 	{
 		//if( NetworkInternalFrame.DEBUG_CPTCHANGED )
-		//System.out.println( "MonitorImpl.evidenceChanged( "+ece+", "+globalMaximumProbability+" )" );
+		// System.out.println( "MonitorImpl.evidenceChanged( "+ece+", "+globalMaximumProbability+" )" ); 
 
 		if( myDFV.isSampleMode() ) return (Table)null;
 
@@ -582,9 +582,6 @@ public class MonitorImpl extends JPanel implements Monitor
 
 		int observedIndex = myDFV.getObservedIndex();
 		int intervenedIndex = myDFV.getIntervenedIndex(); 
-		/** emilydebug 
-		 * TODO: fix to also do this for intervenedIndex
-		 */
 
 		EvidenceLabel el;
 		Iterator itr = evidLabels.iterator();

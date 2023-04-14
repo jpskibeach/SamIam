@@ -219,8 +219,8 @@ public class CrouchingTiger implements Bridge2Tiger
 	}
 
 	@SuppressWarnings( "unchecked" )
-	public OutputPanel newOutputPanel( Map data, Collection variables, boolean useIDRenderer ){
-		return new OutputPanel5( data, variables, useIDRenderer );
+	public OutputPanel newOutputPanel( Map data, Collection variables, Set intervenedVars, boolean useIDRenderer ){
+		return new OutputPanel5( data, variables, intervenedVars, useIDRenderer );
 	}
 
 	public EnumTableModel        newEnumTableModel(        BeliefNetwork bn ){

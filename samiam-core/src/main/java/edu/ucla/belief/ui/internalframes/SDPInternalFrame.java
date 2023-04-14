@@ -245,7 +245,7 @@ public class SDPInternalFrame extends javax.swing.JInternalFrame implements Evid
             pnlIn = new SDPInputPanel( this, frmNet, listModelKnown, listModelToFind , listModelToFindDecision);
         }
 		//Set up empty output panel (right side of the frame)
-		OutputPanel pnlOut = Bridge2Tiger.Troll.solicit().newOutputPanel( new HashMap(), bn, false );//new OutputPanel( new HashMap(), bn );
+		OutputPanel pnlOut = Bridge2Tiger.Troll.solicit().newOutputPanel( new HashMap(), bn, new HashSet(), false );//new OutputPanel( new HashMap(), bn );
 
 		//Set up Split Pane, adding pnlIn and pnlOut to it
 		int l = panMain.getDividerLocation();

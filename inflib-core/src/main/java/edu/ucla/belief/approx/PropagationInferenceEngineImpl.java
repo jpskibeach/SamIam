@@ -346,6 +346,7 @@ public class PropagationInferenceEngineImpl extends AbstractInferenceEngine
 		this.timeMillis = 0;
         this.numIterations = 0;
 		long startTime = elapsedTime(0);
+		this.schedule = this.scheduler.generateSchedule(myBeliefNetwork);
 		while ( true ) {
 			if ( this.maxIterations != 0 )
 				if ( this.numIterations >= this.maxIterations ) return;
@@ -384,7 +385,6 @@ public class PropagationInferenceEngineImpl extends AbstractInferenceEngine
 			else
 				newTable.multiplyInto
 					((Table)curMessages.get(getEdge(it.next(),from)));
-
 		Table oldTable = (Table)curMessages.get(edge);
 		HashSet varSet = new HashSet(oldTable.variables());
 		newTable = Table.normalize(newTable.project(varSet));

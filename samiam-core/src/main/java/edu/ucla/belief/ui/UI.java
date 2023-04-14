@@ -53,6 +53,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.lang.ModuleLayer.Controller;
 import java.lang.reflect.Field;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.MenuListener;
@@ -464,7 +465,8 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		{
 			public void actionPerformed( ActionEvent e ){
 				NetworkInternalFrame nif = getActiveHuginNetInternalFrame();
-				myInstantiationClipBoard.copy( nif.getBeliefNetwork().getEvidenceController().evidence() );
+				EvidenceController controller = nif.getBeliefNetwork().getEvidenceController();
+				myInstantiationClipBoard.copy( controller.evidence(), controller.intervenedVariables() );
 				action_PASTEEVIDENCE.setSamiamUserMode( UI.this.getSamiamUserMode() );
 			}
 		};
@@ -473,7 +475,7 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 			public void actionPerformed( ActionEvent e ){
 				NetworkInternalFrame nif = getActiveHuginNetInternalFrame();
 				EvidenceController controller = nif.getBeliefNetwork().getEvidenceController();
-				myInstantiationClipBoard.cut( controller.evidence(), controller );
+				myInstantiationClipBoard.cut( controller.evidence(), controller.intervenedVariables(), controller );
 				action_PASTEEVIDENCE.setSamiamUserMode( UI.this.getSamiamUserMode() );
 			}
 		};

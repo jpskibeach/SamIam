@@ -136,7 +136,7 @@ public class Arrow implements CoordinateVirtual, PreferenceListener
 	public void updateArrow()
 	{
 		//(new Throwable()).printStackTrace();
-
+		
 		//update locations
 		nodes[0].getActualCenter( startLoc );
 		nodes[1].getActualCenter( endLoc );

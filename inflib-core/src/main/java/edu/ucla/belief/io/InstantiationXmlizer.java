@@ -7,13 +7,17 @@ import edu.ucla.belief.recursiveconditioning.Xmlizer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.io.*;
 import java.text.DateFormat;
 import java.util.Date;
 
+import javax.swing.plaf.basic.BasicComboBoxUI.ListDataHandler;
 //Add these lines to import the JAXP APIs you'll be using:
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -56,10 +60,13 @@ public class InstantiationXmlizer extends DefaultHandler
 	public static final String STR_ATTR_DATE     = "date";
 	public static final String STR_TAG_INST      = "inst";
 	public static final String STR_ATTR_ID       = "id";
+	public static final String STR_ATTR_TYPE 	 = "type";
 	public static final String STR_ATTR_VALUE    = "value";
 	public static final String STR_ATTR_NEGATIVE = "negative";
 
 	public static final String STR_VALUE_TRUE    = "true";
+	public static final String STR_VALUE_OBS	 = "observation";
+	public static final String STR_VALUE_INT	 = "intervention";
 
 	/*public boolean load( InstantiationClipBoard clipboard, File fileInput ) throws IOException
 	{
@@ -170,16 +177,21 @@ public class InstantiationXmlizer extends DefaultHandler
 			if( qName.equals( STR_TAG_INST ) )
 			{
 				String strid = attributes.getValue( STR_ATTR_ID );
+				String strtype = attributes.getValue( STR_ATTR_TYPE );
 				String strvalue = attributes.getValue( STR_ATTR_VALUE );
 
-				if( strid != null && strvalue != null ){
+				if( strid != null && strtype != null && strvalue != null ){
 					boolean flagNegative = false;
 					if( attributes.getIndex( STR_ATTR_NEGATIVE ) >= 0 ){
 						String strnegative = attributes.getValue( STR_ATTR_NEGATIVE );
 						flagNegative = ( (strnegative != null) && ((strnegative.length()==0) || (strnegative.equals( STR_VALUE_TRUE )) ) );
 					}
-					if( flagNegative ) recordNegative( strid, strvalue );
-					else myMap.put( strid, strvalue );
+					if( flagNegative ) {
+						recordNegative( strid, strvalue );
+					} 
+					else {
+						myMap.put( strid, Arrays.asList(strtype, strvalue) );
+					}
 				}
 			}
 		}
@@ -189,7 +201,8 @@ public class InstantiationXmlizer extends DefaultHandler
 	public final ValidRootHandler theValidRootHandler = new ValidRootHandler();
 
 	protected SAXParser mySAXParser;
-	protected Map myMap, myMapNegative;
+	protected Map myMap; // key: variable; value: Array containing variable type and value
+	protected Map myMapNegative;
 	protected ElementHandler mySubHandler;
 
 	/** @since 20050204 */
@@ -227,10 +240,19 @@ public class InstantiationXmlizer extends DefaultHandler
 		eltRoot.setAttribute( STR_ATTR_DATE, makeDate() );
 
 		Object next;
+		Map.Entry entry;
+		Object var;
+		List pair;
 		if( positive != null ){
-			for( Iterator it = positive.keySet().iterator(); it.hasNext(); ){
-				next = it.next();
-				append( document, eltRoot, next, positive.get( next ), false );
+			// for( Iterator it = positive.keySet().iterator(); it.hasNext(); ){
+			// 	next = it.next();
+			// 	append( document, eltRoot, next, positive.get( next ), false );
+			// }
+			for( Iterator it = positive.entrySet().iterator(); it.hasNext(); ){
+				entry = (Map.Entry)it.next();
+				var = entry.getKey();
+				pair = (List)entry.getValue();
+				append( document, eltRoot, var, positive.get( var ), (String)pair.get(0), false );
 			}
 		}
 
@@ -239,8 +261,9 @@ public class InstantiationXmlizer extends DefaultHandler
 			for( Iterator it = negative.keySet().iterator(); it.hasNext(); ){
 				next = it.next();
 				val = negative.get( next );
-				if( val instanceof Collection ) appendAll( document, eltRoot, next, (Collection)val, true );
-				else append( document, eltRoot, next, val, true );
+				if( val instanceof Collection ) appendAll( document, eltRoot, next, (Collection)val, "null", true );
+				else append( document, eltRoot, next, val, "null", true );
+				//emilydebug determine later what type should be --> whats negative? 
 			}
 		}
 
@@ -259,19 +282,20 @@ public class InstantiationXmlizer extends DefaultHandler
 	}
 
 	/** @since 20050204 */
-	private void appendAll( Document document, Element eltRoot, Object var, Collection values, boolean flagNegative )
+	private void appendAll( Document document, Element eltRoot, Object var, Collection values, String type, boolean flagNegative )
 	{
 		for( Iterator it = values.iterator(); it.hasNext(); ){
-			append( document, eltRoot, var, it.next(), flagNegative );
+			append( document, eltRoot, var, it.next(), type, flagNegative );
 		}
 	}
 
 	/** @since 20050204 */
-	private Element append( Document document, Element eltRoot, Object var, Object value, boolean flagNegative )
+	private Element append( Document document, Element eltRoot, Object var, Object value, String type, boolean flagNegative )
 	{
 		Element eltInst = document.createElement( STR_TAG_INST );
 
 		eltInst.setAttribute( STR_ATTR_ID, getID( var ) );
+		eltInst.setAttribute( STR_ATTR_TYPE, type);
 		eltInst.setAttribute( STR_ATTR_VALUE, value.toString() );
 		if( flagNegative ) eltInst.setAttribute( STR_ATTR_NEGATIVE, STR_VALUE_TRUE );
 

@@ -27,12 +27,12 @@ import java.net.*;
 */
 public class OutputPanel extends javax.swing.JPanel
 {
-	public OutputPanel( Map data, Collection variables )
+	public OutputPanel( Map data, Collection variables, Set intervenedVars )
 	{
-		this( data, variables, false );
+		this( data, variables, intervenedVars, false );
 	}
 
-	public OutputPanel( Map data, Collection variables, boolean useIDRenderer )
+	public OutputPanel( Map data, Collection variables, Set intervenedVars, boolean useIDRenderer )
 	{
 		super();
 		myFlagUseIDRenderer = useIDRenderer;
@@ -47,7 +47,7 @@ public class OutputPanel extends javax.swing.JPanel
 		//myVariableComparator = myFlagUseIDRenderer ? VariableComparator.getInstanceID() : VariableComparator.getInstance();
 		//myNameVariableColumn = myFlagUseIDRenderer ? STR_NAME_VARIABLE_ID : STR_NAME_VARIABLE;
 		//super( new GridBagLayout() );
-		init( data, variables );
+		init( data, variables, intervenedVars );
 	}
 
 	/** @since 20070321 */
@@ -59,7 +59,7 @@ public class OutputPanel extends javax.swing.JPanel
 
 	/** @author keith cascio
 		@since 20030519 */
-	protected void init( Map data, Collection variables )
+	protected void init( Map data, Collection variables, Set intervenedVars )
 	{
 		myVariables = variables;
 
@@ -69,7 +69,7 @@ public class OutputPanel extends javax.swing.JPanel
 		myJTable.setAutoResizeMode( JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS );
 		panMain = new JScrollPane( myJTable );
 
-		newData( data, variables );
+		newData( data, variables, intervenedVars );
 
 		setLayout (new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -114,10 +114,10 @@ public class OutputPanel extends javax.swing.JPanel
 	}
 
 	public static final String STR_EMPTY = "empty";
-	public static final Object[][] ARRAY_EMPTY = { { STR_EMPTY, STR_EMPTY } };
+	public static final Object[][] ARRAY_EMPTY = { { STR_EMPTY, STR_EMPTY, STR_EMPTY } };
 
 	/** @since 20030519 */
-	public void newData( Map data, Collection newVariables )
+	public void newData( Map data, Collection newVariables, Set intervenedVars )
 	{
 		Object [][] ar3;
 
@@ -125,7 +125,7 @@ public class OutputPanel extends javax.swing.JPanel
 		if( data.size() == (int)0 ) ar3 = ARRAY_EMPTY;
 		else
 		{
-			ar3 = new Object[data.size()][2]; //table contents
+			ar3 = new Object[data.size()][3]; //table contents
 
 			int i = 0;
 			Object dVar = null;
@@ -137,7 +137,13 @@ public class OutputPanel extends javax.swing.JPanel
 			{
 				dVar = it.next();
 				ar3[i][0] = dVar;//.toString();
-				ar3[i][1] = data.get( dVar );//.toString();
+				if( intervenedVars.contains((FiniteVariable) dVar) ){
+					ar3[i][1] = STR_INT;
+				}
+				else {
+					ar3[i][1] = STR_OBS;
+				}
+				ar3[i][2] = data.get( dVar );//.toString();
 			}
 		}
 
@@ -151,6 +157,9 @@ public class OutputPanel extends javax.swing.JPanel
 
 		calculateSize();
 	}
+
+	public static final String STR_OBS = "Observation";
+	public static final String STR_INT = "Intervention";
 
 	/** @since 20030519 */
 	public void addMouseListener( MouseListener listener )
@@ -173,11 +182,12 @@ public class OutputPanel extends javax.swing.JPanel
 	private String myNameVariableColumn = STR_NAME_VARIABLE;
 	public static final String STR_NAME_VARIABLE = "Variable";
 	public static final String STR_NAME_VARIABLE_ID = "Variable ID";
+	public static final String STR_NAME_TYPE = "Type";
 
 	//the only purpose of this model is so that the contents of the table are not editable.
 	public class MyTableModel extends AbstractTableModel
 	{
-		public final String[] columnNames = new String[]{ myNameVariableColumn, "Value" };
+		public final String[] columnNames = new String[]{ myNameVariableColumn, STR_NAME_TYPE, "Value" };
 
 		Object[][] data;
 

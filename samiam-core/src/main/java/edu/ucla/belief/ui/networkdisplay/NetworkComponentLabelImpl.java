@@ -33,6 +33,10 @@ public abstract class NetworkComponentLabelImpl extends JLabel implements Networ
 	protected ArrayList inComingEdgeList = new ArrayList( 2 );
 	/** List of Arrow objects that leave this node. */
 	protected ArrayList outBoundEdgeList = new ArrayList( 2 );
+	/** List of faded Arrow objects that come into this node */
+	protected ArrayList fadedIncomingEdgeList = new ArrayList( 2 );
+	/** List of faded Arrow objects that leave this node */
+	protected ArrayList fadedOutboundEdgeList = new ArrayList( 2 );
 
 	protected SelectionListener mySelectionListener;
 
@@ -406,27 +410,51 @@ public abstract class NetworkComponentLabelImpl extends JLabel implements Networ
 	}
 
 	/** Edge list manipulator */
+	public void addFadedIncomingEdge( Arrow ar )
+	{
+		fadedIncomingEdgeList.add(ar);
+	}
+
+	/** Edge list manipulator */
+	public void addFadedOutboundEdge(Arrow ar)
+	{
+		fadedOutboundEdgeList.add(ar);
+	}
+
+	/** Edge list manipulator */
 	public void removeInComingEdge( Arrow ar)
 	{
-		inComingEdgeList.remove( ar);
+		if( inComingEdgeList.contains( ar ) ) {
+			inComingEdgeList.remove( ar ); 
+		}
+		else {
+			fadedIncomingEdgeList.remove( ar );
+		}
 	}
 
 	/** Edge list manipulator */
 	public void removeOutBoundEdge( Arrow ar)
 	{
-		outBoundEdgeList.remove( ar);
+		if( outBoundEdgeList.contains( ar ) ) {
+			outBoundEdgeList.remove( ar );
+		}
+		else {
+			fadedOutboundEdgeList.remove( ar );
+		}
 	}
-
+	
 	/** Edge list manipulator */
 	public void removeAllInEdges()
 	{
 		inComingEdgeList.clear();
+		fadedIncomingEdgeList.clear();
 	}
 
 	/** Edge list manipulator */
 	public void removeAllOutEdges()
 	{
 		outBoundEdgeList.clear();
+		fadedOutboundEdgeList.clear();
 	}
 
 	/** Returns ArrayList of Arrow objects.	Edge list manipulator */
@@ -444,11 +472,16 @@ public abstract class NetworkComponentLabelImpl extends JLabel implements Networ
 	/**
 		@author Keith Cascio
 		@since 080602
+		mod 20230413
 	*/
 	public void updateArrows( boolean xlate )
 	{
 		updateArrows( inComingEdgeList, xlate );
-		if( !xlate ) updateArrows( outBoundEdgeList, xlate );
+		updateArrows( fadedIncomingEdgeList, xlate );
+		if( !xlate ) {
+			updateArrows( outBoundEdgeList, xlate );
+			updateArrows( fadedOutboundEdgeList, xlate );
+		}
 	}
 
 	/**

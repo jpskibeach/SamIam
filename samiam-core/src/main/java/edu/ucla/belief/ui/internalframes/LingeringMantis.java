@@ -8,6 +8,7 @@ import edu.ucla.belief.BeliefNetwork;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 /** Factory for java 4 version objects.
 	Assume only java 4 mantis runtime, java 5 tiger enhanced features disabled.
@@ -23,8 +24,8 @@ class LingeringMantis implements Bridge2Tiger
 		return "assume only java 4 mantis runtime, java 5 tiger enhanced features disabled";
 	}
 
-	public OutputPanel newOutputPanel( Map data, Collection variables, boolean useIDRenderer ){
-		return new OutputPanel( data, variables, useIDRenderer );
+	public OutputPanel newOutputPanel( Map data, Collection variables, Set intervenedVars, boolean useIDRenderer ){
+		return new OutputPanel( data, variables, intervenedVars, useIDRenderer );
 	}
 
 	public EnumTableModel        newEnumTableModel(        BeliefNetwork bn ){

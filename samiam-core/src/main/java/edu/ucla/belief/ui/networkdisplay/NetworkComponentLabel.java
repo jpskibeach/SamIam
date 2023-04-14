@@ -85,6 +85,12 @@ public interface NetworkComponentLabel extends
 	public void addOutBoundEdge( Arrow ar);
 
 	/** Edge list manipulator */
+	public void addFadedIncomingEdge( Arrow ar);
+
+	/** Edge list manipulator */
+	public void addFadedOutboundEdge( Arrow ar);
+
+	/** Edge list manipulator */
 	public void removeInComingEdge( Arrow ar);
 
 	/** Edge list manipulator */
