@@ -334,6 +334,13 @@ public class Arrow implements CoordinateVirtual, PreferenceListener
 
 		//System.out.println( "Arrow.paint()" );
 		g.setColor( getEffectiveDrawColor() );
+		Graphics2D g2 = (Graphics2D)g;
+
+		if (isFaded){
+			Color faded_black = new Color(0, 0, 0, 100);
+			g.setColor(faded_black);
+			g2.setPaint(faded_black);
+		}
 
 		if( myFlagDrawPolygon && viewRect.contains( endLoc ) ){
 			if( myFlagRecoverable ){ g.drawPolygon( myPolygon ); }
@@ -342,14 +349,8 @@ public class Arrow implements CoordinateVirtual, PreferenceListener
 
 		//if( !viewRect.intersectsLine( startLoc.getX(), startLoc.getY(), endLoc.getX(), endLoc.getY() ) ) return;
 
-		Graphics2D g2 = (Graphics2D)g;
-
 		Stroke oldStroke = g2.getStroke();
 		g2.setStroke( myFlagRecoverable ? STROKE_RECOVERABLE : myEdgeStroke );
-		if (isFaded){
-			GradientPaint gp = new GradientPaint(startLoc.x, startLoc.y, Color.white, endLoc.x, endLoc.y, Color.black);
-			g2.setPaint(gp);
-		}
 		g2.drawLine( startLoc.x, startLoc.y, endLoc.x, endLoc.y );
 		g2.setStroke( oldStroke );
 	}

@@ -3,3 +3,5 @@
 */build
 */*/build
 /samiam-ui/samiamrc.xml
+**/*.class
+/samiam-ui/bin

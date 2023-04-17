@@ -333,13 +333,13 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 			Map instantiationMap = new HashMap();
 			Set interventionSet = new HashSet();
 			Map.Entry entry;
-			FiniteVariable var; 
+			Object var; 
 			List pair;
 			String type;
 			Object value; 
 			for( Iterator itr = map.entrySet().iterator(); itr.hasNext(); ){
 				entry = (Map.Entry)itr.next();
-				var = (FiniteVariable)entry.getKey();
+				var = entry.getKey();
 				pair = (List)entry.getValue();
 				type = (String)pair.get(0);
 				value = pair.get(1);
@@ -390,8 +390,6 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 				return count;
 			}
 
-			// if( myMatcherImportText == null ) myMatcherImportText = Pattern.compile( "(\\w+)\\s*=\\s*(\\w+)" ).matcher( "" );
-
 			if( myMatcherImportText == null ) myMatcherImportText = Pattern.compile( "(\\w+)\\s*=\\s*(\\w+)\\s*,\\s*(\\w+)" ).matcher( "" );
 
 			if( (count = importFromSystemImpl( myMatcherImportText, contents )) > 0 ){
@@ -416,7 +414,11 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 		if( matcher.reset( contents ).find() ){
 			clear();
 			do{
-				put( matcher.group( 1 ), Arrays.asList(matcher.group( 2 ), matcher.group( 3 )) );
+				put( matcher.group( 1 ), matcher.group( 3 ) );
+				if(matcher.group( 2 ) == "intervention")
+				{
+					intervenedVars.add( matcher.group( 1 ) ); 
+				}
 				++count;
 			} while( matcher.find() );
 		}

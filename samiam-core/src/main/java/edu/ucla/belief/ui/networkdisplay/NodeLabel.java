@@ -542,13 +542,15 @@ NetworkDisplay.initComponents()
 				EvidenceController ec = bn.getEvidenceController();
 				Object evidenceValue = ec.getValue( myDVar );
 				if( evidenceValue != null ){
-					likeliest = evidenceValue;
 					if (ec.isObservation( myDVar )) {
 						operator = STR_OPERATOR_IDENTICAL_TO;
 						color = STRING_HTMLColorObserved; 
+						likeliest = evidenceValue;
 					} else {
-						operator = STR_OPERATOR_STRICTLY_EQUIV_TO; 
+						// operator = STR_OPERATOR_STRICTLY_EQUIV_TO; 
+						operator = STR_OPERATOR_IDENTICAL_TO;
 						color = STRING_HTMLColorIntervened; 
+						likeliest = "do(" + evidenceValue + ")";
 					}
 					myLastLikeliest = null;
 				}
@@ -568,6 +570,7 @@ NetworkDisplay.initComponents()
 				}
 				if( likeliest != null ){
 					String maybeBreak = FLAG_LIKELIEST_BREAKS_LINE ? "<br>" : "";
+					// TODO: add do(value) for interventions
 					text = "<html>" +
 						Util.htmlEncode( text ) +
 						maybeBreak +
