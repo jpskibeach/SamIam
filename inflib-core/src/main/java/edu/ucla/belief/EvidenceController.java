@@ -594,7 +594,8 @@ public class EvidenceController implements Cloneable
 		Collection obsVars = new ArrayList( myMapObservations.keySet() );
 		Collection interveneVars = new ArrayList( myMapInterventions.keySet() ); 
 		Collection vars = new ArrayList(); 
-		Collections.addAll( vars, obsVars, interveneVars );
+		vars.addAll(obsVars);
+		vars.addAll(interveneVars);
 		pre( null, null, null, null, null, vars );
 		// reset all observations
 		myRecentEvidenceChangeVariables.addAll( vars );

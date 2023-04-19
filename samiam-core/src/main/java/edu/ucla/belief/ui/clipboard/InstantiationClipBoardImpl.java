@@ -1,6 +1,7 @@
 package edu.ucla.belief.ui.clipboard;
 
 import edu.ucla.belief.ui.UI;
+import edu.ucla.belief.ui.dialogs.IdentificationModel;
 import edu.ucla.belief.ui.NetworkInternalFrame;
 import edu.ucla.belief.ui.internalframes.OutputPanel;
 import edu.ucla.belief.ui.internalframes.Bridge2Tiger;
@@ -58,7 +59,11 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 		clear();
 		putAll( instantiation );  
 		intervenedVars.clear();
-		if( ! intVars.isEmpty() ) intervenedVars.addAll( intVars );
+
+		if( ! intVars.isEmpty() ) 
+		{
+			intervenedVars.addAll( intVars );
+		}
 		revalidate();
 		if( myUI != null ){
 			myUI.action_PASTEEVIDENCE.setSamiamUserMode( myUI.getSamiamUserMode() );//!isEmpty() );
@@ -156,7 +161,7 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 						{
 							instance = forID.instance( get(next).toString() );
 							if( instance != null ) {//controller.observe( forID, instance );
-								if( intervenedVars.contains( forID )) {
+								if( intervenedVars.contains( nextString )) {
 									toIntervene.put( forID, instance ); 
 								} 
 								else {
@@ -344,9 +349,9 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 				type = (String)pair.get(0);
 				value = pair.get(1);
 				instantiationMap.put(var, value);
-				if( type == InstantiationXmlizer.STR_VALUE_INT ) interventionSet.add(var);
+				if( type.equals(InstantiationXmlizer.STR_VALUE_INT) ) interventionSet.add(var);
 			}
-			this.copy( instantiationMap, interventionSet );
+			copy( instantiationMap, interventionSet );
 			return true;
 		}
 	}
@@ -409,15 +414,20 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 
 	/** @since 20070904 */
 	private int      importFromSystemImpl( Matcher matcher, String contents ){
-		String  id, value;
+		String  id, type, value;
 		int     count     = 0;
 		if( matcher.reset( contents ).find() ){
 			clear();
 			do{
-				put( matcher.group( 1 ), matcher.group( 3 ) );
-				if(matcher.group( 2 ) == "intervention")
+				id = matcher.group(1);
+				type = matcher.group(2);
+				value = matcher.group(3);
+				put( id, value );
+				System.out.println(id + ": " + type);
+				System.out.println(type.equals(InstantiationXmlizer.STR_VALUE_INT));
+				if(type.equals(InstantiationXmlizer.STR_VALUE_INT))
 				{
-					intervenedVars.add( matcher.group( 1 ) ); 
+					intervenedVars.add( id ); 
 				}
 				++count;
 			} while( matcher.find() );
@@ -447,10 +457,10 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 					id    = ( key instanceof FiniteVariable ) ? ((FiniteVariable) key).getID() : key.toString();
 					value = get( key ).toString();
 					if (intervenedVars.contains(key)) {
-						type = "intervened";
+						type = InstantiationXmlizer.STR_VALUE_INT;
 					}
 					else {
-						type = "observed";
+						type = InstantiationXmlizer.STR_VALUE_OBS;
 					}
 					myBufferOutput.append( id ).append( " = " ).append( type ).append(", ").append( value ).append( "; " );
 				}

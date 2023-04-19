@@ -3089,7 +3089,7 @@ public class NetworkDisplay extends JInternalFrame implements
 
 		for( Iterator itr = evidenceChangeVars.iterator(); itr.hasNext(); )
 		{
-			FiniteVariable var = (FiniteVariable) itr.next();
+			FiniteVariable var = (FiniteVariable)itr.next();
 			if( ec.isIntervention( var ) ){
 				intervenedVars.add( var );
 			} 

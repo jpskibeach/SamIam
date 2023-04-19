@@ -570,7 +570,6 @@ NetworkDisplay.initComponents()
 				}
 				if( likeliest != null ){
 					String maybeBreak = FLAG_LIKELIEST_BREAKS_LINE ? "<br>" : "";
-					// TODO: add do(value) for interventions
 					text = "<html>" +
 						Util.htmlEncode( text ) +
 						maybeBreak +

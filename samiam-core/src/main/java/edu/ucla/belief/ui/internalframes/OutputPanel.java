@@ -137,7 +137,7 @@ public class OutputPanel extends javax.swing.JPanel
 			{
 				dVar = it.next();
 				ar3[i][0] = dVar;//.toString();
-				if( intervenedVars.contains((FiniteVariable) dVar) ){
+				if( intervenedVars.contains(dVar) ){
 					ar3[i][1] = STR_INT;
 				}
 				else {
@@ -158,8 +158,8 @@ public class OutputPanel extends javax.swing.JPanel
 		calculateSize();
 	}
 
-	public static final String STR_OBS = "Observation";
-	public static final String STR_INT = "Intervention";
+	public static final String STR_OBS = "observation";
+	public static final String STR_INT = "intervention";
 
 	/** @since 20030519 */
 	public void addMouseListener( MouseListener listener )
