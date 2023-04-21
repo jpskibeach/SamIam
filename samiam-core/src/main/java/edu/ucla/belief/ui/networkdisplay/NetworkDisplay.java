@@ -1976,11 +1976,12 @@ public class NetworkDisplay extends JInternalFrame implements
 	protected void makeFadedEdges()
 	{
 		synchronized ( mySynchronizationEdgeList ){
-			for( Iterator itr = myFadedEdgeCoords.iterator(); itr.hasNext(); )
+			Set intervenedEdges = myBeliefNetwork.getIntervenedEdges();
+			for( Iterator itr = intervenedEdges.iterator(); itr.hasNext(); )
 			{
-				NetworkComponentLabel[] coords = (NetworkComponentLabel[])itr.next();
-				NetworkComponentLabel st = coords[0]; 
-				NetworkComponentLabel ed = coords[1];
+				List coords = (List)itr.next();
+				NetworkComponentLabel st = ((DisplayableFiniteVariable) coords.get(0)).getNodeLabel(); 
+				NetworkComponentLabel ed = ((DisplayableFiniteVariable) coords.get(1)).getNodeLabel(); 
 
 				if( ed == null || st == null ){ return; }
 
@@ -3179,7 +3180,7 @@ public class NetworkDisplay extends JInternalFrame implements
 	*/
 	public void netStructureChanged( NetStructureEvent ev )
 	{
-		BeliefNetwork bn = hnInternalFrame.getBeliefNetwork();
+		BeliefNetwork bn = hnInternalFrame.getBeliefNetwork(); // emilydebug DisplayableBeliefNetwork
 		Point nodeLoc = new Point();
 		Rectangle rect = new Rectangle();
 
@@ -3316,10 +3317,8 @@ public class NetworkDisplay extends JInternalFrame implements
 						for( ListIterator out_itr = myEdgeList.listIterator(); out_itr.hasNext(); ){
 							Arrow ar = (Arrow)out_itr.next();
 							if(ar.isEqual( fv_out, fv_in )){
-								// add start/end vertices to myFadedEdgeCoords
-								myFadedEdgeCoords.add(new NetworkComponentLabel[]{ar.getStart(), ar.getEnd()});
 								// remove edge from DAG
-								bn.removeEdge(fv_out, fv_in);
+								bn.interveneEdge(fv_out, fv_in);
 							}
 						}
 					}
@@ -3331,19 +3330,18 @@ public class NetworkDisplay extends JInternalFrame implements
 		if( ev.eventType == NetStructureEvent.UNINTERVENE_EDGE )
 		{
 			// get all incoming edges into this vertex/node 
-			// search in myFadedEdgeCoords since this edge doesn't exist in the
-			// bn representation of the network
+			// search if edge exists in intervenedEdges, if it does, unintervene
 			for( Iterator fv_itr = ev.finiteVars.iterator(); fv_itr.hasNext(); )
 			{
 				DisplayableFiniteVariable fv_in = (DisplayableFiniteVariable)fv_itr.next();
 
 				synchronized( mySynchronizationEdgeList ){
-					for( ListIterator faded_itr = myFadedEdgeCoords.listIterator(); faded_itr.hasNext();)
+					Set intervenedEdges = new HashSet(myBeliefNetwork.getIntervenedEdges());
+					for( Iterator itr = intervenedEdges.iterator(); itr.hasNext(); )
 					{
-						NetworkComponentLabel[] coords = (NetworkComponentLabel[])faded_itr.next();
-						if (coords[1].getFiniteVariable() == fv_in){
-							faded_itr.remove();
-							bn.addEdge(coords[0].getFiniteVariable(), fv_in);
+						List<Variable> coords = (List<Variable>) itr.next();
+						if (coords.get(1) == fv_in) {
+							bn.uninterveneEdge(coords.get(0), fv_in);
 						}
 					}
 				}
@@ -3849,10 +3847,8 @@ public class NetworkDisplay extends JInternalFrame implements
 	/** List of edges (Arrow objects) in the network.*/
 	protected ArrayList myEdgeList = new ArrayList();
 	protected ArrayList myListRecoverableArrows = new ArrayList();
-	/** List storing start and end vertices of faded edges.  */
-	protected ArrayList<NetworkComponentLabel[]> myFadedEdgeCoords = new ArrayList<NetworkComponentLabel[]>();
+	/** List storing faded edges (Arrow objects).  */
 	protected ArrayList<Arrow> myFadedEdgeList = new ArrayList<Arrow>();
-	// protected ArrayList myFadedEdgeCoords = new ArrayList();
 	/** List of nodes (NetworkComponentLabel objects) in the network.*/
 	protected ArrayList myComponentList = new ArrayList();
 

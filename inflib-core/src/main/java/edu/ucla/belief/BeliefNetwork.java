@@ -120,6 +120,9 @@ public interface BeliefNetwork extends DirectedGraph, Cloneable
 	/** @since 20091124 */
 	public BeliefNetwork fireAudit( Variable from, Variable to, Collection targets, Auditor.Deed deed );
 
+	/** Returns intervenedEdges */
+	public Set getIntervenedEdges();
+
 	/**
 	* Adds an edge to the belief network. Both variables must already
 	* be part of the network, and it must leave the graph acyclic.
@@ -128,6 +131,16 @@ public interface BeliefNetwork extends DirectedGraph, Cloneable
 	* will remain as they were before.
 	*/
 	public boolean addEdge( Variable from, Variable to, boolean expandCPT );
+
+	/**
+	 * Removes edge without modifying CPT. Adds edge to intervenedEdges
+	 */
+	public boolean interveneEdge( Variable from, Variable to ); 
+
+	/**
+	 * Adds edge without modifying CPT. Removes edge from intervenedEdges
+	 */
+	public boolean uninterveneEdge( Variable from, Variable to );
 
 	/** Removes an edge from the network. If argument 'forget' is true,
 	*   the resulting CPT for the variable to

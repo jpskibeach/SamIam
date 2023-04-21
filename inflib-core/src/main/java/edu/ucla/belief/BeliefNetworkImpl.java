@@ -345,7 +345,9 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		//System.out.println( "(inputParams/post)"+System.identityHashCode(inputParams)+": " + inputParams );
 	}
 
+	/** Define data structures */
 	protected DirectedGraph structure = null;
+	protected Set<List> intervenedEdges = null;
 
 	public final boolean add( Object obj )
 	{
@@ -558,6 +560,7 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		if( construct )
 		{
 			structure = new HashDirectedGraph();
+			intervenedEdges = new HashSet();
 			//tables = new HashMap();
 		}
 		init();
@@ -572,6 +575,7 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		if( FLAG_DEBUG ) Definitions.STREAM_VERBOSE.println( "\n\n" + this.getClass().getName() + "() -> BeliefNetworkImpl( "+toCopy.getClass().getName()+" )" );
 
 		this.structure = (DirectedGraph) toCopy.structure.clone();
+		this.intervenedEdges = new HashSet(toCopy.intervenedEdges);
 		this.userobject = (toCopy.userobject == null ) ? null : toCopy.userobject.onClone();
 		this.userobject2 = (toCopy.userobject2 == null ) ? null : toCopy.userobject2.onClone();
 		this.myFlagDomainCardinalityValid = toCopy.myFlagDomainCardinalityValid;
@@ -608,6 +612,7 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	* @param structure A directed graph specifying the structure of the
 	* network.
 	* @param tables - A mapping from the Variable to its CPT.
+	emilydebug add intervenedEdges here too? 
 	*/
 	public BeliefNetworkImpl( DirectedGraph structure, Map tables )
 	{
@@ -622,6 +627,7 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		}
 	}
 
+	/** emilydebug add intervenedEdges here too? */
 	public BeliefNetworkImpl( DirectedGraph structure )
 	{
 		this.structure = structure;
@@ -715,6 +721,7 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		StringBuffer buff = new StringBuffer( 0x100 );
 		buff.append( "BeliefNetworkImpl structure:" );
 		buff.append( structure );
+		buff.append( intervenedEdges );
 		return buff.toString();
 	}
 
@@ -738,6 +745,8 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	/**
 		Call this method to perform a deep clone on a BeliefNetworkImpl (i.e., will
 		clone the structure, Tables and all Variable objects. )
+
+		emilydebug add deep clone for intervenedEdges
 
 		@author Keith Cascio
 		@since 060302
@@ -946,6 +955,15 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	}
 
 	/**
+	 * Returns intervenedEdges
+	 * @since 20230421
+	 */
+	public Set getIntervenedEdges()
+	{
+		return intervenedEdges;
+	}
+
+	/**
 	 * Adds an edge to the belief network. Both variables must already
 	 * be part of the network, and it must leave the graph acyclic.
 	 * The CPT will be expanded to include the new parent, and the values
@@ -981,6 +999,34 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 			return true;
 		}
 		else return false;
+	}
+
+	/**
+	 * Removed edge from belief network without modifying CPT. If successfull, adds edge to set of 
+	 * intervenedEdges. 
+	 * @since 20230421
+	 */
+	public boolean interveneEdge( Variable from, Variable to )
+	{
+		if( removeEdgeNoCPTChanges( from, to ) ) {
+			intervenedEdges.add( Arrays.asList(from, to));
+			return true;
+		}
+		return false;
+	}
+
+	/** 
+	 * Adds edge back into belief network without modifying CPT. If successful, removes edge from
+	 * set of intervenedEdges.
+	 * @since 20230421
+	 */
+	public boolean uninterveneEdge( Variable from, Variable to )
+	{
+		if( addEdge( from, to, false ) ) {
+			intervenedEdges.remove( Arrays.asList(from, to));
+			return true;
+		}
+		return false;
 	}
 
 //	/**

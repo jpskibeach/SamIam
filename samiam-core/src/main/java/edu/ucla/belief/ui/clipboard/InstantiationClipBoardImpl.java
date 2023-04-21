@@ -423,8 +423,6 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 				type = matcher.group(2);
 				value = matcher.group(3);
 				put( id, value );
-				System.out.println(id + ": " + type);
-				System.out.println(type.equals(InstantiationXmlizer.STR_VALUE_INT));
 				if(type.equals(InstantiationXmlizer.STR_VALUE_INT))
 				{
 					intervenedVars.add( id ); 

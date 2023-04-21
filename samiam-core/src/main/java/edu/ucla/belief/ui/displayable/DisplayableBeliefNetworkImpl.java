@@ -491,6 +491,10 @@ public class DisplayableBeliefNetworkImpl implements DisplayableBeliefNetwork
 		 myBeliefNetwork.fireAudit(          from,          to,            targets,              deed );
 		return this;
 	}
+	public Set getIntervenedEdges()
+	{
+		return myBeliefNetwork.getIntervenedEdges();
+	}
 	public boolean addEdge(Variable from, Variable to, boolean expandCPT )
 	{
 		return myBeliefNetwork.addEdge(from, to, expandCPT);
@@ -499,6 +503,14 @@ public class DisplayableBeliefNetworkImpl implements DisplayableBeliefNetwork
 	//{
 	//	return myBeliefNetwork.expandTable(t,var);
 	//}
+	public boolean interveneEdge( Variable from, Variable to )
+	{
+		return myBeliefNetwork.interveneEdge( from, to );
+	}
+	public boolean uninterveneEdge( Variable from, Variable to )
+	{
+		return myBeliefNetwork.uninterveneEdge( from, to );
+	}
 	public boolean removeEdge( Variable from, Variable to, boolean forget )
 	{
 		return myBeliefNetwork.removeEdge( from, to, forget );
