@@ -560,7 +560,6 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		if( construct )
 		{
 			structure = new HashDirectedGraph();
-			intervenedEdges = new HashSet();
 			//tables = new HashMap();
 		}
 		init();
@@ -575,7 +574,6 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		if( FLAG_DEBUG ) Definitions.STREAM_VERBOSE.println( "\n\n" + this.getClass().getName() + "() -> BeliefNetworkImpl( "+toCopy.getClass().getName()+" )" );
 
 		this.structure = (DirectedGraph) toCopy.structure.clone();
-		this.intervenedEdges = new HashSet(toCopy.intervenedEdges);
 		this.userobject = (toCopy.userobject == null ) ? null : toCopy.userobject.onClone();
 		this.userobject2 = (toCopy.userobject2 == null ) ? null : toCopy.userobject2.onClone();
 		this.myFlagDomainCardinalityValid = toCopy.myFlagDomainCardinalityValid;
@@ -638,6 +636,7 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	{
 		//System.out.println( "(BeliefNetworkImpl)"+getClass().getName()+".init()" + hashCode() );
 		if( myEvidenceController == null ) myEvidenceController = new EvidenceController( this );
+		intervenedEdges = new HashSet();
 	}
 
 	/**
@@ -721,7 +720,6 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		StringBuffer buff = new StringBuffer( 0x100 );
 		buff.append( "BeliefNetworkImpl structure:" );
 		buff.append( structure );
-		buff.append( intervenedEdges );
 		return buff.toString();
 	}
 
