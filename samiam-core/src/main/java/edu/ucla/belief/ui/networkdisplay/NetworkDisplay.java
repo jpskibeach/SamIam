@@ -52,7 +52,7 @@ public class NetworkDisplay extends JInternalFrame implements
 		this.myNetPrefs		= sPrefs.getPreferenceGroup( SamiamPreferences.NetDspNme );
 		this.myMonitorPrefs	= sPrefs.getPreferenceGroup( SamiamPreferences.MonitorsDspNme );
 		this.hnInternalFrame	= doc;
-		this.hnInternalFrame.addEvidenceChangeListener( this );
+		this.hnInternalFrame.addInterventionChangeListener( this );
 		this.hnInternalFrame.addRecompilationListener( this );
 		this.hnInternalFrame.addNetStructureChangeListener( this );
 		this.hnInternalFrame.addCPTChangeListener( this );
@@ -3082,7 +3082,7 @@ public class NetworkDisplay extends JInternalFrame implements
 
 	public void evidenceChanged( EvidenceChangeEvent ece )
 	{
-		// check through recent evidence changes and determine if they change network structure
+		// // check through recent evidence changes and determine if they change network structure
 		EvidenceController ec = myBeliefNetwork.getEvidenceController();
 		Collection evidenceChangeVars = ece.recentEvidenceChangeVariables;
 		Set intervenedVars = new HashSet();
@@ -3094,14 +3094,14 @@ public class NetworkDisplay extends JInternalFrame implements
 			if( ec.isIntervention( var ) ){
 				intervenedVars.add( var );
 			} 
-			else
+			else if ( !ec.isObservation( var ))
 			{
 				unintervenedVars.add( var );
 			}
 		}
 
-		if (intervenedVars.size() != 0) netStructureChanged(new NetStructureEvent(NetStructureEvent.INTERVENE_EDGE, intervenedVars));
-		if (unintervenedVars.size() != 0) netStructureChanged(new NetStructureEvent(NetStructureEvent.UNINTERVENE_EDGE, unintervenedVars));
+		if( intervenedVars.size() != 0 ) this.hnInternalFrame.netStructureChanged(new NetStructureEvent(NetStructureEvent.INTERVENE_EDGE, intervenedVars));
+		if( unintervenedVars.size() != 0 ) this.hnInternalFrame.netStructureChanged(new NetStructureEvent(NetStructureEvent.UNINTERVENE_EDGE, unintervenedVars));
 
 		updateMonitors( ece );
 	}

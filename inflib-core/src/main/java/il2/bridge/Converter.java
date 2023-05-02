@@ -88,6 +88,11 @@ public class Converter{
 				FiniteVariable fv=(FiniteVariable)vars.get(i);
 				index.put(fv,Integer.valueOf(i));
 				domain.addDim(fv.getID(),fv.instances());
+			}
+			// separate into two for-loops because there is no guarantee that 
+			// vars (fv list) is in the same order as the cpt variables
+			for(int i=0;i<vars.size();i++){
+				FiniteVariable fv=(FiniteVariable)vars.get(i);
 				tables[i]=convert( fv.getCPTShell( fv.getDSLNodeType() ).getCPT() );
 			}
 			myBayesianNetwork = new BayesianNetwork(tables);

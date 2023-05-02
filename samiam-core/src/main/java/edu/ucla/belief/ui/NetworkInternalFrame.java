@@ -2226,6 +2226,15 @@ public class NetworkInternalFrame	extends JInternalFrame
 		//evidenceChangeListeners.remove(listener);
 	}
 
+	public void addInterventionChangeListener( EvidenceChangeListener listener )
+	{
+		myBeliefNetwork.getEvidenceController().addInterventionChangeListener( listener );
+	}
+
+	public boolean removeInterventionChangeListener( EvidenceChangeListener listener ) {
+		return myBeliefNetwork.getEvidenceController().removeInterventionChangeListener( listener );
+	}
+
 	//private void fireEvidenceChanged( EvidenceChangeEvent ECE ) {
 	//	for (int i = 0; i < evidenceChangeListeners.size(); i++)
 	//		((EvidenceChangeListener)evidenceChangeListeners.get(i)).evidenceChanged( ECE );

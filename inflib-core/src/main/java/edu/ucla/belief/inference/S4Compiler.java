@@ -31,6 +31,7 @@ public class S4Compiler
 		Map famLoc = new HashMap(varCount);
 		Iterator vars = bn.iterator();
 		CPTShell effective = null;
+		Set intervenedVars = bn.getIntervenedVariables();
 
 		for (int i = 0; i < varCount; i++)
 		{
@@ -42,7 +43,14 @@ public class S4Compiler
 
 			tables[2 * i + 1] = effective.getCPT();//(Table) bn.getCPT(var);
 			indices[2 * i] = tables[2 * i].index();
-			indices[2 * i + 1] = tables[2 * i + 1].index();
+			if (intervenedVars.contains(tables[2 * i].index().variables().get(0)))
+			{
+				indices[2 * i + 1] = tables[2 * i].index();
+			}
+			else 
+			{
+				indices[2 * i + 1] = tables[2 * i + 1].index();
+			}
 			varLoc.put(var, Integer.valueOf(2 * i));
 			famLoc.put(var, Integer.valueOf(2 * i + 1));
 		}

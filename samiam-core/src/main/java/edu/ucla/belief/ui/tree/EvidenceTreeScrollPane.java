@@ -231,7 +231,10 @@ public class EvidenceTreeScrollPane extends JPanel implements
 	}
 
 	public void netStructureChanged( NetStructureEvent event ) {
-		revalidateEvidenceTree();
+		if( event.eventType != NetStructureEvent.INTERVENE_EDGE && event.eventType != NetStructureEvent.UNINTERVENE_EDGE)
+		{
+			revalidateEvidenceTree();
+		}
 	}
 
 	public void changePackageOptions()

@@ -495,6 +495,10 @@ public class DisplayableBeliefNetworkImpl implements DisplayableBeliefNetwork
 	{
 		return myBeliefNetwork.getIntervenedEdges();
 	}
+	public Set getIntervenedVariables()
+	{
+		return myBeliefNetwork.getIntervenedVariables();
+	}
 	public boolean addEdge(Variable from, Variable to, boolean expandCPT )
 	{
 		return myBeliefNetwork.addEdge(from, to, expandCPT);

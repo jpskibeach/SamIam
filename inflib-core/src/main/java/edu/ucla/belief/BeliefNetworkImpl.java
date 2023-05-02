@@ -953,12 +953,29 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	}
 
 	/**
-	 * Returns intervenedEdges
+	 * Returns set of intervened edges (from, to)
 	 * @since 20230421
 	 */
 	public Set getIntervenedEdges()
 	{
 		return intervenedEdges;
+	}
+
+	/**
+	 * Returns set of intervened variables 
+	 * @since 20230425
+	 */
+	public Set getIntervenedVariables()
+	{
+		Set vars = new HashSet(); 
+		for( Iterator itr = intervenedEdges.iterator(); itr.hasNext(); )
+		{
+			List edge = (List) itr.next();
+			// edges are added as a list (from, to)
+			// the intervened variable is always the variable that is being pointed to
+			vars.add(edge.get(1));
+		}
+		return vars;
 	}
 
 	/**

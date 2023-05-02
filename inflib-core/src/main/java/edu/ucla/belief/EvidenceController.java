@@ -150,11 +150,24 @@ public class EvidenceController implements Cloneable
 	{
 		if( myEvidenceChangeListeners == null ) return;
 		if( myEvidenceChangeListeners.contains( ecl ) ){ myEvidenceChangeListeners.remove( ecl ); }
-		    myEvidenceChangeListeners.addLast( ecl );
+		myEvidenceChangeListeners.addLast( ecl );
 	}
 
-	public boolean removeEvidenceChangeListener( EvidenceChangeListener ecl ){
+	public boolean removeEvidenceChangeListener( EvidenceChangeListener ecl )
+	{
 		return myEvidenceChangeListeners.remove( ecl );
+	}
+
+	public void addInterventionChangeListener( EvidenceChangeListener ecl )
+	{
+		if( myInterventionChangeListeners == null ) return;
+		if( myInterventionChangeListeners.contains( ecl ) ){ myInterventionChangeListeners.remove( ecl ); }
+		myInterventionChangeListeners.addLast( ecl );
+	}
+
+	public boolean removeInterventionChangeListener( EvidenceChangeListener ecl )
+	{
+		return myInterventionChangeListeners.remove( ecl );
 	}
 
 	protected void addRecentEvidenceChange( FiniteVariable var )
@@ -202,6 +215,7 @@ public class EvidenceController implements Cloneable
 		warnPriorityListeners( ece );
 
 		EvidenceChangeListener[] array = null;
+		EvidenceChangeListener[] intervenedArray = null;
 		if( nonPriority ){
 			myEvidenceChangeListeners.cleanClearedReferences();
 			array = (EvidenceChangeListener[]) myEvidenceChangeListeners.toArray( new EvidenceChangeListener[myEvidenceChangeListeners.size()] );
@@ -210,11 +224,14 @@ public class EvidenceController implements Cloneable
 
 		int count = notifyPriorityListeners( ece );
 
-		if( nonPriority ){
+		if( nonPriority ){ 
 			for( int i=0; i<array.length; i++ ){ array[i].evidenceChanged( ece ); }
 		}
 
-		return count + (array == null ? 0 : array.length);
+		intervenedArray = (EvidenceChangeListener[]) myInterventionChangeListeners.toArray( new EvidenceChangeListener[myInterventionChangeListeners.size()] );
+		for( int i=0; i<intervenedArray.length; i++ ){ intervenedArray[i].evidenceChanged( ece ); }
+		
+		return count + (array == null ? 0 : array.length) + (intervenedArray == null ? 0 : intervenedArray.length);
 	}
 
 	/** @since 20020814
@@ -638,7 +655,11 @@ public class EvidenceController implements Cloneable
 		return myMapObservations.isEmpty() && myMapInterventions.isEmpty();
 	}
 
-	/** TODO: change to support interventions 
+	public Collection getRecentChanges(){
+		return myRecentEvidenceChangeVariables;
+	}
+
+	/** 
 	 * @since 20021004
 		@return number replaced */
 	public int replaceVariables( Map mapVariablesOldToNew )
@@ -699,6 +720,7 @@ public class EvidenceController implements Cloneable
 	protected Map myMapInterventions = new HashMap(); 
 	protected WeakLinkedList myEvidenceChangeListeners = new WeakLinkedList();
 	protected WeakLinkedList myPriorityEvidenceChangeListeners = new WeakLinkedList();
+	protected WeakLinkedList myInterventionChangeListeners = new WeakLinkedList();
 	protected Set myRecentEvidenceChangeVariables = new HashSet();
 
 	protected boolean myFlagDoNotify = true;
