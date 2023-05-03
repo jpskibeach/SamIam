@@ -3547,6 +3547,11 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 	/** @since 20030327 */
 	public void closeFile( NetworkInternalFrame hnInternalFrame )
 	{
+		try {
+			hnInternalFrame.setSelected(false);
+		} catch( Throwable thrown ){
+			System.err.println( "warning: UI.closeFile() caught " + thrown );
+		}
 		hnInternalFrame.setVisible( false );
 		myJDesktopPane.remove( hnInternalFrame );
 		windowMenu.remove( hnInternalFrame.getMenuItem() );
