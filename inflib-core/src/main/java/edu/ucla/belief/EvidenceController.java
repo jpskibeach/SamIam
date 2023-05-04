@@ -75,13 +75,13 @@ public class EvidenceController implements Cloneable
 	 */
 	public Object removeVariable( Variable var )
 	{
-		Object ret; 
+		Object ret = null; 
 		if( myMapObservations.containsKey( var ) ){
 			ret = myMapObservations.remove( var );
 			myRecentEvidenceChangeVariables.remove( var );
 			EvidenceAssertedProperty.setValue( var, this );
 		}
-		else{
+		else if( myMapInterventions.containsKey( var ) ){
 			ret = myMapInterventions.remove( var ); 
 			myRecentEvidenceChangeVariables.remove( var );
 			InterventionAssertedProperty.setValue( var, this );
@@ -518,7 +518,6 @@ public class EvidenceController implements Cloneable
 	 * intervene on the evidence, else observe. 
 	 * @param evidence A mapping from FiniteVariables to the value they take on. 
 	 * @return count modified evidence (observations and interventions)
-	 * emilydebug: observe(Map evidence) and intervene(Map evidence) may not be necessary
 	*/
 	public int addEvidence( Map evidence, Set intervenedVars ) throws StateNotFoundException
 	{
@@ -565,10 +564,12 @@ public class EvidenceController implements Cloneable
 
 	/** @return number of changes */
 	protected int unobserveSansCheckSansNotify( FiniteVariable var ){
-		if( myMapInterventions.containsKey( var ) ){
+		if( myMapObservations.containsKey( var ) || myMapInterventions.containsKey( var ) ){
 			pre( null, null, var, null, null, null );
+			myMapObservations.remove( var );
 			myMapInterventions.remove( var );
 			addRecentEvidenceChange( var );
+			EvidenceAssertedProperty.setValue( var, this );
 			InterventionAssertedProperty.setValue( var, this );
 			return 1;
 		}

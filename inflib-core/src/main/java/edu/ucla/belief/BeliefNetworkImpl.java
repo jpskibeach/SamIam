@@ -377,6 +377,7 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	{
 		if( myEvidenceController != null ) myEvidenceController.resetEvidence();
 		if( myMapIDsToVariables != null ) myMapIDsToVariables.clear();
+		if( intervenedEdges != null ) intervenedEdges.clear();
 		//if( tables != null ) tables.clear();
 		if( structure != null ) structure.clear();
 	}

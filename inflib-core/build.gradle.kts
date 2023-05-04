@@ -1,3 +1,6 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent.*
+
 plugins {
     id("java")
 }
@@ -14,6 +17,10 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 
-tasks.getByName<Test>("test") {
+tasks.test {
     useJUnitPlatform()
+    testLogging {
+		events(PASSED, FAILED, SKIPPED)
+        showStandardStreams = true
+	}
 }
