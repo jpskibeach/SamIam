@@ -25,7 +25,8 @@ public class EvidenceControllerTest {
     public void reset() {
         ec.resetEvidence();
         for (int i = 0; i < numNodes; ++i ) {
-
+            assertEquals(false, ec.isObservation((FiniteVariable) vertices.get(i)));
+            assertEquals(false, ec.isIntervention((FiniteVariable) vertices.get(i)));
         }
     }
 

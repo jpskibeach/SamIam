@@ -328,13 +328,8 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 		//return myXmlizer.load( this, fileInput );
 
 		Map map = myXmlizer.getMap( fileInput );
-		// seems like based on construction of map in InstantiationXmlizer, map type is String
-		// however, the way it is used with EvidenceController in this.copy() implies that it is an
-		// <FiniteVariable, Object> map?????
-		// emilydebug parse map to get the map and set we want
 		if( map == null ) return false;
 		else{
-			// emilydebug fix... not sure if correct
 			Map instantiationMap = new HashMap();
 			Set interventionSet = new HashSet();
 			Map.Entry entry;
@@ -358,7 +353,6 @@ public class InstantiationClipBoardImpl extends HashMap implements Instantiation
 
 	public boolean save( File fileOutput ) throws UnsupportedOperationException
 	{
-		// emilydebug create new map with the InstantiationXmlizer map structure
 		Map xmlizerMap = new HashMap(); 
 		Map.Entry entry;
 		FiniteVariable var;
