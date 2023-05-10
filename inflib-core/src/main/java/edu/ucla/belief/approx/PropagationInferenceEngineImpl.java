@@ -346,7 +346,6 @@ public class PropagationInferenceEngineImpl extends AbstractInferenceEngine
 		this.timeMillis = 0;
         this.numIterations = 0;
 		long startTime = elapsedTime(0);
-		this.schedule = this.scheduler.generateSchedule(myBeliefNetwork);
 		while ( true ) {
 			if ( this.maxIterations != 0 )
 				if ( this.numIterations >= this.maxIterations ) return;

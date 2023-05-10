@@ -1038,9 +1038,11 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	 */
 	public boolean uninterveneEdge( Variable from, Variable to )
 	{
-		if( addEdge( from, to, false ) ) {
-			intervenedEdges.remove( Arrays.asList(from, to));
-			return true;
+		if( intervenedEdges.contains(Arrays.asList(from, to)) ) {
+			if( addEdge( from, to, false ) ) {
+				intervenedEdges.remove( Arrays.asList(from, to));
+				return true;
+			}
 		}
 		return false;
 	}

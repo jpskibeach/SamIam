@@ -52,7 +52,7 @@ public class NetworkDisplay extends JInternalFrame implements
 		this.myNetPrefs		= sPrefs.getPreferenceGroup( SamiamPreferences.NetDspNme );
 		this.myMonitorPrefs	= sPrefs.getPreferenceGroup( SamiamPreferences.MonitorsDspNme );
 		this.hnInternalFrame	= doc;
-		this.hnInternalFrame.addInterventionChangeListener( this );
+		this.hnInternalFrame.addEvidenceChangeListener(this);
 		this.hnInternalFrame.addRecompilationListener( this );
 		this.hnInternalFrame.addNetStructureChangeListener( this );
 		this.hnInternalFrame.addCPTChangeListener( this );

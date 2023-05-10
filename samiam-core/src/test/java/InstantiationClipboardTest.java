@@ -11,7 +11,6 @@ import edu.ucla.belief.ui.clipboard.InstantiationClipBoardImpl;
 import edu.ucla.belief.VariableComparator;
 
 import java.util.*;
-import java.beans.Transient;
 import java.io.*;
 
 /**
