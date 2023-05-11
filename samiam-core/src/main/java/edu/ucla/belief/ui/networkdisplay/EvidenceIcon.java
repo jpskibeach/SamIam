@@ -65,8 +65,6 @@ public class EvidenceIcon implements Icon, PreferenceListener
 
 	public EvidenceIcon( SamiamPreferences monitorPrefs )
 	{
-		// TODO: maybe change to black? 
-		// emilydebug
 		this( 5, 5, Color.red, Color.blue, Color.blue );
 
 		EvidenceIcon.validatePreferenceBundle( monitorPrefs );

@@ -409,7 +409,7 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 		{
 			if( FLAG_SHOW_EVIDENCE_ICON ) {
 				myEvidenceIcon.setManuallySetObserve( true );
-				// emilydebug what do here? 
+				myEvidenceIcon.setManuallySetIntervene( false );
 			}
 			strLabel = "Manual";
 		}
@@ -560,7 +560,6 @@ public class EvidenceLabel /*extends JLabel*/ implements PreferenceListener
 	}
 
 	/** @since 20030318 */
-	/** emilydebug need to change with setManuallySetEvid */
 	public void drawEvidence( Table[] tbls, int observedIndex, int intervenedIndex )
 	{
 		if( FLAG_SHOW_EVIDENCE_ICON ) myEvidenceIcon.setManuallySetObserve( evidenceIndex[0] == observedIndex );

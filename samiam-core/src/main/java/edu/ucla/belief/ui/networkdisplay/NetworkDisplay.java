@@ -3180,7 +3180,7 @@ public class NetworkDisplay extends JInternalFrame implements
 	*/
 	public void netStructureChanged( NetStructureEvent ev )
 	{
-		BeliefNetwork bn = hnInternalFrame.getBeliefNetwork(); // emilydebug DisplayableBeliefNetwork
+		BeliefNetwork bn = hnInternalFrame.getBeliefNetwork();
 		Point nodeLoc = new Point();
 		Rectangle rect = new Rectangle();
 

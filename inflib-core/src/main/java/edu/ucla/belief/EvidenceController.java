@@ -488,9 +488,8 @@ public class EvidenceController implements Cloneable
 	}
 
 	/**
-	 * TODO: maybe also add setEvidence function that calls both setObservation and setIntervention
+	 * Old observations and interventions are completely removed and replaced by the current evidence.
 	 * @since 20230405
-	 * emilydebug may be an unnecessary function
 	 */
 	public int setEvidence( Map obsEvidence, Map intEvidence ) throws StateNotFoundException
 	{

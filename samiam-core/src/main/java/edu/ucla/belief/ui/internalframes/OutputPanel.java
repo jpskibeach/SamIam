@@ -63,7 +63,7 @@ public class OutputPanel extends javax.swing.JPanel
 	{
 		myVariables = variables;
 
-		Object [][] ar3 = ARRAY_EMPTY;
+		Object [][] ar3 = (intervenedVars == null) ? ARRAY_EMPTY_TWO : ARRAY_EMPTY_THREE;
 
 		myJTable = new JTable();
 		myJTable.setAutoResizeMode( JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS );
@@ -114,7 +114,8 @@ public class OutputPanel extends javax.swing.JPanel
 	}
 
 	public static final String STR_EMPTY = "empty";
-	public static final Object[][] ARRAY_EMPTY = { { STR_EMPTY, STR_EMPTY, STR_EMPTY } };
+	public static final Object[][] ARRAY_EMPTY_TWO = { { STR_EMPTY, STR_EMPTY } };
+	public static final Object[][] ARRAY_EMPTY_THREE = { { STR_EMPTY, STR_EMPTY, STR_EMPTY } };
 
 	/** @since 20030519 */
 	public void newData( Map data, Collection newVariables, Set intervenedVars )
@@ -122,10 +123,11 @@ public class OutputPanel extends javax.swing.JPanel
 		Object [][] ar3;
 
 		Set keySet = data.keySet();
-		if( data.size() == (int)0 ) ar3 = ARRAY_EMPTY;
-		else
-		{
-			ar3 = new Object[data.size()][3]; //table contents
+		if( data.size() == (int)0 ) {
+			ar3 = (intervenedVars == null) ? ARRAY_EMPTY_TWO : ARRAY_EMPTY_THREE;
+		}
+		else {
+			ar3 = (intervenedVars == null) ? new Object[data.size()][2] : new Object[data.size()][3]; //table contents
 
 			int i = 0;
 			Object dVar = null;
@@ -137,17 +139,22 @@ public class OutputPanel extends javax.swing.JPanel
 			{
 				dVar = it.next();
 				ar3[i][0] = dVar;//.toString();
-				if( intervenedVars.contains(dVar) ){
-					ar3[i][1] = STR_INT;
+				if( intervenedVars != null ){
+					if( intervenedVars.contains(dVar) ){
+						ar3[i][1] = STR_INT;
+					}
+					else {
+						ar3[i][1] = STR_OBS;
+					}
+					ar3[i][2] = data.get( dVar );//.toString();
 				}
 				else {
-					ar3[i][1] = STR_OBS;
+					ar3[i][1] = data.get( dVar );//.toString();
 				}
-				ar3[i][2] = data.get( dVar );//.toString();
 			}
 		}
 
-		myJTable.setModel( myTableModel = new MyTableModel( ar3 ) );
+		myJTable.setModel( myTableModel = new MyTableModel( ar3, (intervenedVars != null) ) );
 
 		if( (keySet != null) && (!keySet.isEmpty()) && (newVariables != null) )
 		{
@@ -187,13 +194,19 @@ public class OutputPanel extends javax.swing.JPanel
 	//the only purpose of this model is so that the contents of the table are not editable.
 	public class MyTableModel extends AbstractTableModel
 	{
-		public final String[] columnNames = new String[]{ myNameVariableColumn, STR_NAME_TYPE, "Value" };
+		public final String[] columnNames;
 
 		Object[][] data;
 
-		public MyTableModel (Object[][] data1)
+		public MyTableModel (Object[][] data1, boolean type)
 		{
 			data = data1;
+			if (type) {
+				columnNames = new String[]{ myNameVariableColumn, STR_NAME_TYPE, "Value" };
+			}
+			else {
+				columnNames = new String[]{ myNameVariableColumn, "Value" };
+			}
 
 		}
 

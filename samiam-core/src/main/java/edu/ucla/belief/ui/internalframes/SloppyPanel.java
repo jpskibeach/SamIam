@@ -489,7 +489,6 @@ public class SloppyPanel extends JPanel implements ActionListener, ChangeListene
 
 		if( plusEvidence ) toCopy.putAll( myEvidenceController.evidence() );
 
-		// emilydebug double check if correct
 		myClipBoard.copy( toCopy, myEvidenceController.intervenedVariables() );
 	}
 

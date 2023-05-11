@@ -2683,9 +2683,6 @@ public class NetworkInternalFrame	extends JInternalFrame
 		return flagSuccess;
 	}
 
-	/**
-	 * emilydebug
-	 */
 	/** @since 20051006 */
 	public static void showEvidenceWarning( Throwable caught, boolean flagObserve, boolean flagIntervene, FiniteVariable var, Object instance, Component parentComponent ){
 		String verb; 

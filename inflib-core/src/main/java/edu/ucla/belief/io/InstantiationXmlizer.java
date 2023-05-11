@@ -263,7 +263,6 @@ public class InstantiationXmlizer extends DefaultHandler
 				val = negative.get( next );
 				if( val instanceof Collection ) appendAll( document, eltRoot, next, (Collection)val, "null", true );
 				else append( document, eltRoot, next, val, "null", true );
-				//emilydebug determine later what type should be --> whats negative? 
 			}
 		}
 

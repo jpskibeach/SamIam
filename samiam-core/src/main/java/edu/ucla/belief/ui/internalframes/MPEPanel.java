@@ -149,8 +149,7 @@ public class MPEPanel extends JPanel implements ActionListener, SloppyPanel.Jump
 				pnlOut = (OutputPanel) myMapResultToOutputPanels.get( result );
 			}
 			else{
-				// emilydebug --> not sure if correct double check later
-				pnlOut = Bridge2Tiger.Troll.solicit().newOutputPanel( result.getConvertedInstatiation(), myVariables, new HashSet(), false );//new OutputPanel( result.getConvertedInstatiation(), myVariables );
+				pnlOut = Bridge2Tiger.Troll.solicit().newOutputPanel( result.getConvertedInstatiation(), myVariables, null, false );//new OutputPanel( result.getConvertedInstatiation(), myVariables );
 				pnlOut.setMinimumSize( new Dimension( 0, 0 ) );
 				if( myMouseListener != null ) pnlOut.addMouseListener( myMouseListener );
 				myMapResultToOutputPanels.put( result, pnlOut );
@@ -319,7 +318,6 @@ public class MPEPanel extends JPanel implements ActionListener, SloppyPanel.Jump
 
 		if( plusEvidence ) toCopy.putAll( myEvidenceController.evidence() );
 
-		//emilydebug double check if correct
 		myClipBoard.copy( toCopy, myEvidenceController.intervenedVariables() );
 	}
 
@@ -482,8 +480,7 @@ public class MPEPanel extends JPanel implements ActionListener, SloppyPanel.Jump
 		myLabelResult = addResult( result, strResultCaption );
 
 		// Create an output panel to display the result
-		// emilydebug double check later if correct
-		OutputPanel pnlOut = Bridge2Tiger.Troll.solicit().newOutputPanel( instantiation, variables, new HashSet(), false );//new OutputPanel( instantiation, variables );
+		OutputPanel pnlOut = Bridge2Tiger.Troll.solicit().newOutputPanel( instantiation, variables, null, false );//new OutputPanel( instantiation, variables );
 		pnlOut.setMinimumSize (new Dimension (0,0));
 		pnlOutput = pnlOut;
 

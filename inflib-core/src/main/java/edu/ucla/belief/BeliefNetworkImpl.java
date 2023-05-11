@@ -611,7 +611,6 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	* @param structure A directed graph specifying the structure of the
 	* network.
 	* @param tables - A mapping from the Variable to its CPT.
-	emilydebug add intervenedEdges here too? 
 	*/
 	public BeliefNetworkImpl( DirectedGraph structure, Map tables )
 	{
@@ -626,7 +625,6 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 		}
 	}
 
-	/** emilydebug add intervenedEdges here too? */
 	public BeliefNetworkImpl( DirectedGraph structure )
 	{
 		this.structure = structure;
@@ -744,9 +742,6 @@ public class BeliefNetworkImpl implements BeliefNetwork, PropertySuperintendent
 	/**
 		Call this method to perform a deep clone on a BeliefNetworkImpl (i.e., will
 		clone the structure, Tables and all Variable objects. )
-
-		emilydebug add deep clone for intervenedEdges
-
 		@author Keith Cascio
 		@since 060302
 	*/
