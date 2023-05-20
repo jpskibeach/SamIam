@@ -2230,16 +2230,7 @@ public class NetworkInternalFrame	extends JInternalFrame
 	//	for (int i = 0; i < evidenceChangeListeners.size(); i++)
 	//		((EvidenceChangeListener)evidenceChangeListeners.get(i)).evidenceChanged( ECE );
 	//}
-
-	public void addInterventionChangeListener( EvidenceChangeListener listener )
-	{
-		myBeliefNetwork.getEvidenceController().addInterventionChangeListener( listener );
-	}
-
-	public boolean removeInterventionChangeListener( EvidenceChangeListener listener ) {
-		return myBeliefNetwork.getEvidenceController().removeInterventionChangeListener( listener );
-	}
-
+	
 	public void addCPTChangeListener(CPTChangeListener listener) {
 		cptChangeListeners.add(listener);
 	}
@@ -2397,36 +2388,37 @@ public class NetworkInternalFrame	extends JInternalFrame
 
 		//System.out.println( "NetworkInternalFrame.handleInferenceEngine("+IE+")" );
 
-		killInferenceEngine();
-		myInferenceEngine = IE;
+		SwingUtilities.invokeLater(() -> {
+			killInferenceEngine();
+			myInferenceEngine = IE;
 
-		myInferenceEngine.printInfoCompilation( console );
+			myInferenceEngine.printInfoCompilation( console );
 
-		EvidenceController EC = myBeliefNetwork.getEvidenceController();
-		EC.removeEvidenceChangeListener( this );
-		EC.addEvidenceChangeListener( this );
+			EvidenceController EC = myBeliefNetwork.getEvidenceController();
+			EC.removeEvidenceChangeListener( this );
+			EC.addEvidenceChangeListener( this );
 
-		Set evidence = EC.evidence().keySet();
-		if( !evidence.isEmpty() )
-		{
-			IE.evidenceChanged( new EvidenceChangeEvent( evidence ) );
-			myInferenceEngine.printInfoPropagation( console );
-		}
+			Set evidence = EC.evidence().keySet();
+			if( !evidence.isEmpty() )
+			{
+				IE.evidenceChanged( new EvidenceChangeEvent( evidence ) );
+				myInferenceEngine.printInfoPropagation( console );
+			}
 
-		//fireCPTChanged( new CPTChangeEvent( null ) );
-		fireNetworkRecompiled();
+			//fireCPTChanged( new CPTChangeEvent( null ) );
+			fireNetworkRecompiled();
 
-		ui.setDefaultCursor();
+			ui.setDefaultCursor();
 
-		StatusBar bar = ui.getStatusBar();
-		if( bar != null ) bar.popText( STR_MSG_COMPILE, StatusBar.WEST );
-		myPushedStatusMessage = null;
+			StatusBar bar = ui.getStatusBar();
+			if( bar != null ) bar.popText( STR_MSG_COMPILE, StatusBar.WEST );
+			myPushedStatusMessage = null;
 
-		SamiamUserMode mode = getSamiamUserMode();
-		mode.setModeEnabled( SamiamUserMode.NEEDSCOMPILE, false );
-		mode.setModeEnabled( SamiamUserMode.COMPILING, false );
-		setSamiamUserMode( mode );
-
+			SamiamUserMode mode = getSamiamUserMode();
+			mode.setModeEnabled( SamiamUserMode.NEEDSCOMPILE, false );
+			mode.setModeEnabled( SamiamUserMode.COMPILING, false );
+			setSamiamUserMode( mode );
+		});
 		}
 	}
 

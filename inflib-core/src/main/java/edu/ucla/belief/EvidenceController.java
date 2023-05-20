@@ -158,18 +158,6 @@ public class EvidenceController implements Cloneable
 		return myEvidenceChangeListeners.remove( ecl );
 	}
 
-	public void addInterventionChangeListener( EvidenceChangeListener ecl )
-	{
-		if( myInterventionChangeListeners == null ) return;
-		if( myInterventionChangeListeners.contains( ecl ) ){ myInterventionChangeListeners.remove( ecl ); }
-		myInterventionChangeListeners.addLast( ecl );
-	}
-
-	public boolean removeInterventionChangeListener( EvidenceChangeListener ecl )
-	{
-		return myInterventionChangeListeners.remove( ecl );
-	}
-
 	protected void addRecentEvidenceChange( FiniteVariable var )
 	{
 		myRecentEvidenceChangeVariables.add( var );
@@ -215,7 +203,6 @@ public class EvidenceController implements Cloneable
 		warnPriorityListeners( ece );
 
 		EvidenceChangeListener[] array = null;
-		EvidenceChangeListener[] intervenedArray = null;
 		if( nonPriority ){
 			myEvidenceChangeListeners.cleanClearedReferences();
 			array = (EvidenceChangeListener[]) myEvidenceChangeListeners.toArray( new EvidenceChangeListener[myEvidenceChangeListeners.size()] );
@@ -228,12 +215,7 @@ public class EvidenceController implements Cloneable
 			for( int i=0; i<array.length; i++ ){ array[i].evidenceChanged( ece ); }
 		}
 
-		intervenedArray = (EvidenceChangeListener[]) myInterventionChangeListeners.toArray( new EvidenceChangeListener[myInterventionChangeListeners.size()] );
-		for( int i=0; i<intervenedArray.length; i++ ){ intervenedArray[i].evidenceChanged( ece ); }
-
-		return count + (array == null ? 0 : array.length) + (intervenedArray == null ? 0 : intervenedArray.length);
-
-		// return count + (array == null ? 0 : array.length);
+		return count + (array == null ? 0 : array.length);
 	}
 
 	/** @since 20020814
@@ -722,7 +704,6 @@ public class EvidenceController implements Cloneable
 	protected Map myMapInterventions = new HashMap(); 
 	protected WeakLinkedList myEvidenceChangeListeners = new WeakLinkedList();
 	protected WeakLinkedList myPriorityEvidenceChangeListeners = new WeakLinkedList();
-	protected WeakLinkedList myInterventionChangeListeners = new WeakLinkedList();
 	protected Set myRecentEvidenceChangeVariables = new HashSet();
 
 	protected boolean myFlagDoNotify = true;
