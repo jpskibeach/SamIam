@@ -2230,7 +2230,7 @@ public class NetworkInternalFrame	extends JInternalFrame
 	//	for (int i = 0; i < evidenceChangeListeners.size(); i++)
 	//		((EvidenceChangeListener)evidenceChangeListeners.get(i)).evidenceChanged( ECE );
 	//}
-	
+
 	public void addCPTChangeListener(CPTChangeListener listener) {
 		cptChangeListeners.add(listener);
 	}
@@ -2388,6 +2388,7 @@ public class NetworkInternalFrame	extends JInternalFrame
 
 		//System.out.println( "NetworkInternalFrame.handleInferenceEngine("+IE+")" );
 
+		// use invokeLater to ensure that any UI updates happen on the event dispatch thread
 		SwingUtilities.invokeLater(() -> {
 			killInferenceEngine();
 			myInferenceEngine = IE;
