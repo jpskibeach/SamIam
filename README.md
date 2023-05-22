@@ -8,7 +8,7 @@ It contains two directories:
 How to build and run: 
 If on Linux, run the following command. 
 ```
-./gradlew.bash run
+./gradlew run
 ```
 
 If on Windows, run the following command. 
