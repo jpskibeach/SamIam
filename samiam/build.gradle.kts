@@ -22,6 +22,10 @@ val shadowJarName = "${project.name}-${version}-all.jar"
 println("${parent!!.version} parent!!.version")
 println("${version} version")
 
+tasks.javadoc {
+
+}
+
 task("packageNetworkSamples", Copy::class) {
     group = "distribution"
     from("${rootDir}/network_samples").into("$buildDir/package/network_samples")
