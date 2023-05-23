@@ -46,16 +46,19 @@ tasks.jpackage {
     mainClass = main
 
     javaOptions = listOf("-Dfile.encoding=UTF-8")
-
+    icon = "${projectDir}/src/main/resources/SamIamAppIcon.gif"
     windows {
         type = ImageType.MSI
         winMenu = true
         winDirChooser = true
         appName = project.name
         winShortcutPrompt = true
+        winConsole = true
     }
     linux {
         type = ImageType.DEFAULT
+        linuxShortcut = true
+        linuxAppCategory = "other"
     }
     mac {
         type = ImageType.DMG
