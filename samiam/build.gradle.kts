@@ -32,6 +32,7 @@ tasks.create("jpackageAppImage", JPackageTask::class) {
     linux {
         appName = "${project.name}-$version.AppImage"
         type = ImageType.APP_IMAGE
+
     }
 }
 
@@ -41,7 +42,7 @@ tasks.jpackage {
     input = "build/libs"
     destination = "$buildDir/dist"
 
-    appName = "${project.name}-${version}"
+    appName = project.name
     vendor = "ucla"
 
     mainJar = "${project.name}-${version}-all.jar"
@@ -50,9 +51,7 @@ tasks.jpackage {
     javaOptions = listOf("-Dfile.encoding=UTF-8")
 
     windows {
-        winConsole = true
-        type = ImageType.EXE
-        appName = "${project.name}-${version}.exe"
+        type = ImageType.MSI
     }
     linux {
         type = ImageType.DEFAULT
