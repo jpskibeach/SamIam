@@ -31,7 +31,7 @@ import java.net.*;
 public class SDPInternalFrame extends javax.swing.JInternalFrame implements EvidenceChangeListener, CPTChangeListener, InternalFrameListener, NetStructureChangeListener, ActionListener
 {
 	public   static  final  String   STR_MSG_SDP        =  "calculating the same-decision probability (sdp).",
-	                                 STR_FILENAME_ICON  =  "samiamappicon_c9a_icon.ico";
+	                                 STR_FILENAME_ICON  =  "SDP16.gif";
 	public   static         boolean  FLAG_SHOW_BUTTONS  =  true;
 
 	private NetworkInternalFrame frmNet;
@@ -83,7 +83,7 @@ public class SDPInternalFrame extends javax.swing.JInternalFrame implements Evid
 	/** @since 120303 */
 	private void init()
 	{
-		Icon iconFrame = MainToolBar.getIcon( STR_FILENAME_ICON );
+		Icon iconFrame = MainToolBar.getIcon( "SamIamAppIcon.png" );
 		if( iconFrame != null ) setFrameIcon( iconFrame );
 
 		setDefaultCloseOperation( HIDE_ON_CLOSE );
