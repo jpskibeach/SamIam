@@ -54,12 +54,13 @@ tasks.jpackage {
         appName = project.name
         winShortcutPrompt = true
         winMenuGroup = "SamIam"
+        icon = "${projectDir}/src/main/resources/samiamappicon_c9a_icon.ico"
 
     }
     linux {
         type = ImageType.DEFAULT
         linuxShortcut = true
-        linuxAppCategory = "other"
+        linuxAppCategory = "SamIam"
     }
     mac {
         type = ImageType.DMG
