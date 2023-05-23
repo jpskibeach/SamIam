@@ -77,7 +77,7 @@ tasks.jpackage {
         appName = project.name
         winShortcutPrompt = true
         winMenuGroup = "SamIam"
-        icon = "${projectDir}/src/main/resources/images/samiamappicon_c9a_icon.ico"
+        icon = "${projectDir}/src/main/resources/images/SamIamAppIco.ico"
 
     }
     linux {
