@@ -158,7 +158,7 @@ public class ArrayUtils{
    *   to select.
    * @param offset the value, which together with indices, defines the values
    *   to select.
-   * @return dest an array with the same length as indices; upon exit,
+//   * @return dest an array with the same length as indices; upon exit,
    *   dest[i] = vals[offset + inds[i]].
    */
 

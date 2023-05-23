@@ -84,14 +84,14 @@ public class Graphs extends Object {
 
     /**
      * Returns the weighted width of the graph using the elimination order specified (as specified in
-     *  Darwiche & Hopkins 2001).
+     *  Darwiche &amp; Hopkins 2001).
      */
     public static double weightedwidth(DirectedGraph g, List order) {
         return weightedwidth(moralGraph(g), order);
     }
     /**
      * Returns the weighted width of the graph using the elimination order specified (as specified in
-     *  Darwiche & Hopkins 2001).
+     *  Darwiche &amp; Hopkins 2001).
      */
     public static double weightedwidth(Graph g, List order) {
         double w = 0;
@@ -251,7 +251,7 @@ public class Graphs extends Object {
         return (totalDegree / 2) == g.size() - 1;
     }
     /**
-     * Generates a Dag, where there is an edge from (nodes[i],nodes[j]) with probability prob, where i<j.
+     * Generates a Dag, where there is an edge from (nodes[i],nodes[j]) with probability prob, where i&lt;j.
      */
     public static DirectedGraph randomDAG(Object[] nodes, double prob) {
         DirectedGraph result = new HashDirectedGraph();

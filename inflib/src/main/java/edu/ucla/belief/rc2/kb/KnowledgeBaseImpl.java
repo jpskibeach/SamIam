@@ -198,7 +198,7 @@ public class KnowledgeBaseImpl implements KnowledgeBase
 
 	/** Asserts var=state as true as learned from another assert call.
 	  * If KB is unsatisfiable it will return KB_UNSATISFIABLE.
-	  * @returns Will return stackNext before this assertion takes place.
+	  * @return Will return stackNext before this assertion takes place.
 	  */
 	final private int assertLearnedPositive( int var, int state) {
 		if( DEBUG_KB_ASSERT) { System.out.println("\nassertLearned " + vars.get(var) + " = " +
@@ -214,7 +214,7 @@ public class KnowledgeBaseImpl implements KnowledgeBase
 
 	/** Asserts var=state as true.
 	  * If KB is unsatisfiable it will return KB_UNSATISFIABLE.
-	  * @returns Will return stackNext before this assertion takes place.
+	  * @return Will return stackNext before this assertion takes place.
 	  */
 	public int assertPositive( int var, int state) {
 		if( DEBUG_KB_ASSERT) { System.out.println("\nassert (" + stackNext + ") " +
@@ -354,7 +354,7 @@ public class KnowledgeBaseImpl implements KnowledgeBase
 
 	/** Asserts var!=state as true.
 	  * If KB is unsatisfiable it will return KB_UNSATISFIABLE.
-	  * @returns Will return stackNext before this assertion takes place.
+	  * @return Will return stackNext before this assertion takes place.
 	  */
 	public int assertNegative( int var, int state) {
 		if( DEBUG_KB_ASSERT) {

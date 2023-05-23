@@ -39,7 +39,7 @@ public class HuginLogReader implements HuginLogReaderConstants {
         }
 
         /**
-		@ret A 2 dimensional array defining the
+		@return A 2 dimensional array defining the
 		parent/child tree structure.
 	*/
         public boolean[][]      getJoinForest()
@@ -48,7 +48,7 @@ public class HuginLogReader implements HuginLogReaderConstants {
         }
 
         /**
-		@ret A List of Integers designating the roots of the
+		@return A List of Integers designating the roots of the
 		join trees that make up the join forest.
 	*/
         public int[]    getChildCounts()
@@ -57,7 +57,7 @@ public class HuginLogReader implements HuginLogReaderConstants {
         }
 
         /**
-		@ret A List of Integers designating the roots of the
+		@return A List of Integers designating the roots of the
 		join trees that make up the join forest.
 	*/
         public List getRoots()
@@ -66,7 +66,7 @@ public class HuginLogReader implements HuginLogReaderConstants {
         }
 
         /**
-		@ret A List of Strings, which are variable IDs.
+		@return A List of Strings, which are variable IDs.
 	*/
         public List getEliminationOrder()
         {
@@ -74,7 +74,7 @@ public class HuginLogReader implements HuginLogReaderConstants {
         }
 
         /**
-		@ret A List of HuginCliques.
+		@return A List of HuginCliques.
 	*/
         public List getCliques()
         {
@@ -82,7 +82,7 @@ public class HuginLogReader implements HuginLogReaderConstants {
         }
 
         /**
-		@ret A array of Lists of Strings, which are the variable IDs.
+		@return A array of Lists of Strings, which are the variable IDs.
 	*/
         public List[]   getAssignments()
         {

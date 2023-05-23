@@ -880,7 +880,7 @@ final public class RC2 {
 		 *  <p>The KB contains evidence from the user (since in order to use KB then allowParDeriv must
 		 *     be false implying rcFlags.placeUserEvidInInstArr = true;
 		 *
-		 *  @returns false if KB failed to set the value.
+		 *  @return false if KB failed to set the value.
 		 */
 		final public boolean setInst(int indx, int newvalue) {
 			int oldvalue = instantiation[indx];

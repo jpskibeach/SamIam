@@ -83,7 +83,7 @@ public class MapSearch {
      * describing an instantiation of the map variables, sorted from max
      * probability to min probability.  The user specifies a value slop.  Let
      * p be the probability of the highest probability instantiation of the
-     * map variables found.  If slop < 0, then the method returns the first
+     * map variables found.  If slop &lt; 0, then the method returns the first
      * found instantiation with probability p.  Otherwise, the method returns
      * all found instantiations with probability >= p - slop.
      */

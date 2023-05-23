@@ -195,7 +195,7 @@ static public boolean TODO_REMOVE_DO_INDEX_CACHING_DURING_CREATION = false;
 	}
 
 
-    /** Run Recursive conditioning P(e) for each root node (special for testing & output of timing/memory...).
+    /** Run Recursive conditioning P(e) for each root node (special for testing &amp; output of timing/memory...).
      *
      *  <p>Note: It is possible for the returned value to be NaN if the network contains that in a cpt.
      */
@@ -776,7 +776,7 @@ static public boolean TODO_REMOVE_DO_INDEX_CACHING_DURING_CREATION = false;
 	}
 
 	/** Will stop any running functions and wait for them to finish.
-	* @param waitFor A non-Null thread (running ...AsThread) to wait for it to finish
+	* @param-missing waitFor A non-Null thread (running ...AsThread) to wait for it to finish
 	*/
 	public  void stopAndWaitRecCondAsThread()
 	{
@@ -1361,7 +1361,7 @@ static public boolean TODO_REMOVE_DO_INDEX_CACHING_DURING_CREATION = false;
 
 
 
-    /** Will not change nds if it is non-null & non-empty*/
+    /** Will not change nds if it is non-null &amp; non-empty*/
     public int[] generateNumParents( MappedList nds) {
 
         MappedList nodes = nds;
@@ -1445,7 +1445,7 @@ static public boolean TODO_REMOVE_DO_INDEX_CACHING_DURING_CREATION = false;
 		 *
 		 *  <p>Can only fail if using the KB, otherwise it only sets the inst array.
 		 *
-		 *  @returns false if KB failed to set the value.
+		 *  @return false if KB failed to set the value.
 		 */
 		final public boolean setInst( int indx, int newvalue) {
 			int oldvalue = instantiation[indx];

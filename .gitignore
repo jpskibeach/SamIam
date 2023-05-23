@@ -4,4 +4,4 @@
 */*/build
 **/samiamrc.xml
 **/*.class
-/samiam-ui/bin
+/samiam/bin

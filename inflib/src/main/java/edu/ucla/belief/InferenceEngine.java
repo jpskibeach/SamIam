@@ -48,7 +48,7 @@ public interface InferenceEngine extends EvidenceChangeListener
 	* The ordering of vars must be consistent with the ordering
 	* returned by getCPT(var).
 	* @param var The variable whose CPT we want to set.
-	* @param vals The values of the entries in the cpt.
+	* @param-missing vals The values of the entries in the cpt.
 	*/
 	public void setCPT( FiniteVariable var );
 
@@ -87,8 +87,8 @@ public interface InferenceEngine extends EvidenceChangeListener
 	public InferenceEngine    setControlPanel( java.awt.Component panel );
 
 	/**
-		@ret The maximum single conditional probability
-		value < 1, over all variables.
+		@return The maximum single conditional probability
+		value &lt; 1, over all variables.
 		@author Keith Cascio
 		@since 071003
 	*/

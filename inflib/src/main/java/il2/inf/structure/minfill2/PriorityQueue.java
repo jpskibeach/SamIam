@@ -35,8 +35,8 @@ public abstract class PriorityQueue {
    * @return the parent slot.
    */
 
-  protected int parent (int s) {
-    return (s - 1) / 2;
+  protected int parent (int slot) {
+    return (slot - 1) / 2;
   }
   
   /**
@@ -47,8 +47,8 @@ public abstract class PriorityQueue {
    */
   
   
-  protected int leftChild (int s) {
-    return (2 * s) + 1;
+  protected int leftChild (int slot) {
+    return (2 * slot) + 1;
   }
   
   /**
@@ -58,8 +58,8 @@ public abstract class PriorityQueue {
    * @return the right child slot.
    */
   
-  protected int rightChild (int s) {
-    return (2 * s) + 2;
+  protected int rightChild (int slot) {
+    return (2 * slot) + 2;
   }
   
   /**

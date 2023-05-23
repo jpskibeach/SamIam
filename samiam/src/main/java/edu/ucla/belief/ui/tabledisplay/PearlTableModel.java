@@ -18,7 +18,7 @@ TableModel of a Pearl/Diez style NoisyOr representation a la Genie 2.0/SMILE 1.1
 
 @author Keith Cascio
 @since 061103
-@see edu.ucla.belief.ui.util.NoisyOrTableModel
+//@see edu.ucla.belief.ui.util.NoisyOrTableModel
 
 */
 public class PearlTableModel extends AbstractTableModel implements HuginGenieStyleTableFactory.TableModelHGS

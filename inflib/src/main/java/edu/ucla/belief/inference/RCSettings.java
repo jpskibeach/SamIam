@@ -72,7 +72,7 @@ public class RCSettings implements UserObject, ChangeBroadcaster
 	}
 
 	/**
-		@ret true iff d is a different memory proportion
+		@return true iff d is a different memory proportion
 	*/
 	public boolean setUserMemoryProportion( double d )
 	{
@@ -80,7 +80,7 @@ public class RCSettings implements UserObject, ChangeBroadcaster
 	}
 
 	/**
-		@ret true iff d is a different memory proportion
+		@return true iff d is a different memory proportion
 		@author Keith Cascio
 		@since 070203
 	*/

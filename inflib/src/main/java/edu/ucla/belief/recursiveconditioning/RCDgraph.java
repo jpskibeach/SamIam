@@ -36,11 +36,12 @@ final public class RCDgraph extends RC {
 
 	/** Creates a new RCDgraph based on the parameters.
 	*
-	* @param bn A valid BeliefNetwork to use.
+	* @param params
 	* @param cs A valid CachingScheme to use.
 	* @param listnr A Listener or else null.
-	* @param scalar Usually 1.0, but for genetics can scale it (slowing down computations).
-	* @param useKB Uses UnitResolution in a KnowledgeBase during computations.
+	* @param crm_par
+	* @param-missing scalar Usually 1.0, but for genetics can scale it (slowing down computations).
+	* @param-missing useKB Uses UnitResolution in a KnowledgeBase during computations.
 	*
 	* @throws RCCreationException if could not create a RCDgraph.
 	*/

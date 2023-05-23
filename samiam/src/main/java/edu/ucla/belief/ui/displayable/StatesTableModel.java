@@ -281,7 +281,7 @@ public class StatesTableModel extends AbstractTableModel
 	}
 
 	/**
-		@ret Error message.  null if no error.
+		@return Error message.  null if no error.
 
 		@author Keith Cascio
 		@since 101102

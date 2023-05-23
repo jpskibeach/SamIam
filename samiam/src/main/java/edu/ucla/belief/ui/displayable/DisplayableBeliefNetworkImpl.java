@@ -444,7 +444,7 @@ public class DisplayableBeliefNetworkImpl implements DisplayableBeliefNetwork
 
 	/**
 		Warning: this method returns a clone of the "Sub BeliefNetwork".
-		@ret An Object of type BeliefNetwork.
+		@return An Object of type BeliefNetwork.
 	*/
 	public Object clone()
 	{
@@ -452,7 +452,7 @@ public class DisplayableBeliefNetworkImpl implements DisplayableBeliefNetwork
 	}
 	/**
 		Warning: this method returns a clone of the "Sub BeliefNetwork".
-		@ret An Object of type BeliefNetwork.
+		@return An Object of type BeliefNetwork.
 	*/
 	public BeliefNetwork deepClone()
 	{
@@ -460,7 +460,7 @@ public class DisplayableBeliefNetworkImpl implements DisplayableBeliefNetwork
 	}
 	/**
 		Warning: this method returns a clone of the "Sub BeliefNetwork".
-		@ret An Object of type BeliefNetwork.
+		@return An Object of type BeliefNetwork.
 	*/
 	public BeliefNetwork seededClone( Map variablesOldToNew )
 	{
@@ -468,7 +468,7 @@ public class DisplayableBeliefNetworkImpl implements DisplayableBeliefNetwork
 	}
 	/**
 		Warning: this method returns a clone of the "Sub BeliefNetwork".
-		@ret An Object of type BeliefNetwork.
+		@return An Object of type BeliefNetwork.
 	*/
 	public BeliefNetwork shallowClone()
 	{

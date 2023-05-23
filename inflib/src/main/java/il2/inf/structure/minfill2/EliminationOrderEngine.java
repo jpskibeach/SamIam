@@ -41,7 +41,7 @@ public abstract class EliminationOrderEngine {
   /**
    * Frees subclass resources.
    *
-   * @param N the number of nodes.
+//   * @param N the number of nodes.
    */
 
   protected abstract void end ();
@@ -107,7 +107,7 @@ public abstract class EliminationOrderEngine {
    *   be null, in which case the nodes are not shuffled.  Shuffling has the
    *   effect of breaking ties differently.
    * @param cardinalities maps each node to its cardinality.
-   * @param maps each node to its adjacency list.
+//   * @param maps each node to its adjacency list.
    * @param nodes an ordered partition of the nodes to order.
    * @return the order.
    */

@@ -37,7 +37,7 @@ public class Loci
     }
 
     /** Returns the 0 based Chromosome Order of the recom locus where the cpt of s will change
-     *   (e.g. if between A&B, will return B).  This function returns the left most changing locus
+     *   (e.g. if between A&amp;B, will return B).  This function returns the left most changing locus
      *   the next one in Chromosome Order may also be changing.*/
     public int getChromoOrd_ChangingS1() {
 	    int ret = ftr.progData.getInputOrd_ChangingS1();
@@ -46,7 +46,7 @@ public class Loci
 	    return ret;
     }
     /** Returns the 0 based Chromosome Order of the recom locus where the cpt of s will change
-     *   (e.g. if between A&B, will return B).  This function returns the 2nd (right) locus if more
+     *   (e.g. if between A&amp;B, will return B).  This function returns the 2nd (right) locus if more
      *   than one are changing.*/
     public int getChromoOrd_ChangingS2() {
 	    int ret = ftr.progData.getInputOrd_ChangingS2();

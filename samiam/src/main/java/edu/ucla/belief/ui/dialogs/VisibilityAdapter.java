@@ -415,7 +415,7 @@ public class VisibilityAdapter    implements ButtonModel, Action, Runnable, Hier
 
 		@since 20071215 */
 	public class Shopper<E extends Actionable<E>> implements Runnable{
-		/** designed for {@link #VisibilityAdapter(EnumModels.Actionable,DelayedInitialization) VisibilityAdapter(Actionable,DelayedInitialization)} */
+		/** designed for {@link edu.ucla.belief.ui.dialogs.VisibilityAdapter (EnumModels.Actionable,DelayedInitialization) VisibilityAdapter(Actionable,DelayedInitialization)} */
 		public Shopper( E id, DelayedInitialization<E> di ){
 			this.id = id;
 			this.di = di;
@@ -619,7 +619,7 @@ public class VisibilityAdapter    implements ButtonModel, Action, Runnable, Hier
 
 			/** Add the last Component to the list of Components associated with the given element 'id' and
 				finish the list.  Once you call this method, the Component comp and any Components
-				you added with {@link Merchant#put(Enum,Component) put()}
+				you added with {@code Merchant#put(Enum,Component) put()}
 				become available to clients of DelayedInitialization via {@link Merchant#get get()}. */
 			public <T extends Component> T consummate( I id, T comp ){
 				Component[] array;
@@ -1123,7 +1123,7 @@ private Merchant&lt;Constituent&gt; di = new Merchant&lt;Constituent&gt;( Consti
 	public void                        putValue( String key, Object value ){
 		action.putValue( key, value );
 	}
-	/** This method is a <b><font color='#cc0000'>NO OP</font></b>. It is not possible to directly set the enabled status of this action. */
+	/** This method is a <b>NO OP</b>. It is not possible to directly set the enabled status of this action. */
 	public void                      setEnabled( boolean b ){
 	  //throw new UnsupportedOperationException();
 	  //action.setEnabled( b );
@@ -1169,7 +1169,7 @@ private Merchant&lt;Constituent&gt; di = new Merchant&lt;Constituent&gt;( Consti
 	public void                setArmed( boolean b ){
 		model.setArmed( b );
 	}
-	/** This method <b><font color='#cc0000'>DOES NOT</font></b> set the
+	/** This method <b>DOES NOT</b> set the
 		selected state of this model. There is no way to directly set the
 		selected state.  You must initiate an action. */
 	public void             setSelected( boolean b ){

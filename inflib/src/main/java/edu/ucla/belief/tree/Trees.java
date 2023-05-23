@@ -13,15 +13,11 @@ import edu.ucla.belief.*;
 /**
 * A collection of static routines for creation and conversion of the various
 * structured tree representations.
-* @author unknown
-* @version
+* @author Keith Cascio
+* @since 081502
 */
 public final class Trees extends Object
 {
-	/**
-		@author Keith Cascio
-		@since 081502
-	*/
 	public static boolean FLAG_DEBUG = false;
 
 	/** Creates new Trees */
@@ -29,9 +25,10 @@ public final class Trees extends Object
 
     /**
      * Generates an elimination tree.
-     * @param potentials The potentials that form the basis for it.
+     * @param-missing potentials The potentials that form the basis for it.
+     * @param leaves
      * @param eliminationOrder A list of variables in the order that they should be removed.
-     * @param potentialAssignments A Reference, which if non null will point to a Map which maps
+     * @param-missing potentialAssignments A Reference, which if non null will point to a Map which maps
      * from leaf nodes to the potential assigned to it.
      */
     public static EliminationTree eliminationTree(TableIndex[] leaves,

@@ -43,7 +43,7 @@ import static java.lang.Thread.currentThread;
 	.java         file created December 07, 2007, 12:36:44 AM
 
 java.net Forums : Getting the preferred size of a ...
-indexOf("<html") >= 0; } /* * We need a Graphics object to trick the layout to do its work ... private final JLabel previewLabel; /* * The preferred width. ...
+indexOf("&lt;html") >= 0; } /* * We need a Graphics object to trick the layout to do its work ... private final JLabel previewLabel; /* * The preferred width. ...
 forums.java.net/jive/message.jspa?messageID=235406 - 44k - Cached - Similar pages
 
 	relevant bug:  http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4348815
@@ -53,7 +53,7 @@ forums.java.net/jive/message.jspa?messageID=235406 - 44k - Cached - Similar page
 	Posted: Feb  4, 2007  1:09 PM twalljava
 	Posted: Apr 18, 2007  9:25 AM nluv4hs
 
-	@author "Piet Blok" <pbjar@orange.nl>
+	@author "Piet Blok" pbjar@orange.nl
 
 	Copyright (C) 2007 Piet Blok, this program is licensed under the terms of the Apache License Version 2.0.
 

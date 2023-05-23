@@ -6,7 +6,7 @@ import edu.ucla.util.*;
 
 
 
-/** This class iterates/traverses through trees & graphs visiting each node once.
+/** This class iterates/traverses through trees and graphs visiting each node once.
  *
  *  <p>For trees it ensures a parent before child ordering (by using a LIFO queue traversal).
  *  <p>For graphs no such guarantee is given.
