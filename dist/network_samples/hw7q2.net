@@ -1,0 +1,117 @@
+net
+{
+	propagationenginegenerator1791944048146838126L = "edu.ucla.belief.approx.BeliefPropagationSettings@67fdf644";
+	recoveryenginegenerator6944530267470113528l = "edu.ucla.util.SettingsImpl@25435aae";
+	jenginegenerator6060830225489488864L = "edu.ucla.belief.inference.JoinTreeSettings@2a3f539c";
+	node_size = (130.0 55.0);
+	huginenginegenerator3061656038650325130L = "edu.ucla.belief.inference.JoinTreeSettings@368b65fc";
+	rcenginegenerator1317510038576835557L = "edu.ucla.belief.inference.RCSettings@75d42d9c";
+}
+
+node Z
+{
+	states = ("true" "false" );
+	position = (27 -17);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	DSLxSUBMODEL = "Root Submodel";
+	ismapvariable = "false";
+	ID = "variable0";
+	label = "Z";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node W
+{
+	states = ("true" "false" );
+	position = (118 -92);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	ID = "variable1";
+	label = "W";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node Y
+{
+	states = ("true" "false" );
+	position = (212 -161);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	ID = "variable1";
+	label = "Y";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node S
+{
+	states = ("true" "false" );
+	position = (132 -231);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	ID = "variable1";
+	label = "S";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node V
+{
+	states = ("true" "false" );
+	position = (210 -17);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	DSLxSUBMODEL = "Root Submodel";
+	ismapvariable = "false";
+	ID = "variable1";
+	label = "V";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node X
+{
+	states = ("true" "false" );
+	position = (27 -162);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	ID = "variable1";
+	label = "X";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+potential ( Z | )
+{
+	data = (	0.4	0.6	);
+}
+potential ( W | Z V )
+{
+	data = (((	0.55	0.45	)
+		(	0.5	0.5	))
+		((	0.65	0.35	)
+		(	0.2	0.8	)));
+}
+potential ( Y | V X )
+{
+	data = (((	0.1	0.9	)
+		(	0.6	0.4	))
+		((	0.85	0.15	)
+		(	0.8	0.2	)));
+}
+potential ( S | X )
+{
+	data = ((	0.9	0.1	)
+		(	0.25	0.75	));
+}
+potential ( V | Z )
+{
+	data = ((	0.2	0.8	)
+		(	0.7	0.3	));
+}
+potential ( X | Z )
+{
+	data = ((	0.3	0.7	)
+		(	0.6	0.4	));
+}

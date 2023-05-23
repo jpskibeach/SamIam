@@ -1,0 +1,41 @@
+net
+{
+	propagationenginegenerator1791944048146838126L = "edu.ucla.belief.approx.BeliefPropagationSettings@3e04ee9c";
+	jenginegenerator6060830225489488864L = "edu.ucla.belief.inference.JoinTreeSettings@25025d5d";
+	recoveryenginegenerator6944530267470113528l = "edu.ucla.util.SettingsImpl@6d58b9de";
+	node_size = (130 55);
+}
+
+node A
+{
+	states = ("true" "false" );
+	position = (30 -3);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	DSLxSUBMODEL = "Root Submodel";
+	ismapvariable = "false";
+	ID = "variable0";
+	label = "A";
+	excludepolicy = "include whole CPT";
+}
+node B
+{
+	states = ("true" "false" );
+	position = (29 -99);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	DSLxSUBMODEL = "Root Submodel";
+	ismapvariable = "false";
+	ID = "variable1";
+	label = "B";
+	excludepolicy = "include whole CPT";
+}
+potential ( A | )
+{
+	data = (	0.3	0.7	);
+}
+potential ( B | A )
+{
+	data = ((	0.4	0.6	)
+		(	0.7	0.3	));
+}

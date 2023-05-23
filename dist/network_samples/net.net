@@ -1,0 +1,60 @@
+net
+{
+	propagationenginegenerator1791944048146838126L = "edu.ucla.belief.approx.BeliefPropagationSettings@675ec0b5";
+	jenginegenerator6060830225489488864L = "edu.ucla.belief.inference.JoinTreeSettings@306fe14e";
+	recoveryenginegenerator6944530267470113528l = "edu.ucla.util.SettingsImpl@525e4fdd";
+	node_size = (130 55);
+}
+
+node stage
+{
+	states = ("early" "advanced" );
+	position = (202 -89);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	DSLxSUBMODEL = "Root Submodel";
+	ismapvariable = "false";
+	ID = "variable0";
+	label = "stage";
+	excludepolicy = "include whole CPT";
+}
+node survival
+{
+	states = ("recover" "die" );
+	position = (331 -171);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	DSLxSUBMODEL = "Root Submodel";
+	ismapvariable = "false";
+	ID = "variable2";
+	label = "survival";
+	excludepolicy = "include whole CPT";
+}
+node drug
+{
+	states = ("yes" "no" );
+	position = (91 -180);
+	isdecisionvariable = "false";
+	diagnosistype = "AUXILIARY";
+	DSLxSUBMODEL = "Root Submodel";
+	ismapvariable = "false";
+	ID = "variable1";
+	label = "drug";
+	excludepolicy = "include whole CPT";
+}
+potential ( stage | )
+{
+	data = (	0.5	0.5	);
+}
+potential ( survival | stage drug )
+{
+	data = (((	0.5	0.5	)
+		(	0.5	0.5	))
+		((	0.5	0.5	)
+		(	0.5	0.5	)));
+}
+potential ( drug | stage )
+{
+	data = ((	0.5	0.5	)
+		(	0.5	0.5	));
+}
