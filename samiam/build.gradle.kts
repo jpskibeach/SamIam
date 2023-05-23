@@ -49,6 +49,10 @@ tasks.jpackage {
 
     windows {
         type = ImageType.MSI
+        winMenu = true
+        winDirChooser = true
+        appName = project.name
+        winShortcutPrompt = true
     }
     linux {
         type = ImageType.DEFAULT
