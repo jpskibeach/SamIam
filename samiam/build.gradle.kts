@@ -44,16 +44,17 @@ tasks.jpackage {
 
     mainJar = shadowJarName
     mainClass = main
+    icon = "${projectDir}/src/main/resources/SamIamAppIcon.png"
 
     javaOptions = listOf("-Dfile.encoding=UTF-8")
-    icon = "${projectDir}/src/main/resources/SamIamAppIcon.gif"
     windows {
         type = ImageType.MSI
         winMenu = true
         winDirChooser = true
         appName = project.name
         winShortcutPrompt = true
-        winConsole = true
+        winMenuGroup = "SamIam"
+
     }
     linux {
         type = ImageType.DEFAULT
