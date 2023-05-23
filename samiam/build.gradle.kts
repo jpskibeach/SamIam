@@ -7,7 +7,6 @@ plugins {
     id("application")
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("org.panteleyev.jpackageplugin") version "1.5.2"
-
 }
 val main = "edu.ucla.belief.ui.UI"
 application { mainClass.set(main) }
@@ -19,25 +18,45 @@ group = parent!!.group
 version = parent!!.version
 val shadowJarName = "${project.name}-${version}-all.jar"
 
-println("${parent!!.version} parent!!.version")
-println("${version} version")
-
 tasks.javadoc {
-
+    options {
+        this as StandardJavadocDocletOptions
+        tags(
+            "from",
+            "changed",
+            "decision",
+            "precondition",
+            "postcondition",
+            "pq",
+            "param-missing", //parameters in the javadoc that aren't present in the code
+        )
+        addBooleanOption("Xdoclint:none", true)
+        addStringOption("Xmaxwarns", "1")
+    }
 }
 
 task("packageNetworkSamples", Copy::class) {
     group = "distribution"
     from("${rootDir}/network_samples").into("$buildDir/package/network_samples")
 }
+
 task("packageShadowJar", Copy::class) {
     group = "distribution"
     dependsOn("shadowJar")
     from("${buildDir}/libs/$shadowJarName").into("$buildDir/package")
 }
-
+task("packageSamIamJavadoc", Copy::class) {
+    group = "distribution"
+    dependsOn(":samiam:javadoc")
+    from("${rootDir}/samiam/build/docs/javadoc").into("$buildDir/package/samiam_javadoc")
+}
+task("packageInflibJavadoc", Copy::class) {
+    group = "distribution"
+    dependsOn(":inflib:javadoc")
+    from("${rootDir}/inflib/build/docs/javadoc").into("$buildDir/package/inflib_javadoc")
+}
 tasks.jpackage {
-    dependsOn("packageNetworkSamples", "packageShadowJar")
+    dependsOn("packageNetworkSamples", "packageShadowJar", "packageSamIamJavadoc", "packageInflibJavadoc")
     group = "distribution"
 
     input = "build/package"

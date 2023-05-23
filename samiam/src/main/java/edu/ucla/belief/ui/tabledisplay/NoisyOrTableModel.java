@@ -18,7 +18,7 @@ TableModel of a NoisyOr representation.
 
 @author Keith Cascio
 @since 021402
-@see edu.ucla.belief.ui.dialogs.EditNoisyOrDialog
+//@see EditNoisyOrDialog
 
 */
 public class NoisyOrTableModel extends AbstractTableModel implements HuginGenieStyleTableFactory.TableModelHGS

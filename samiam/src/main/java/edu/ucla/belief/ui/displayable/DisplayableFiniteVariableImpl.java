@@ -107,7 +107,7 @@ public class DisplayableFiniteVariableImpl implements DisplayableFiniteVariable,
 	}
 	/**
 		Warning: this method returns a clone of the subvariable.
-		@ret An Object of type FiniteVariable.
+		@return An Object of type FiniteVariable.
 	*/
 	public Object clone()
 	{
@@ -665,7 +665,7 @@ public class DisplayableFiniteVariableImpl implements DisplayableFiniteVariable,
 
 		@author Keith Cascio
 		@since 041702
-		@see  edu.ucla.belief.ui.util.DisplayableFiniteVariable#discardProbabilityChanges() discardProbabilityChanges()
+		@see  edu.ucla.belief.ui.displayable.DisplayableFiniteVariable#discardProbabilityChanges() discardProbabilityChanges()
 	*/
 	public JComponent getProbabilityEditComponent()
 	{
@@ -800,7 +800,7 @@ public class DisplayableFiniteVariableImpl implements DisplayableFiniteVariable,
 
 		@author Keith Cascio
 		@since 041702
-		@see  edu.ucla.belief.ui.util.DisplayableFiniteVariable#getProbabilityEditComponent() getProbabilityEditComponent()
+		@see  edu.ucla.belief.ui.displayable.DisplayableFiniteVariable#getProbabilityEditComponent() getProbabilityEditComponent()
 	*/
 	public boolean discardProbabilityChanges()
 	{

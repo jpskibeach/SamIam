@@ -118,7 +118,8 @@ public class Util {
    * external representation.
    * 
    * @param g the given external graph.
-   * @param on entry, an array of the same dimension as ext; on exit, a map
+   * @param adj
+   * @param-missing on entry, an array of the same dimension as ext; on exit, a map
    *   from each node to its adjacency list.
    * @param adjSize on entry, an array of the same dimension as ext; on
    *   exit, a map from each node to the size of its adjacency list.

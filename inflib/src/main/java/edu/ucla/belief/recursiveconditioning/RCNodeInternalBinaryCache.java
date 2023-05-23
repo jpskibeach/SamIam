@@ -60,7 +60,7 @@ final public class RCNodeInternalBinaryCache extends RCNode {
 
     /** Warning: by using this constructor you must later call initCacheOrder.
      *
-     * @params mpeVars Can be null if no mpe info is desired.
+     * @param mpeVars Can be null if no mpe info is desired.
      */
     public RCNodeInternalBinaryCache( RC rc, Collection cutset, Collection context,
                                 	  RCNode left, RCNode right, double cf, Collection mpeVars) {
@@ -91,7 +91,7 @@ final public class RCNodeInternalBinaryCache extends RCNode {
 
     /** Creates a new RCNodeInternalCache.
      *
-     * @params mpeVars Can be null if no mpe info is desired.
+     * 	* @param-missing vals mpeVars Can be null if no mpe info is desired.
      */
     public RCNodeInternalBinaryCache( RC rc, Collection cutset, List context,
                                 	  RCNode left, RCNode right, double cf, Collection mpeVars,

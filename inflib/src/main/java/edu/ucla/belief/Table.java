@@ -339,8 +339,8 @@ public class Table implements Potential, edu.ucla.belief.io.CPTInfo.ReadableWrit
 	}
 
 	/**
-		@ret The maximum single conditional probability
-		value <= 1 in data.
+		@return The maximum single conditional probability
+		value &lt;= 1 in data.
 		@author Keith Cascio
 		@since 071003
 	*/
@@ -353,7 +353,7 @@ public class Table implements Potential, edu.ucla.belief.io.CPTInfo.ReadableWrit
 	}
 
 	/**
-		@ret The minimum single conditional probability
+		@return The minimum single conditional probability
 		value >= 0 in data.
 		@author Keith Cascio
 		@since 010905
@@ -1134,7 +1134,7 @@ public class Table implements Potential, edu.ucla.belief.io.CPTInfo.ReadableWrit
 
 
 	/** For any variable=state, if all possible combinations of other variables have prob=0, then this state can be removed.
-		@returns An ArrayList (or null) where even indices will be FiniteVariables and odd indices will be states which can be removed. */
+		@return An ArrayList (or null) where even indices will be FiniteVariables and odd indices will be states which can be removed. */
 	public ArrayList valueElimination(){
 		ArrayList ret = null;
 

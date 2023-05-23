@@ -62,13 +62,13 @@ import        java.io.PrintWriter;
 public interface Grepable<E,F extends Enum<F>,H>
 {
 	/** @param results        Meant to be an in/out parameter, i.e. if you pass<br />
-		<table border='1' cellpadding='4'>
+		<table border='1'>
+		<caption>in/out parameter</caption>
 		<tr><td>(1)</td><td>a collection object SET</td><td rowspan='2'>then</td><td>fill SET with the grep results</td><td rowspan='2'>and return</td><td>SET</td></tr>
 		<tr><td>(2)</td><td>null                   </td><td>that means you aren't interested in a Collection of the results</td><td>null</td></tr>
 		</table>
-		@param field_selector Set of {@link #fields fields} to grep over.
+		@param field_selector Set of {@link #grepFields()} to grep over.
 		@param stringifier    Convert field values to strings.
-		@param exp            Expression defines the class of matches.
 		@param state          Implementation-specific, meaningful only in some contexts esp where grep carries out some editing action.
 		@return the number of matches
 	*/

@@ -19,7 +19,7 @@ public class EvidenceController implements Cloneable
 	}
 
 	/** Freeze evidence.
-		@arg frozen If true, disallow evidence assertions/retractions.
+		@param frozen If true, disallow evidence assertions/retractions.
 		@since 20051006 */
 	public void setFrozen( boolean frozen ){
 		this.myFlagFrozen = frozen;

@@ -215,8 +215,8 @@ public abstract class AbstractInferenceEngine
 	}
 
 	/**
-		@ret The maximum single conditional probability
-		value <= 1, over all variables.
+		@return The maximum single conditional probability
+		value &lt;= 1, over all variables.
 		@author Keith Cascio
 		@since 071003
 	*/

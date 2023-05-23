@@ -109,7 +109,7 @@ public class WeakLinkedList extends AbstractSequentialList
 
     /**
      * Appends the given element to the end of this list.  (Identical in
-     * function to the <tt>add</tt> method; included only for consistency.)
+     * function to the <code>add</code> method; included only for consistency.)
      *
      * @param o the element to be inserted at the end of this list.
      */
@@ -118,13 +118,13 @@ public class WeakLinkedList extends AbstractSequentialList
     }
 
     /**
-     * Returns <tt>true</tt> if this list contains the specified element.
-     * More formally, returns <tt>true</tt> if and only if this list contains
-     * at least one element <tt>e</tt> such that <tt>(o==null ? e==null
-     * : o.equals(e))</tt>.
+     * Returns <code>true</code> if this list contains the specified element.
+     * More formally, returns <code>true</code> if and only if this list contains
+     * at least one element <code>e</code> such that <code>(o==null ? e==null
+     * : o.equals(e))</code>.
      *
      * @param o element whose presence in this list is to be tested.
-     * @return <tt>true</tt> if this list contains the specified element.
+     * @return <code>true</code> if this list contains the specified element.
      */
     public boolean contains(Object o) {
         return indexOf(o) != -1;
@@ -143,8 +143,8 @@ public class WeakLinkedList extends AbstractSequentialList
      * Appends the specified element to the end of this list.
      *
      * @param o element to be appended to this list.
-     * @return <tt>true</tt> (as per the general contract of
-     * <tt>Collection.add</tt>).
+     * @return <code>true</code> (as per the general contract of
+     * <code>Collection.add</code>).
      */
     public boolean add(Object o) {
 	addBefore(o, header);
@@ -154,12 +154,12 @@ public class WeakLinkedList extends AbstractSequentialList
     /**
      * Removes the first occurrence of the specified element in this list.  If
      * the list does not contain the element, it is unchanged.  More formally,
-     * removes the element with the lowest index <tt>i</tt> such that
-     * <tt>(o==null ? get(i)==null : o.equals(get(i)))</tt> (if such an
+     * removes the element with the lowest index <code>i</code> such that
+     * <code>(o==null ? get(i)==null : o.equals(get(i)))</code> (if such an
      * element exists).
      *
      * @param o element to be removed from this list, if present.
-     * @return <tt>true</tt> if the list contained the specified element.
+     * @return <code>true</code> if the list contained the specified element.
      */
     public boolean remove(Object o) {
         if (o==null) {
@@ -189,7 +189,7 @@ public class WeakLinkedList extends AbstractSequentialList
      * the specified Collection is this list, and this list is nonempty.)
      *
      * @param c the elements to be inserted into this list.
-     * @return <tt>true</tt> if this list changed as a result of the call.
+     * @return <code>true</code> if this list changed as a result of the call.
      * @throws NullPointerException if the specified collection is null.
      */
     public boolean addAll(Collection c) {
@@ -207,9 +207,9 @@ public class WeakLinkedList extends AbstractSequentialList
      * @param index index at which to insert first element
      *		    from the specified collection.
      * @param c elements to be inserted into this list.
-     * @return <tt>true</tt> if this list changed as a result of the call.
+     * @return <code>true</code> if this list changed as a result of the call.
      * @throws IndexOutOfBoundsException if the specified index is out of
-     *            range (<tt>index &lt; 0 || index &gt; size()</tt>).
+     *            range (<code>index &lt; 0 || index &gt; size()</code>).
      * @throws NullPointerException if the specified collection is null.
      */
     public boolean addAll(int index, Collection c) {
@@ -251,7 +251,7 @@ public class WeakLinkedList extends AbstractSequentialList
      * @return the element at the specified position in this list.
      *
      * @throws IndexOutOfBoundsException if the specified index is is out of
-     * range (<tt>index &lt; 0 || index &gt;= size()</tt>).
+     * range (<code>index &lt; 0 || index &gt;= size()</code>).
      */
     public Object get(int index) {
         return entry(index).getElement();
@@ -265,7 +265,7 @@ public class WeakLinkedList extends AbstractSequentialList
      * @param element element to be stored at the specified position.
      * @return the element previously at the specified position.
      * @throws IndexOutOfBoundsException if the specified index is out of
-     *		  range (<tt>index &lt; 0 || index &gt;= size()</tt>).
+     *		  range (<code>index &lt; 0 || index &gt;= size()</code>).
      */
     public Object set(int index, Object element) {
         Entry e = entry(index);
@@ -283,7 +283,7 @@ public class WeakLinkedList extends AbstractSequentialList
      * @param element element to be inserted.
      *
      * @throws IndexOutOfBoundsException if the specified index is out of
-     *		  range (<tt>index &lt; 0 || index &gt; size()</tt>).
+     *		  range (<code>index &lt; 0 || index &gt; size()</code>).
      */
     public void add(int index, Object element) {
         addBefore(element, (index==size ? header : entry(index)));
@@ -298,7 +298,7 @@ public class WeakLinkedList extends AbstractSequentialList
      * @return the element previously at the specified position.
      *
      * @throws IndexOutOfBoundsException if the specified index is out of
-     * 		  range (<tt>index &lt; 0 || index &gt;= size()</tt>).
+     * 		  range (<code>index &lt; 0 || index &gt;= size()</code>).
      */
     public Object remove(int index) {
         Entry e = entry(index);
@@ -331,7 +331,7 @@ public class WeakLinkedList extends AbstractSequentialList
      * Returns the index in this list of the first occurrence of the
      * specified element, or -1 if the List does not contain this
      * element.  More formally, returns the lowest index i such that
-     * <tt>(o==null ? get(i)==null : o.equals(get(i)))</tt>, or -1 if
+     * <code>(o==null ? get(i)==null : o.equals(get(i)))</code>, or -1 if
      * there is no such index.
      *
      * @param o element to search for.
@@ -361,7 +361,7 @@ public class WeakLinkedList extends AbstractSequentialList
      * Returns the index in this list of the last occurrence of the
      * specified element, or -1 if the list does not contain this
      * element.  More formally, returns the highest index i such that
-     * <tt>(o==null ? get(i)==null : o.equals(get(i)))</tt>, or -1 if
+     * <code>(o==null ? get(i)==null : o.equals(get(i)))</code>, or -1 if
      * there is no such index.
      *
      * @param o element to search for.
@@ -390,23 +390,23 @@ public class WeakLinkedList extends AbstractSequentialList
     /**
      * Returns a list-iterator of the elements in this list (in proper
      * sequence), starting at the specified position in the list.
-     * Obeys the general contract of <tt>List.listIterator(int)</tt>.<p>
+     * Obeys the general contract of <code>List.listIterator(int)</code>.<p>
      *
      * The list-iterator is <i>fail-fast</i>: if the list is structurally
      * modified at any time after the Iterator is created, in any way except
-     * through the list-iterator's own <tt>remove</tt> or <tt>add</tt>
+     * through the list-iterator's own <code>remove</code> or <code>add</code>
      * methods, the list-iterator will throw a
-     * <tt>ConcurrentModificationException</tt>.  Thus, in the face of
+     * <code>ConcurrentModificationException</code>.  Thus, in the face of
      * concurrent modification, the iterator fails quickly and cleanly, rather
      * than risking arbitrary, non-deterministic behavior at an undetermined
      * time in the future.
      *
      * @param index index of first element to be returned from the
-     *		    list-iterator (by a call to <tt>next</tt>).
+     *		    list-iterator (by a call to <code>next</code>).
      * @return a ListIterator of the elements in this list (in proper
      * 	       sequence), starting at the specified position in the list.
      * @throws    IndexOutOfBoundsException if index is out of range
-     *		  (<tt>index &lt; 0 || index &gt; size()</tt>).
+     *		  (<code>index &lt; 0 || index &gt; size()</code>).
      * @see List#listIterator(int)
      */
     public ListIterator listIterator(int index) {
@@ -556,10 +556,10 @@ public class WeakLinkedList extends AbstractSequentialList
     }
 
     /**
-     * Returns a shallow copy of this <tt>WeakLinkedList</tt>. (The elements
+     * Returns a shallow copy of this <code>WeakLinkedList</code>. (The elements
      * themselves are not cloned.)
      *
-     * @return a shallow copy of this <tt>WeakLinkedList</tt> instance.
+     * @return a shallow copy of this <code>WeakLinkedList</code> instance.
      */
     public Object clone() {
         WeakLinkedList clone = null;
@@ -636,7 +636,7 @@ public class WeakLinkedList extends AbstractSequentialList
     private static final long serialVersionUID = 876323262645176354L;
 
     /**
-     * Save the state of this <tt>WeakLinkedList</tt> instance to a stream (that
+     * Save the state of this <code>WeakLinkedList</code> instance to a stream (that
      * is, serialize it).
      *
      * @serialData The size of the list (the number of elements it
@@ -657,7 +657,7 @@ public class WeakLinkedList extends AbstractSequentialList
     }
 
     /**
-     * Reconstitute this <tt>WeakLinkedList</tt> instance from a stream (that is
+     * Reconstitute this <code>WeakLinkedList</code> instance from a stream (that is
      * deserialize it).
      */
     private void readObject(java.io.ObjectInputStream s)

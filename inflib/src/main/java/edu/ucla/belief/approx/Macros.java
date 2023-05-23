@@ -1508,7 +1508,8 @@ public class Macros
 
 		and Inflib code EdgeDeletionInferenceEngine.evidenceChanged(),
 		specifically the line (~570):
-		bridge.setEvidence( (Map<FiniteVariable,Object>) this.beliefnetwork.getEvidenceController().evidence() ); */
+		<code>bridge.setEvidence( (Map&lt;FiniteVariable,Object&gt;) this.beliefnetwork.getEvidenceController().evidence() );</code>
+		 */
 	@SuppressWarnings( "unchecked" )
 	public static int testCompile( BeliefNetwork bn, double expectedValue, java.io.PrintStream stream, int id ){
 		stream.printf( FMT, id++, "compile" );

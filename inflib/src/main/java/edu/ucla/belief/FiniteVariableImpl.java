@@ -17,7 +17,7 @@ public class FiniteVariableImpl extends VariableImpl implements FiniteVariable
 {
 	/**
 	* Creates a new Finite variable.
-	* @param name the name the Variable will be known by.
+	* @param id the name the Variable will be known by.
 	* @param instances the list of instances this variable can take on. These may be of
 	* any type.
 	*/

@@ -23,3 +23,20 @@ tasks.test {
         showStandardStreams = true
     }
 }
+
+tasks.javadoc  {
+    options {
+        this as StandardJavadocDocletOptions
+        tags(
+            "from",
+            "changed",
+            "decision",
+            "precondition",
+            "postcondition",
+            "pq",
+            "param-missing", //parameters in the javadoc that aren't present in the code
+        )
+        addBooleanOption("Xdoclint:none", true)
+        addStringOption("Xmaxwarns", "1")
+    }
+}

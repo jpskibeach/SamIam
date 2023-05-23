@@ -42,7 +42,7 @@ import org.xml.sax.Attributes;
 
 	</a>
 	<br />
-	updated 20060531 for version 0.3a proposed by Jeff Bilmes <bilmes@cuba.ee.washington.edu> 20060529
+	updated 20060531 for version 0.3a proposed by Jeff Bilmes { @link "mailto:bilmes@cuba.ee.washington.edu"}> 20060529
 
 	@author keith cascio
 	@since  20060523 */

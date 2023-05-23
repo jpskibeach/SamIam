@@ -305,14 +305,14 @@ public class Settings implements UserObject, CreationMethod.Settings, ChangeBroa
 	}
 
 	/**
-		@ret true iff d is a different memory proportion */
+		@return true iff d is a different memory proportion */
 	public boolean setUserMemoryProportion( double d )
 	{
 		return setUserMemoryProportion( d, true );
 	}
 
 	/**
-		@ret true iff d is a different memory proportion
+		@return true iff d is a different memory proportion
 		@author Keith Cascio
  @since 20030702 */
 	public boolean setUserMemoryProportion( double d, boolean makeStale )

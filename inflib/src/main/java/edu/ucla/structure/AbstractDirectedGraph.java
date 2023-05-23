@@ -109,10 +109,7 @@ public abstract class AbstractDirectedGraph implements DirectedGraph, Collection
 	public boolean isWeaklyConnected(){ return unsupported(); }
 
 	/** Determines if there is an undirected path from vertex1 to vertex2.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex1 and vertex2 are in the graph(tested by "equals").
-	* </dl></dd>
+	* @precondition vertex1 and vertex2 are in the graph(tested by "equals").
 	* @param vertex1- An Object which is in the graph.
 	* @param vertex2- An Object which is in the graph.
 	* @return true if there is an undirected path from vertex1 to vertex2.
@@ -120,10 +117,7 @@ public abstract class AbstractDirectedGraph implements DirectedGraph, Collection
 	public boolean isWeaklyConnected(Object vertex1, Object vertex2){ return unsupported(); }
 
 	/** Determines if there is a directed path from vertex1 to vertex2.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex1 and vertex2 are in the graph(tested by "equals").
-	* </dl></dd>
+	* @postcondition vertex1 and vertex2 are in the graph(tested by "equals").
 	* @param vertex1- An Object which is in the graph.
 	* @param vertex2- An Object which is in the graph.
 	* @return true if there is a directed path from vertex1 to vertex2.

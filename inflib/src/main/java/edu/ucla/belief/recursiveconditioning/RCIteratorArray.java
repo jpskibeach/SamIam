@@ -6,7 +6,7 @@ import edu.ucla.util.*;
 
 
 
-/** This class iterates through trees & graphs but does not guarantee
+/** This class iterates through trees and graphs but does not guarantee
  *  any particular node ordering.
  *
  * <p> This one is designed to use more memory but run faster than RCIteratorTraversal.

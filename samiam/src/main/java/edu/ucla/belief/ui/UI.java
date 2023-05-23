@@ -1646,13 +1646,13 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		if( flag && (UI.FLAG_FORCE_WELCOME /*|| (! mySamiamPreferences.wasFileIOSuccessful())*/) ){ showTutorialsDialog( true ); }
 	}
 
-	/** @arg flag Sets whether the JVM should terminate when the user closes SamIam.  Set this to false if you call SamIam from another Java program and you want to prevent Java from exiting when the user exits SamIam.
+	/** @param flag Sets whether the JVM should terminate when the user closes SamIam.  Set this to false if you call SamIam from another Java program and you want to prevent Java from exiting when the user exits SamIam.
 		@since 20040210 */
 	public void setSystemExitEnabled( boolean flag ){
 		myFlagSystemExitEnabled = flag;
 	}
 
-	/** @ret true if a user action that closes SamIam will cause the JVM to terminate as well.
+	/** @return true if a user action that closes SamIam will cause the JVM to terminate as well.
 		@since 20040210 */
 	public boolean isSystemExitEnabled(){
 		return myFlagSystemExitEnabled;
@@ -3165,7 +3165,7 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 	}
 
 	/**
-		@ret true if a file with path selectedPath is already open.
+		@return true if a file with path selectedPath is already open.
 		@since 021004
 	*/
 	public boolean pathConflicts( String selectedPath ){

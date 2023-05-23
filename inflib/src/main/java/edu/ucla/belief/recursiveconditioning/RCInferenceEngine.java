@@ -105,7 +105,7 @@ public class RCInferenceEngine extends AbstractInferenceEngine implements Infere
 	* This function tells the dgraph to clear all caches above where var's leaf
 	*  node is.
 	* @param var The variable whose CPT we want to set.
-	* @param vals The values of the entries in the cpt.
+	* @param-missing vals The values of the entries in the cpt.
 	*/
 	public void setCPT( FiniteVariable var )
 	{

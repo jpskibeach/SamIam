@@ -1534,7 +1534,7 @@ public class NetworkDisplay extends JInternalFrame implements
 		@author Keith Cascio
 		@since 102302
 
-		@ret TRUE iff the "anchor" changed
+		@return TRUE iff the "anchor" changed
 	*/
 	protected boolean checkBounds( Rectangle rectActual, Dimension deltadelta )
 	{

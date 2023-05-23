@@ -330,7 +330,7 @@ public class EvidenceTree extends JTree implements NodePropertyChangeListener,Ev
 	}
 
 	/** @since 20020306
-		@ret The child DefaultMutableTreeNode for submodels */
+		@return The child DefaultMutableTreeNode for submodels */
 	private DefaultMutableTreeNode setup( DefaultMutableTreeNode submodelnode )
 	{
 	  //System.out.println( "setup( "+submodelnode+" )" );

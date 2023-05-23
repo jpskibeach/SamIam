@@ -9,7 +9,6 @@ import java.util.*;
 	A class for mapping from variable instantiations to a linear index.
 	@author jpark
 	@author Keith Cascio
-	@version
 */
 public class TableIndex implements Cloneable
 {

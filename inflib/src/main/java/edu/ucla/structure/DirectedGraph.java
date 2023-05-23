@@ -55,50 +55,36 @@ public interface DirectedGraph extends Collection, Cloneable
 	public Set vertices();
 	/**
 	* Constructs an Iterator over the vertices adjacent to edges entering the specified vertex.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex is in the graph(tested by "equals").
-	* </dl></dd>
+	*
+	* @precondition vertex is in the graph(tested by "equals").
 	* @param vertex- An Object which is in the graph.
 	* @return Iterator over the vertices adjacent to edges entering vertex.
 	*/
 	public Set inComing(Object vertex);
 	/**
 	* Constructs an Iterator over the vertices adjacent to edges leaving the specified vertex.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex is in the graph(tested by "equals").
-	* </dl></dd>
+	* @precondition vertex is in the graph(tested by "equals").
 	* @param vertex- An Object which is in the graph.
 	* @return Iterator over the vertices adjacent to edges leaving vertex.
 	*/
 	public Set outGoing(Object vertex);
 	/**
 	* Returns the degree of the vertex. This includes both in and out edges
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex is in the graph(tested by "equals").
-	* </dl></dd>
+	* @precondition vertex is in the graph(tested by "equals").
 	* @param vertex- An Object which is in the graph.
 	* @return the number of vertices adjacent to vertex.
 	*/
 	public int degree(Object vertex);
 	/**
 	* Returns the number of edges entering the vertex.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex is in the graph(tested by "equals").
-	* </dl></dd>
+	* @precondition vertex is in the graph(tested by "equals").
 	* @param vertex- An Object which is in the graph.
 	* @return the number of edges entering the vertex.
 	*/
 	public int inDegree(Object vertex);
 	/**
 	* Returns the number of edges leaving the vertex.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex is in the graph(tested by "equals").
-	* </dl></dd>
+	* @precondition vertex is in the graph(tested by "equals").
 	* @param vertex- An Object which is in the graph.
 	* @return the number of edges leaving the vertex.
 	*/
@@ -106,10 +92,7 @@ public interface DirectedGraph extends Collection, Cloneable
 	/**
 	* Returns whether or not a particular edge is in the graph.
 	* The edge leaves vertex1 and enters vertex2.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex1 and vertex2 are in the graph(tested by "equals").
-	* </dl></dd>
+	* @precondition vertex1 and vertex2 are in the graph(tested by "equals").
 	* @param vertex1- An Object which is in the graph.
 	* @param vertex2- An Object which is in the graph.
 	* @return true if edge (vertex1,vertex2) is in the graph, false otherwise.
@@ -147,10 +130,7 @@ public interface DirectedGraph extends Collection, Cloneable
 	public boolean isWeaklyConnected();
 	/**
 	* Determines if there is an undirected path from vertex1 to vertex2.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex1 and vertex2 are in the graph(tested by "equals").
-	* </dl></dd>
+	* @precondition vertex1 and vertex2 are in the graph(tested by "equals").
 	* @param vertex1- An Object which is in the graph.
 	* @param vertex2- An Object which is in the graph.
 	* @return true if there is an undirected path from vertex1 to vertex2.
@@ -158,10 +138,7 @@ public interface DirectedGraph extends Collection, Cloneable
 	public boolean isWeaklyConnected(Object vertex1, Object vertex2);
 	/**
 	* Determines if there is a directed path from vertex1 to vertex2.
-	* <p><dd><dl>
-	* <dt> <b>Precondition:</b>
-	* <dd> vertex1 and vertex2 are in the graph(tested by "equals").
-	* </dl></dd>
+	* @precondition vertex1 and vertex2 are in the graph(tested by "equals").
 	* @param vertex1- An Object which is in the graph.
 	* @param vertex2- An Object which is in the graph.
 	* @return true if there is a directed path from vertex1 to vertex2.
@@ -179,10 +156,7 @@ public interface DirectedGraph extends Collection, Cloneable
 	* Adds vertex to the graph(Optional operation). If the vertex is already a member
 	* of the graph, the graph is unchanged and the method returns false, following the
 	* Collection convention.
-	* <p><dd><dl>
-	* <dt> <b>Postcondition:</b>
-	* <dd> vertex is in the graph(as tested by "equals").
-	* </dl></dd>
+	* @postcondition vertex is in the graph(as tested by "equals").
 	* @param vertex- An Object to be added as a vertex.
 	* @return true if the graph was modified(i.e. vertex was not
 	* a vertex already) false otherwise.
@@ -192,10 +166,7 @@ public interface DirectedGraph extends Collection, Cloneable
 	* Removes vertex from the graph(Optional operation). If the vertex is not a member
 	* of the graph, the method returns false and leaves the graph unchanged. If the
 	* parameter is a vertex of the graph, it is removed and the method returns true.
-	* <p><dd><dl>
-	* <dt> <b>Postcondition:</b>
-	* <dd> vertex is not in the graph(as tested by "equals").
-	* </dl></dd>
+	* @postcondition vertex is not in the graph(as tested by "equals").
 	* @param vertex- An Object which is currently in the graph.
 	*/
 	public boolean removeVertex(Object vertex);
@@ -203,19 +174,13 @@ public interface DirectedGraph extends Collection, Cloneable
 	* Adds the directed edge to the graph(Optional operation). If either of the vertices
 	* are not in the graph, they are added, and the edge is added. If the edge was
 	* already in the graph, it returns false, otherwise it returns true.
-	* <p><dd><dl>
-	* <dt> <b>Postcondition:</b>
-	* <dd> the edge (vertex1,vertex2) is in the graph.
-	* </dl></dd>
+	* @postcondition the edge (vertex1,vertex2) is in the graph.
 	*/
 	public boolean addEdge(Object vertex1, Object vertex2);
 	/**
 	* Removes the directed edge from the graph(Optional operation). If the edge is
 	* not in the graph when the call is made, it returns false, otherwise it returns true.
-	* <p><dd><dl>
-	* <dt> <b>Postcondition:</b>
-	* <dd> the edge (vertex1,vertex2) is in the graph.
-	* </dl></dd>
+	* @postcondition the edge (vertex1,vertex2) is in the graph.
 	*/
 	public boolean removeEdge(Object vertex1, Object vertex2);
 }

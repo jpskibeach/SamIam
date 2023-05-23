@@ -48,24 +48,24 @@ class ComplexEditableComponent extends JComponent
 
 	class <b>RunRefresh</b> extends {@link Interruptable} {
 		public void {@link #runImpl(Object) runImpl( Object arg )}{
-			ComplexEditableComponent.this.<font color="#cc0000">refreshImpl</font>( (Hint)arg );
+			ComplexEditableComponent.this.&lt;font color="#cc0000"&gt;refreshImpl&lt;/font&gt;( (Hint)arg );
 		}
 	}
 
-	void <font color="#cc0000">refreshImpl</font>( Hint hint ){
+	void &lt;font color="#cc0000"&gt;refreshImpl&lt;/font&gt;( Hint hint ){
 		try{
-			<font color="#cc0000">Thread.sleep(2);</font>
-			<font color="#cc0000">expensiveA();</font>
-			<font color="#cc0000">Thread.sleep(2);</font>
-			<font color="#cc0000">expensiveB();</font>
-			<font color="#cc0000">Thread.sleep(2);</font>
-			<font color="#cc0000">expensiveC();</font>
+			&lt;font color="#cc0000"&gt;Thread.sleep(2);&lt;/font&gt;
+			&lt;font color="#cc0000"&gt;expensiveA();&lt;/font&gt;
+			&lt;font color="#cc0000"&gt;Thread.sleep(2);&lt;/font&gt;
+			&lt;font color="#cc0000"&gt;expensiveB();&lt;/font&gt;
+			&lt;font color="#cc0000"&gt;Thread.sleep(2);&lt;/font&gt;
+			&lt;font color="#cc0000"&gt;expensiveC();&lt;/font&gt;
 		}catch( InterruptedException e ){
-			<font color="#cc0000">cleanup();</font>
+			&lt;font color="#cc0000"&gt;cleanup();&lt;/font&gt;
 		}
 	}
 
-	<b>RunRefresh myRunRefresh = new RunRefresh()</b>;
+	&lt;b&gt;RunRefresh myRunRefresh = new RunRefresh()&lt;/b&gt;;
 }
 	</pre>
 	@author Keith Cascio
@@ -73,7 +73,7 @@ class ComplexEditableComponent extends JComponent
 public abstract class Interruptable extends Object implements Runnable
 {
 	/** Implement this method to perform a expensive task.
-		Call {@link #checkInterrupted()} every so often to allow
+		Call {\@link \#checkInterrupted()} every so often to allow
 		the thread to be interrupted.
 		@param arg1 The argument allows your task to take arguments
 		passed in by calls to {@link #start(Object)}

@@ -9,7 +9,7 @@ package il2.inf.structure.minfill2;
 public class MinfillEoe extends EliminationOrderEngine {
 
   /**
-   * @see EliminationOrderAlgorithm
+   * @see EliminationOrderHeuristic
    */
 
   protected double bruteCost (

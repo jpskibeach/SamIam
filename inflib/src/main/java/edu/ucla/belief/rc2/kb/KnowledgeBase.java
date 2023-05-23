@@ -31,7 +31,7 @@ public interface KnowledgeBase
 
 	/** Asserts var=state as true.
 	  * If KB is unsatisfiable it will return KB_UNSATISFIABLE.
-	  * @returns The state of the KB prior to this assertion.
+	  * @return The state of the KB prior to this assertion.
 	  */
 	public int assertPositive( int var, int state);
 

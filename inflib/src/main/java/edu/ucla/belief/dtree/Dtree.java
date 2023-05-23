@@ -416,7 +416,7 @@ public class Dtree {
 
 
     /** Convert a DirectedGraph to a Map from a FiniteVariable to
-     *   a collection of FiniteVariables (its family, & itself).
+     *   a collection of FiniteVariables (its family, &amp; itself).
      *
      * @param varToFamily The Map which will be returned (if null, a new HashMap
      *   will be created and returned with the result).

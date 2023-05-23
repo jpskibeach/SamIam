@@ -4,7 +4,7 @@ import java.util.*;
 
 
 
-/** This abstract class iterates through trees & graphs but does not guarantee
+/** This abstract class iterates through trees and graphs but does not guarantee
  *  any particular node ordering.
  *
  * @author David Allen

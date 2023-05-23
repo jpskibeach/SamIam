@@ -125,7 +125,7 @@ public abstract class WrapperInferenceEngine extends AbstractInferenceEngine imp
 	 * The ordering of vars must be consistent with the ordering
 	 * returned by getCPT(var).
 	 * @param var The variable whose CPT we want to set.
-	 * @param vals The values of the entries in the cpt.
+//	 * @param vals The values of the entries in the cpt.
 	 */
 	public void setCPT( FiniteVariable var )//, double[] vals)
 	{
