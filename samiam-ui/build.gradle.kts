@@ -3,9 +3,13 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 plugins {
     id("java")
     id("application")
+    id("com.github.johnrengelman.shadow")
 }
 application { mainClass.set("edu.ucla.belief.ui.UI") }
-
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveClassifier.set("all")
+    isZip64 = true
+}
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
