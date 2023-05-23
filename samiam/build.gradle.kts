@@ -5,7 +5,7 @@ import org.panteleyev.jpackage.JPackageTask
 plugins {
     id("java")
     id("application")
-    id("com.github.johnrengelman.shadow")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
     id("org.panteleyev.jpackageplugin") version "1.5.2"
 
 }
@@ -17,7 +17,8 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 }
 group = parent!!.group
 version = parent!!.version
-
+println("project.name ${name}")
+println("project.version ${version}")
 tasks.create("jpackageAppImage", JPackageTask::class) {
     group = "distribution"
     dependsOn("shadowJar")
@@ -25,11 +26,11 @@ tasks.create("jpackageAppImage", JPackageTask::class) {
     destination = "$buildDir/dist"
     appName = "samiam-$version"
     vendor = "ucla"
-    mainJar = "${project.name}-${project.version}-all.jar"
+    mainJar = "${project.name}-${version}-all.jar"
     mainClass = main
     javaOptions = listOf("-Dfile.encoding=UTF-8")
     linux {
-        appName = "samiam-$version.AppImage"
+        appName = "${project.name}-$version.AppImage"
         type = ImageType.APP_IMAGE
     }
 }
@@ -40,20 +41,24 @@ tasks.jpackage {
     input = "build/libs"
     destination = "$buildDir/dist"
 
-    appName = "samiam-$version"
+    appName = "${project.name}-${version}"
     vendor = "ucla"
 
-    mainJar = "${project.name}-${project.version}-all.jar"
+    mainJar = "${project.name}-${version}-all.jar"
     mainClass = main
 
     javaOptions = listOf("-Dfile.encoding=UTF-8")
 
     windows {
         winConsole = true
-        appName = "samiam-$version.exe"
+        type = ImageType.EXE
+        appName = "${project.name}-${version}.exe"
     }
     linux {
-        appName = "samiam-$version.AppImage"
+        type = ImageType.DEFAULT
+    }
+    mac {
+        type = ImageType.DMG
     }
 }
 repositories {
