@@ -4,8 +4,8 @@ plugins {
     id("java")
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = parent!!.group
+version = parent!!.version
 
 repositories {
     mavenCentral()
