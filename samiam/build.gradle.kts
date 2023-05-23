@@ -17,35 +17,32 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 }
 group = parent!!.group
 version = parent!!.version
-println("project.name ${name}")
-println("project.version ${version}")
-tasks.create("jpackageAppImage", JPackageTask::class) {
+val shadowJarName = "${project.name}-${version}-all.jar"
+
+println("${parent!!.version} parent!!.version")
+println("${version} version")
+
+task("packageNetworkSamples", Copy::class) {
+    group = "distribution"
+    from("${rootDir}/network_samples").into("$buildDir/package/network_samples")
+}
+task("packageShadowJar", Copy::class) {
     group = "distribution"
     dependsOn("shadowJar")
-    input = "build/libs"
-    destination = "$buildDir/dist"
-    appName = "samiam-$version"
-    vendor = "ucla"
-    mainJar = "${project.name}-${version}-all.jar"
-    mainClass = main
-    javaOptions = listOf("-Dfile.encoding=UTF-8")
-    linux {
-        appName = "${project.name}-$version.AppImage"
-        type = ImageType.APP_IMAGE
-
-    }
+    from("${buildDir}/libs/$shadowJarName").into("$buildDir/package")
 }
 
 tasks.jpackage {
-    dependsOn("shadowJar")
+    dependsOn("packageNetworkSamples", "packageShadowJar")
+    group = "distribution"
 
-    input = "build/libs"
+    input = "build/package"
     destination = "$buildDir/dist"
 
     appName = project.name
     vendor = "ucla"
 
-    mainJar = "${project.name}-${version}-all.jar"
+    mainJar = shadowJarName
     mainClass = main
 
     javaOptions = listOf("-Dfile.encoding=UTF-8")
@@ -60,6 +57,23 @@ tasks.jpackage {
         type = ImageType.DMG
     }
 }
+
+tasks.create("jpackageAppImage", JPackageTask::class) {
+    group = "distribution"
+    dependsOn("shadowJar")
+    input = "build/libs"
+    destination = "$buildDir/dist"
+    appName = "samiam-$version"
+    vendor = "ucla"
+    mainJar = shadowJarName
+    mainClass = main
+    javaOptions = listOf("-Dfile.encoding=UTF-8")
+    linux {
+        appName = "${project.name}-$version.AppImage"
+        type = ImageType.APP_IMAGE
+    }
+}
+
 repositories {
     mavenCentral()
 }
