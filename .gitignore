@@ -2,6 +2,6 @@
 .idea/
 */build
 */*/build
-/samiam-ui/samiamrc.xml
+**/samiamrc.xml
 **/*.class
 /samiam-ui/bin
