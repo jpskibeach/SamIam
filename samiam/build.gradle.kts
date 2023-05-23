@@ -67,7 +67,7 @@ tasks.jpackage {
 
     mainJar = shadowJarName
     mainClass = main
-    icon = "${projectDir}/src/main/resources/SamIamAppIcon.png"
+    icon = "${projectDir}/src/main/resources/images/SamIamAppIcon.png"
 
     javaOptions = listOf("-Dfile.encoding=UTF-8")
     windows {
@@ -77,7 +77,7 @@ tasks.jpackage {
         appName = project.name
         winShortcutPrompt = true
         winMenuGroup = "SamIam"
-        icon = "${projectDir}/src/main/resources/samiamappicon_c9a_icon.ico"
+        icon = "${projectDir}/src/main/resources/images/SamIamAppIcon.ico"
 
     }
     linux {

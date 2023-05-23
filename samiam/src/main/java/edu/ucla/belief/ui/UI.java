@@ -29,7 +29,6 @@ import edu.ucla.belief.ui.networkdisplay.*;
 //import il2.inf.rc.*;
 import il2.inf.structure.DGraph;
 import edu.ucla.belief.ui.animation.*;
-import edu.ucla.belief.decision.Optimizer;
 //import edu.ucla.util.JVMTI;
 //Keith Cascio 031902 for DEBUG
 
@@ -37,25 +36,19 @@ import edu.ucla.util.ProgressMonitorable;
 import edu.ucla.util.CompoundTask;
 import edu.ucla.util.WeakLinkedList;
 import edu.ucla.util.Interruptable;
-import edu.ucla.belief.approx.PropagationInferenceEngine;
-import edu.ucla.belief.dtree.*;
 import edu.ucla.belief.recursiveconditioning.*;
 import edu.ucla.belief.io.NodeLinearTask;
 import edu.ucla.belief.io.*;
 import edu.ucla.belief.io.dsl.*;
-import edu.ucla.belief.io.hugin.*;
 
 import java.util.List;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
-import java.lang.ModuleLayer.Controller;
 import java.lang.reflect.Field;
-import javax.swing.border.BevelBorder;
 import javax.swing.event.MenuListener;
 import javax.swing.event.MenuEvent;
 import java.net.URL;
@@ -296,6 +289,8 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		}
 
 		UI ui = new UI( filePreferences );
+
+		ui.setIconImage(MainToolBar.getIcon("SamIamAppIcon.png").getImage());
 		if( dimension != null ){ ui.setSize( dimension ); }
 		Util.centerWindow( ui );
 		STATIC_REFERENCE = ui;
