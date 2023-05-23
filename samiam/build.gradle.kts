@@ -1,5 +1,6 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 import org.panteleyev.jpackage.ImageType
+import org.panteleyev.jpackage.JPackageTask
 
 plugins {
     id("java")
@@ -16,6 +17,23 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 }
 group = parent!!.group
 version = parent!!.version
+
+tasks.create("jpackageAppImage", JPackageTask::class) {
+    group = "distribution"
+    dependsOn("shadowJar")
+    input = "build/libs"
+    destination = "$buildDir/dist"
+    appName = "samiam-$version"
+    vendor = "ucla"
+    mainJar = "${project.name}-${project.version}-all.jar"
+    mainClass = main
+    javaOptions = listOf("-Dfile.encoding=UTF-8")
+    linux {
+        appName = "samiam-$version.AppImage"
+        type = ImageType.APP_IMAGE
+    }
+}
+
 tasks.jpackage {
     dependsOn("shadowJar")
 
@@ -32,11 +50,10 @@ tasks.jpackage {
 
     windows {
         winConsole = true
+        appName = "samiam-$version.exe"
     }
     linux {
         appName = "samiam-$version.AppImage"
-        type = ImageType.APP_IMAGE
-        winConsole = true
     }
 }
 repositories {
