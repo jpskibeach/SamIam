@@ -1895,7 +1895,7 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		//Help menu
 		helpMenu.add( action_HELPLOCAL ).setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_F1, (int)0 ) );
 		helpMenu.add( action_HELPLIVE );
-		helpMenu.add( action_TUTORIALS ).setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_F12, (int)0 ) );
+//		helpMenu.add( action_TUTORIALS ).setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_F12, (int)0 ) );
 		helpMenu.add( action_TUTORIALSLIVE );
 		if( FileSystemUtil.getAPIAction() != null ) helpMenu.add( FileSystemUtil.getAPIAction() );
 		helpMenu.addSeparator();
