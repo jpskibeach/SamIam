@@ -470,4 +470,19 @@ public class Util
 		Iterator<Object> iterator = System.getProperties().keys().asIterator();
 		iterator.forEachRemaining(k -> System.out.println("system.property " + k + " " + System.getProperties().get(k)));
 	}
+
+	public static void setAppPath() {
+		System.out.println("System.getProperties() " + System.getProperties());
+		if(System.getProperties().containsKey("jpackage.app-path")) {
+			Util.appPath = System.getProperty("jpackage.app-path");
+			if(BrowserControl.isWindowsPlatform()) {
+				Util.appLibPath = Util.appPath.substring(0, Util.appPath.lastIndexOf("\\")) + "\\app";
+			} else if(BrowserControl.isMacPlatform()) {
+				Util.appLibPath = Util.appPath = "/Contents/app";
+			} else {
+				Util.appLibPath = Util.appPath.substring(0, Util.appPath.indexOf("/bin")) + "/lib/app";
+			}
+			System.out.println("Util.appLibPath " + Util.appLibPath);
+		}
+	}
 }
