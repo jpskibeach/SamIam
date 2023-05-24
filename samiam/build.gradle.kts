@@ -65,7 +65,7 @@ tasks.jpackage {
         "packageShadowJar",
         "packageSamIamJavadoc",
         "packageInflibJavadoc",
-        "packageHtmlHelp"
+//        "packageHtmlHelp" //has broken links everything is online
     )
     group = "distribution"
 

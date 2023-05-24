@@ -5,9 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.StringTokenizer;
 import java.net.URL;
-
+import java.net.URI;
+import java.awt.Desktop;
 import edu.ucla.belief.ui.UI;
 
 /**
@@ -61,49 +65,7 @@ public class BrowserControl
 		displayURL( newURL );
 	}
 
-	/**
-		@author Keith Cascio
-		@since 121703
-		found at: http://www.cs.rpi.edu/~puninj/XMLJ/projects/stuproj/vecchr/NewsFetcher-Submit/NewsFetcher.java
-
-	* class Browser Copyright (C) 1999-2001 Fredrik Ehnbom <fredde@gjt.org>
-	* available at
-	* <http://www.gjt.org/servlets/JCVSlet/show/gjt/org/gjt/fredde/util/net/Browser.java/HEAD>
-	* used under the terms of the GNU public license
-	*
-	* If the default browser is Internet Explorer 5.0 or greater,
-	* the URL.DLL program fails if the url ends with .htm or .html .
-	* This problem is described by Microsoft at
-	* http://support.microsoft.com/support/kb/articles/Q283/2/25.ASP
-	* Of course, their suggested workaround is to use the classes from the
-	* microsoft Java SDK, but fortunately another workaround does exist.
-	* If you alter the url slightly so it no longer ends with ".htm",
-	* the URL can launch successfully. The logic here appends a null query
-	* string onto the end of the URL if none is already present, or
-	* a bogus query parameter if there is already a query string ending in
-	* ".htm"
-	*/
-	private static String maybeFixupURLForWindows( String url )
-	{
-		//System.out.println( "BrowserControl.maybeFixupURLForWindows( "+url+" ), url.charAt(1) == " + url.charAt(1) );
-		// plain filenames (e.g. c:\some_file.html or \\server\filename) do
-		// not need fixing.
-		if( url == null || url.length() < 2 || url.charAt(0) == '\\' || url.charAt(1) == ':' || url.startsWith( "file:" ) ) return url;
-		String lower_url = url.toLowerCase();
-
-		for( int i = badEndings.length; i-- > 0; )
-			if( lower_url.endsWith( badEndings[i] ) )
-				return fixupURLForWindows(url);
-		return url;
-	}
-
 	public static final String[] badEndings = { ".htm", ".html", ".htw", ".mht", ".cdf", ".mhtml", ".stm" };
-
-	private static String fixupURLForWindows( String url ) {
-		if( url.indexOf('?') == -1 ) return url + "?";
-		else return url + "&workaroundWindowsBug";
-		//else return url + "&workaroundStupidWindowsBug";
-	}
 
 	/** @since 20051005 */
 	public static void displayURL( URL url ){
@@ -111,96 +73,54 @@ public class BrowserControl
 	}
 
 	/**
-	* Display a file in the system browser.	If you want to display a
+	 * Display a directory in the system browser.
+	 *
+	 * @param path the file's absolute path.
+	 */
+	public static boolean displayFolder(String path) {
+		if(Util.DEBUG) System.out.println("displayFolder path:" + path );
+		boolean result = false;
+		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+
+		if (desktop != null) {
+			try {
+				desktop.open(new File(path));
+				result = true;
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		}
+		if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "BrowserControl.displayFolder() returning " + result );
+		return result;
+	}
+
+	/**
+	* Display a file in the system browser or a url in the browser.	If you want to display a
 	* file, you must include the absolute path name.
 	*
 	* @param url the file's url (the url must start with either "http://" or
 	* "file://").
 	*/
-	public static void displayURL(String url)
+	public static boolean displayURL(String url)
 	{
-		boolean windows = isWindowsPlatform();
-		String cmd = null;
-		try
-		{
-			if (windows)
-			{
-				// cmd = 'rundll32 url.dll,FileProtocolHandler http://...'
-				cmd = WIN_PATH + " " + WIN_FLAG + " " + maybeFixupURLForWindows( url );
-				Process p = Runtime.getRuntime().exec(cmd);
-			}
-			else
-			{
-				// Under Unix, Netscape has to be running for the "-remote"
-				// command to work.	So, we try sending the command and
-				// check for an exit value.	If the exit command is 0,
-				// it worked, otherwise we need to start the browser.
-				// cmd = 'netscape -remote openURL(http://www.javaworld.com)'
-				cmd = UNIX_PATH + " " + UNIX_FLAG + "(" + url + ",new-window)";
-				if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.print( "exec(" + cmd + ") == " );
-				Process p = Runtime.getRuntime().exec(cmd);
-				InputStream netscapeStdErr = p.getErrorStream();
-				BufferedReader readerNetscapeStdErr = null;
-				if( netscapeStdErr != null ) readerNetscapeStdErr = new BufferedReader( new InputStreamReader( netscapeStdErr ) );
-				try
-				{
-					// wait for exit code -- if it's 0, command worked,
-					// otherwise we need to start the browser up.
-					int exitCode = p.waitFor();
-					if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( exitCode );
-
-					boolean remoteFailed = ( exitCode != 0 );
-
-					if( !remoteFailed && readerNetscapeStdErr != null ) remoteFailed = detectNetscapeComplaint( readerNetscapeStdErr );
-
-					if( remoteFailed )
-					{
-						// Command failed, start up the browser
-						// cmd = 'netscape http://www.javaworld.com'
-						cmd = UNIX_PATH + " "	+ url;
-						if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "exec(" + cmd + ")" );
-						p = Runtime.getRuntime().exec(cmd);
-						Thread.sleep( 3000 );
-					}
+		boolean result = false;
+		if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println("displayURL " + url);
+		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		if(Util.DEBUG && desktop != null) System.out.println("openWebpage desktop:" + desktop + " url:" + url + " isSupported(Browse):" + desktop.isSupported(Desktop.Action.BROWSE));
+		if (desktop != null) {
+			try {
+				if(isWindowsPlatform() || isMacPlatform()) {
+					desktop.browse(new URI(url));
+				} else  {
+					Runtime.getRuntime().exec(new String[]{"xdg-open", url});
 				}
-				catch(InterruptedException x)
-				{
-					Thread.currentThread().interrupt();
-					if( DEBUG_VERBOSE ) System.err.println("Error bringing up browser, cmd='" + cmd + "'");
-					if( DEBUG_VERBOSE ) System.err.println("Caught: " + x);
-				}
+				result =true;
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
 			}
 		}
-		catch(IOException x)
-		{
-			// couldn't exec browser
-			if( DEBUG_VERBOSE ) System.err.println("Could not invoke browser, command=" + cmd);
-			if( DEBUG_VERBOSE ) System.err.println("Caught: " + x);
-		}
-
-		if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "BrowserControl.displayURL() returning" );
-	}
-
-	/**
-		@author Keith Cascio
-		@since 090602
-	*/
-	protected static boolean detectNetscapeComplaint( BufferedReader readerNetscapeStdErr ) throws IOException
-	{
-		boolean netscapeComplained = false;
-		String tempLine = null;
-
-		while ((tempLine = readerNetscapeStdErr.readLine()) != null)
-		{
-			if( tempLine.indexOf( "netscape" ) != (int)-1 && tempLine.indexOf( "not running" ) != (int)-1 )
-			{
-				if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "netscape complaint: \"" + tempLine + "\"" );
-				netscapeComplained = true;
-			}
-			else if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "netscape stderr:" + tempLine );
-		}
-
-		return netscapeComplained;
+		if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "BrowserControl.displayURL() returning " + result );
+		return result;
 	}
 
 	/**

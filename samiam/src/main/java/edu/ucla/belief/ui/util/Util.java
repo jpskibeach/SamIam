@@ -22,6 +22,9 @@ import java.lang.reflect.Constructor;
 	@since  20030214 */
 public class Util
 {
+	public static String appLibPath = null;
+	public static String appPath = null;
+
 	public static boolean DEBUG = false;
 	public static boolean DEBUG_VERBOSE = false;
 	public static final String STR_VERBOSE_TRACE_MESSAGE = "VERBOSE *****Caught Exception***** VERBOSE:";
@@ -461,5 +464,10 @@ public class Util
 		}
 		//dialog.setVisible( true );
 		return dialog;
+	}
+
+	public static void printSystemProperties() {
+		Iterator<Object> iterator = System.getProperties().keys().asIterator();
+		iterator.forEachRemaining(k -> System.out.println("system.property " + k + " " + System.getProperties().get(k)));
 	}
 }

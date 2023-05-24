@@ -97,9 +97,9 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 	  PATTERN_DEBUG, PATTERN_NOSPLASH;
 
 	public    static final String
-	  PATH_HTML_HELP_INDEX               = "/opt/samiam/lib/app/htmlhelp" + File.separator + "index.html",
+	  PATH_HTML_HELP_INDEX               = "app/htmlhelp" + File.separator + "index.html",
 	  URL_HTML_HELP_INDEX                = "file://" + PATH_HTML_HELP_INDEX,
-	  PATH_HTML_HELP_CODETOOL            = "htmlhelp" + File.separator + "codebandit.html",
+	  PATH_HTML_HELP_CODETOOL            = "app/htmlhelp" + File.separator + "codebandit.html",
 	  URL_HELP_LIVE                      = "http://reasoning.cs.ucla.edu/samiam/help/",
 	  URL_ARGROUP                        = "http://reasoning.cs.ucla.edu/",
 	  URL_SAMIAM                         = "http://reasoning.cs.ucla.edu/samiam/",
@@ -145,6 +145,11 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		Dimension dimension                       = null;
 		java.io.PrintStream argumentMessageStream = System.out;
 		List      actions                         = null;
+
+		if(System.getProperties().containsKey("jpackage.app-path")) {
+			Util.appPath = System.getProperty("jpackage.app-path");
+			Util.appLibPath = Util.appPath.substring(0, Util.appPath.indexOf("/bin")) + "/lib/app";
+		}
 
 		for( int i=0; i < args.length; i++ )
 		{
@@ -729,8 +734,6 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 			public void actionPerformed( ActionEvent e ){
 				getActiveHuginNetInternalFrame().sdpTool();
 			}
-
-		
 		};
        
 		action_MPE = new ModalAction( "MPE", "MPE Computation", 'p', MainToolBar.getIcon( MPEInternalFrame.STR_FILENAME_ICON ) )
@@ -1206,7 +1209,7 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		{
 			public void actionPerformed( ActionEvent e ){
 				setWaitCursor();
-				BrowserControl.displayRelativePath( PATH_HTML_HELP_INDEX );
+				BrowserControl.displayFolder(Util.appLibPath);
 				setDefaultCursor();
 			}
 		};
