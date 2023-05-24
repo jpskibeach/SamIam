@@ -478,7 +478,7 @@ public class Util
 			if(BrowserControl.isWindowsPlatform()) {
 				Util.appLibPath = Util.appPath.substring(0, Util.appPath.lastIndexOf("\\")) + "\\app";
 			} else if(BrowserControl.isMacPlatform()) {
-				Util.appLibPath = Util.appPath;
+				Util.appLibPath = Util.appPath = "/Contents/app";
 			} else {
 				Util.appLibPath = Util.appPath.substring(0, Util.appPath.indexOf("/bin")) + "/lib/app";
 			}
