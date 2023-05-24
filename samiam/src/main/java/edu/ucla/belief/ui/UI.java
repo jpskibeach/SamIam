@@ -146,6 +146,8 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		java.io.PrintStream argumentMessageStream = System.out;
 		List      actions                         = null;
 
+
+		System.out.println("System.getProperties() " + System.getProperties());
 		if(System.getProperties().containsKey("jpackage.app-path")) {
 			Util.appPath = System.getProperty("jpackage.app-path");
 			Util.appLibPath = Util.appPath.substring(0, Util.appPath.indexOf("/bin")) + "/lib/app";
