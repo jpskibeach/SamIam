@@ -55,8 +55,18 @@ task("packageInflibJavadoc", Copy::class) {
     dependsOn(":inflib:javadoc")
     from("${rootDir}/inflib/build/docs/javadoc").into("$buildDir/package/inflib_javadoc")
 }
+task("packageHtmlHelp", Copy::class) {
+    group = "distribution"
+    from("${rootDir}/htmlhelp").into("$buildDir/package/htmlhelp")
+}
 tasks.jpackage {
-    dependsOn("packageNetworkSamples", "packageShadowJar", "packageSamIamJavadoc", "packageInflibJavadoc")
+    dependsOn(
+        "packageNetworkSamples",
+        "packageShadowJar",
+        "packageSamIamJavadoc",
+        "packageInflibJavadoc",
+        "packageHtmlHelp"
+    )
     group = "distribution"
 
     input = "build/package"
