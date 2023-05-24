@@ -38,10 +38,10 @@ public class AboutDlg extends JDialog
 		JLabel titleLbl = null;
 		ImageIcon titleGif = null;
 
-		//URL iconURL = ClassLoader.getSystemResource("images/samiamtitle.gif");
-		URL iconURL = edu.ucla.belief.ui.toolbar.MainToolBar.findImageURL( "images/samiamtitle.gif" );
+		//URL iconURL = ClassLoader.getSystemResource("samiamsplash.png");
+		URL iconURL = edu.ucla.belief.ui.toolbar.MainToolBar.findImageURL( "samiamsplash.png" );
 		if( iconURL != null) titleGif = new ImageIcon( iconURL, UI.STR_SAMIAM_ACRONYM );
-		else titleGif = new ImageIcon( "images/samiamtitle.gif", UI.STR_SAMIAM_ACRONYM );
+		else titleGif = new ImageIcon( "samiamsplash.png", UI.STR_SAMIAM_ACRONYM );
 
 		if( titleGif == null )
 		{
