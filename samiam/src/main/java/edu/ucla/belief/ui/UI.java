@@ -97,9 +97,9 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 	  PATTERN_DEBUG, PATTERN_NOSPLASH;
 
 	public    static final String
-	  PATH_HTML_HELP_INDEX               = "/opt/samiam/lib/app/htmlhelp" + File.separator + "index.html",
+	  PATH_HTML_HELP_INDEX               = "app/htmlhelp" + File.separator + "index.html",
 	  URL_HTML_HELP_INDEX                = "file://" + PATH_HTML_HELP_INDEX,
-	  PATH_HTML_HELP_CODETOOL            = "htmlhelp" + File.separator + "codebandit.html",
+	  PATH_HTML_HELP_CODETOOL            = "app/htmlhelp" + File.separator + "codebandit.html",
 	  URL_HELP_LIVE                      = "http://reasoning.cs.ucla.edu/samiam/help/",
 	  URL_ARGROUP                        = "http://reasoning.cs.ucla.edu/",
 	  URL_SAMIAM                         = "http://reasoning.cs.ucla.edu/samiam/",

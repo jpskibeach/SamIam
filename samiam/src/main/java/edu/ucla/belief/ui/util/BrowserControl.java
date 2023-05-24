@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.net.URISyntaxException;
 import java.util.StringTokenizer;
 import java.net.URL;
-
+import java.net.URI;
+import java.awt.Desktop;
 import edu.ucla.belief.ui.UI;
 
 /**
@@ -110,6 +112,25 @@ public class BrowserControl
 		displayURL( url.toString() );
 	}
 
+	private static boolean openWebpage(String uri) {
+		if(Util.DEBUG) System.out.println("openWebpage uri:" + uri );
+
+		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		if(Util.DEBUG && desktop != null) System.out.println("openWebpage desktop:" + desktop + " uri:" + uri + " isSupported(Browse):" + desktop.isSupported(Desktop.Action.BROWSE));
+		if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			try {
+				desktop.browse(new URI(uri));
+				if(Util.DEBUG) System.out.println("openWebpage " + uri);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+
+
 	/**
 	* Display a file in the system browser.	If you want to display a
 	* file, you must include the absolute path name.
@@ -119,88 +140,11 @@ public class BrowserControl
 	*/
 	public static void displayURL(String url)
 	{
-		boolean windows = isWindowsPlatform();
-		String cmd = null;
-		try
-		{
-			if (windows)
-			{
-				// cmd = 'rundll32 url.dll,FileProtocolHandler http://...'
-				cmd = WIN_PATH + " " + WIN_FLAG + " " + maybeFixupURLForWindows( url );
-				Process p = Runtime.getRuntime().exec(cmd);
-			}
-			else
-			{
-				// Under Unix, Netscape has to be running for the "-remote"
-				// command to work.	So, we try sending the command and
-				// check for an exit value.	If the exit command is 0,
-				// it worked, otherwise we need to start the browser.
-				// cmd = 'netscape -remote openURL(http://www.javaworld.com)'
-				cmd = UNIX_PATH + " " + UNIX_FLAG + "(" + url + ",new-window)";
-				if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.print( "exec(" + cmd + ") == " );
-				Process p = Runtime.getRuntime().exec(cmd);
-				InputStream netscapeStdErr = p.getErrorStream();
-				BufferedReader readerNetscapeStdErr = null;
-				if( netscapeStdErr != null ) readerNetscapeStdErr = new BufferedReader( new InputStreamReader( netscapeStdErr ) );
-				try
-				{
-					// wait for exit code -- if it's 0, command worked,
-					// otherwise we need to start the browser up.
-					int exitCode = p.waitFor();
-					if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( exitCode );
+		if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println("displayURL " + url);
 
-					boolean remoteFailed = ( exitCode != 0 );
-
-					if( !remoteFailed && readerNetscapeStdErr != null ) remoteFailed = detectNetscapeComplaint( readerNetscapeStdErr );
-
-					if( remoteFailed )
-					{
-						// Command failed, start up the browser
-						// cmd = 'netscape http://www.javaworld.com'
-						cmd = UNIX_PATH + " "	+ url;
-						if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "exec(" + cmd + ")" );
-						p = Runtime.getRuntime().exec(cmd);
-						Thread.sleep( 3000 );
-					}
-				}
-				catch(InterruptedException x)
-				{
-					Thread.currentThread().interrupt();
-					if( DEBUG_VERBOSE ) System.err.println("Error bringing up browser, cmd='" + cmd + "'");
-					if( DEBUG_VERBOSE ) System.err.println("Caught: " + x);
-				}
-			}
-		}
-		catch(IOException x)
-		{
-			// couldn't exec browser
-			if( DEBUG_VERBOSE ) System.err.println("Could not invoke browser, command=" + cmd);
-			if( DEBUG_VERBOSE ) System.err.println("Caught: " + x);
-		}
+		if(openWebpage(url))  System.err.println("Could not invoke browser, url=" + url);
 
 		if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "BrowserControl.displayURL() returning" );
-	}
-
-	/**
-		@author Keith Cascio
-		@since 090602
-	*/
-	protected static boolean detectNetscapeComplaint( BufferedReader readerNetscapeStdErr ) throws IOException
-	{
-		boolean netscapeComplained = false;
-		String tempLine = null;
-
-		while ((tempLine = readerNetscapeStdErr.readLine()) != null)
-		{
-			if( tempLine.indexOf( "netscape" ) != (int)-1 && tempLine.indexOf( "not running" ) != (int)-1 )
-			{
-				if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "netscape complaint: \"" + tempLine + "\"" );
-				netscapeComplained = true;
-			}
-			else if( DEBUG_VERBOSE ) Util.STREAM_VERBOSE.println( "netscape stderr:" + tempLine );
-		}
-
-		return netscapeComplained;
 	}
 
 	/**
