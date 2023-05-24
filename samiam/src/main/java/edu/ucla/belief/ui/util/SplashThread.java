@@ -37,10 +37,10 @@ public class SplashThread implements Runnable
 		JLabel titleLbl = null;
 		ImageIcon titleGif = null;
 
-		//URL iconURL = ClassLoader.getSystemResource( "images/samiamsplash.gif" );
-		URL iconURL = edu.ucla.belief.ui.toolbar.MainToolBar.findImageURL( "samiamsplash.gif" );
+		//URL iconURL = ClassLoader.getSystemResource( "images/samiamsplash.png" );
+		URL iconURL = edu.ucla.belief.ui.toolbar.MainToolBar.findImageURL( "samiamsplash.png" );
 		if( iconURL != null) titleGif = new ImageIcon( iconURL, UI.STR_SAMIAM_ACRONYM );
-		else titleGif = new ImageIcon( "images/samiamsplash.gif", UI.STR_SAMIAM_ACRONYM );
+		else titleGif = new ImageIcon( "samiamsplash.png", UI.STR_SAMIAM_ACRONYM );
 
 		if( titleGif == null )
 		{
