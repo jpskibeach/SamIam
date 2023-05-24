@@ -31,7 +31,7 @@ import java.net.*;
 public class SDPInternalFrame extends javax.swing.JInternalFrame implements EvidenceChangeListener, CPTChangeListener, InternalFrameListener, NetStructureChangeListener, ActionListener
 {
 	public   static  final  String   STR_MSG_SDP        =  "calculating the same-decision probability (sdp).",
-	                                 STR_FILENAME_ICON  =  "SDP16.gif";
+	                                 STR_FILENAME_ICON  =  "SDP16.png";
 	public   static         boolean  FLAG_SHOW_BUTTONS  =  true;
 
 	private NetworkInternalFrame frmNet;
