@@ -150,7 +150,13 @@ public class UI extends JFrame implements SamiamUIInt, ActionListener, WindowLis
 		System.out.println("System.getProperties() " + System.getProperties());
 		if(System.getProperties().containsKey("jpackage.app-path")) {
 			Util.appPath = System.getProperty("jpackage.app-path");
-			Util.appLibPath = Util.appPath.substring(0, Util.appPath.indexOf("/bin")) + "/lib/app";
+			if(BrowserControl.isWindowsPlatform()) {
+				Util.appLibPath = Util.appPath.substring(0, Util.appPath.lastIndexOf("\\")) + "\\app";
+			} else if(BrowserControl.isMacPlatform()) {
+			} else {
+				Util.appLibPath = Util.appPath.substring(0, Util.appPath.indexOf("/bin")) + "/lib/app";
+			}
+			System.out.println("Util.appLibPath " + Util.appLibPath);
 		}
 
 		for( int i=0; i < args.length; i++ )
